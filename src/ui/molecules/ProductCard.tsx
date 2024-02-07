@@ -9,10 +9,10 @@ type ProductCardProps = {
 export const ProductCard = ({ product }: ProductCardProps) => {
 	return (
 		<>
-			<div className="group relative">
+			<li className="list-none group relative">
 				<ProductImage coverImage={product.coverImage} />
 				<ProductInfo product={product} />
-			</div>
+			</li>
 		</>
 	);
 };
