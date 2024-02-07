@@ -11,7 +11,7 @@ export const ProductImage = ({ coverImage }: ProductImageProps) => {
 			<img
 				src={coverImage.url}
 				alt={coverImage.alt}
-				className="object-cover object-center"
+				className="h-80 w-80 object-cover"
 			/>
 		</div>
 	);
