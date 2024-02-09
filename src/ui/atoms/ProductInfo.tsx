@@ -12,10 +12,10 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
 				<h3 className="text-sm text-gray-700">
 					<a href="#">
 						<span aria-hidden="true" className="absolute inset-0" />
-						{product.name}
+						{product.title}
 					</a>
 				</h3>
-				<p className="mt-1 text-sm text-gray-500">{product.description}</p>
+				<p className="mt-1 text-sm text-gray-500">{product.artist}</p>
 			</div>
 			<p className="text-sm font-medium text-gray-900">{formatPrice(product.price)}</p>
 		</div>
