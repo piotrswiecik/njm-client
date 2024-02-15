@@ -1,5 +1,5 @@
 import { productService } from "@/api/product.service";
-import ProductCard from "@/ui/molecules/ProductCard";
+import ProductCard from "@/ui/components/ProductCard";
 
 export default async function ProductDashboard() {
 	const products = await productService.getAllProducts();
