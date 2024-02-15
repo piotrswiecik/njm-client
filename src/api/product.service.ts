@@ -9,7 +9,7 @@ const getAllProducts = async () => {
 		return products;
 	} catch (err) {
 		console.error("Error fetching products", err);
-		throw err;  // rethrow & catch in ui
+		throw err; // rethrow & catch in ui
 	}
 };
 
@@ -21,10 +21,10 @@ const getProductById = async (productId: string) => {
 		const product = (await productResponse.json()) as Product;
 		return product;
 	} catch (err) {
-		console.error(`Error fetching product with id: ${productId}`, err);
-		throw err;  // rethrow & catch in ui
+		console.error("Error fetching product", err);
+		throw err; // rethrow & catch in ui
 	}
-}
+};
 
 export const productService = {
 	getAllProducts,
