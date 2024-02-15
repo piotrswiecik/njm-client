@@ -1,8 +1,8 @@
-import type { TProduct } from "@/app/models";
+import type { Product } from "@/app/models";
 import { formatPrice } from "@/utils/utils";
 
 type ProductInfoProps = {
-	product: TProduct;
+	product: Product;
 };
 
 const ProductInfo = ({ product }: ProductInfoProps) => {

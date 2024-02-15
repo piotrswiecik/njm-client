@@ -1,16 +1,27 @@
-import Link from "next/link";
+import ActiveLink from "@/ui/atoms/ActiveLink";
 
 export const Header = () => {
+	const activeClassName = "font-bold underline";
 	return (
 		<div className="flex w-full flex-col items-center p-4 sm:flex-row sm:items-baseline">
-			<h1 className="text-2xl font-bold text-slate-800 mb-6 sm:mb-0">NJM RECORD STORE</h1>
+			<h1 className="mb-6 text-2xl font-bold text-slate-800 sm:mb-0">
+				NJM RECORD STORE
+			</h1>
 			<nav className="mx-8">
-				<Link href="#" className="px-4 text-slate-800 hover:text-slate-500">
+				<ActiveLink
+					href="/"
+					className="px-4 text-slate-800 hover:text-slate-500"
+					activeClassName={activeClassName}
+				>
 					Home
-				</Link>
-				<Link href="#" className="px-4 text-slate-800 hover:text-slate-500">
+				</ActiveLink>
+				<ActiveLink
+					href="/products"
+					className="px-4 text-slate-800 hover:text-slate-500"
+					activeClassName={activeClassName}
+				>
 					All
-				</Link>
+				</ActiveLink>
 			</nav>
 		</div>
 	);
