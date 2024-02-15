@@ -6,7 +6,7 @@ type ProductCardProps = {
 	product: Product;
 };
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductListItemCard = ({ product }: ProductCardProps) => {
 	return (
 		<>
 			<li className="group relative list-none">
@@ -17,4 +17,4 @@ const ProductCard = ({ product }: ProductCardProps) => {
 	);
 };
 
-export default ProductCard;
+export default ProductListItemCard;
