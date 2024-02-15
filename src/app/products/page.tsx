@@ -5,7 +5,7 @@ const ProductsPage = async () => {
 	const products = await productService.getAllProducts(); // TODO unhandled err thrown by service layer
 
 	return (
-		<div className="mx-auto max-w-7xl">
+		<div className="mx-auto max-w-7xl px-6 sm:px-12">
 			<ProductDashboard products={products} />
 		</div>
 	);
