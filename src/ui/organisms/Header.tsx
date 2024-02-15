@@ -10,6 +10,7 @@ export const Header = () => {
 			<nav className="mx-8">
 				<ActiveLink
 					href="/"
+					exact={true}
 					className="px-4 text-slate-800 hover:text-slate-500"
 					activeClassName={activeClassName}
 				>
@@ -17,6 +18,7 @@ export const Header = () => {
 				</ActiveLink>
 				<ActiveLink
 					href="/products"
+					exact={false}
 					className="px-4 text-slate-800 hover:text-slate-500"
 					activeClassName={activeClassName}
 				>
