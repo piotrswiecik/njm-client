@@ -11,10 +11,12 @@ const ProductListItemCard = ({ product }: ProductCardProps) => {
 	return (
 		<>
 			<li className="group relative list-none">
-				<Link href={`/products/${product.id}`}>
-				<ProductImage url={product.image} alt={product.title} />
-				<ProductInfo product={product} />
-				</Link>
+				<div className="">
+					<Link href={`/products/${product.id}`}>
+						<ProductImage url={product.image} alt={product.title} />
+						<ProductInfo product={product} />
+					</Link>
+				</div>
 			</li>
 		</>
 	);

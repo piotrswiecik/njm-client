@@ -15,9 +15,9 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
 				</h3>
 				<p className="mt-1 text-sm text-gray-500">{product.description}</p>
 			</div>
-			<p className="text-sm font-medium text-gray-900">
+			<div className="text-sm font-medium text-gray-900 ml-6">
 				{formatPrice(product.price)}
-			</p>
+			</div>
 		</div>
 	);
 };
