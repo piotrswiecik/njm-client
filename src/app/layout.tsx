@@ -19,10 +19,16 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${inter.className} bg-slate-200`}>
-				<div className="flex min-h-screen flex-col justify-between">
-					<Header />
+				<div className="flex min-h-screen flex-col">
+					<header className="grow-0">
+						<Header />
+					</header>
+					<main className="grow">
 					{children}
-					<Footer />
+					</main>
+					<footer className="grow-0">
+						<Footer />
+					</footer>
 				</div>
 			</body>
 		</html>

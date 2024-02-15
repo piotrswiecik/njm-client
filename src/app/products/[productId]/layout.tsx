@@ -3,5 +3,5 @@ export default function ProductLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	return <div className="h-screen px-8 py-2">{children}</div>;
+	return <div className="">{children}</div>;
 }
