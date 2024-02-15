@@ -10,7 +10,7 @@ const ProductDetailsPage = async ({
 	const product = await productService.getProductById(params.productId);
 	return (
 		<div>
-			<h1>Product Details</h1>
+			<h1 className="text-lg font-semibold">{ product.title }</h1>
 			<ProductDetailsCard product={product} />
 		</div>
 	);
