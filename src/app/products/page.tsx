@@ -1,7 +1,6 @@
 import ProductDashboard from "@/ui/organisms/ProductDashboard";
 
-export default function Home() {
-	 // TODO implement home page
+export default function Products() {
 	return (
 		<div className="flex min-h-screen w-full flex-col items-center justify-between">
 			<ProductDashboard/>
