@@ -10,7 +10,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 	return (
 		<>
 			<li className="group relative list-none">
-				<ProductImage url={product.image} alt={product.title} />
+				<ProductImage url={product.image} alt={product.title}/>
 				<ProductInfo product={product} />
 			</li>
 		</>

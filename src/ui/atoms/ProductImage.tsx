@@ -5,11 +5,13 @@ type ProductImageProps = {
 
 const ProductImage = ({ url, alt }: ProductImageProps) => {
 	return (
-		<div className="w-full overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
+		// keep the aspect ratio of the image
+		<div className="aspect-square overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
 			<img
 				src={url}
 				alt={alt}
-				className="h-80 w-80 object-cover"
+				// stretch the image to fill the container
+				className="h-full w-full object-cover"
 			/>
 		</div>
 	);
