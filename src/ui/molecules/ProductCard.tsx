@@ -1,18 +1,20 @@
-import type { Product } from "@/app/models";
-import { ProductImage } from "@/ui/atoms/ProductImage";
-import { ProductInfo } from "@/ui/atoms/ProductInfo";
+import type { TProduct } from "@/app/models";
+import ProductImage from "@/ui/atoms/ProductImage";
+import ProductInfo from "@/ui/atoms/ProductInfo";
 
 type ProductCardProps = {
-	product: Product;
+	product: TProduct;
 };
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
 	return (
 		<>
-			<li className="list-none group relative">
-				<ProductImage coverImage={product.coverImage} />
+			<li className="group relative list-none">
+				<ProductImage url={product.image} alt={product.title} />
 				<ProductInfo product={product} />
 			</li>
 		</>
 	);
 };
+
+export default ProductCard;

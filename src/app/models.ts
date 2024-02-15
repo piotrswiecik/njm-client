@@ -1,14 +1,13 @@
-export type Product = {
-  id: string;
-  title: string;
-  artist: string;
-  price: number;
-  slug: string; // TODO maybe better as computed property
-  genre: string;  // TODO to enum
-  format: string;  // TODO to enum
-  coverImage: {
-    url: string;
-    alt: string;
-  };
-  description: string;
+export type TProduct = {
+	id: string;
+	title: string;
+	price: number;
+	category: string;
+	description: string;
+	rating: {
+		rate: number;
+		count: number;
+	};
+	image: string;
+	longDescription: string;
 };

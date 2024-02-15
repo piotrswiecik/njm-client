@@ -1,18 +1,18 @@
 type ProductImageProps = {
-	coverImage: {
-		url: string;
-		alt: string;
-	};
+	url: string;
+	alt: string;
 };
 
-export const ProductImage = ({ coverImage }: ProductImageProps) => {
+const ProductImage = ({ url, alt }: ProductImageProps) => {
 	return (
 		<div className="w-full overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
 			<img
-				src={coverImage.url}
-				alt={coverImage.alt}
+				src={url}
+				alt={alt}
 				className="h-80 w-80 object-cover"
 			/>
 		</div>
 	);
 };
+
+export default ProductImage;

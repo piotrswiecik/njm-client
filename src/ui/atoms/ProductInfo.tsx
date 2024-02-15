@@ -1,11 +1,11 @@
-import type { Product } from "@/app/models";
+import type { TProduct } from "@/app/models";
 import { formatPrice } from "@/utils/utils";
 
 type ProductInfoProps = {
-	product: Product;
+	product: TProduct;
 };
 
-export const ProductInfo = ({ product }: ProductInfoProps) => {
+const ProductInfo = ({ product }: ProductInfoProps) => {
 	return (
 		<div className="mt-4 flex justify-between">
 			<div>
@@ -15,9 +15,13 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
 						{product.title}
 					</a>
 				</h3>
-				<p className="mt-1 text-sm text-gray-500">{product.artist}</p>
+				<p className="mt-1 text-sm text-gray-500">{product.description}</p>
 			</div>
-			<p className="text-sm font-medium text-gray-900">{formatPrice(product.price)}</p>
+			<p className="text-sm font-medium text-gray-900">
+				{formatPrice(product.price)}
+			</p>
 		</div>
 	);
 };
+
+export default ProductInfo;
