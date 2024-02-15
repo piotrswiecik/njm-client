@@ -48,7 +48,10 @@
 			"error",
 			{ "allowNumber": true, "allowBoolean": true }
 		],
-		"@typescript-eslint/no-misused-promises": ["error", { "checksVoidReturn": false }],
+		"@typescript-eslint/no-misused-promises": [
+			"error",
+			{ "checksVoidReturn": false }
+		],
 		"no-restricted-imports": [
 			"error",
 			{
@@ -59,7 +62,7 @@
 	},
 	"overrides": [
 		{
-			"files": ["src/app/**/*.ts?(x)", "middleware.ts"],
+			"files": ["src/app/**/*.ts?(x)", "src/ui/**/*.ts?(x)", "middleware.ts"],
 			"rules": {
 				"import/no-default-export": "off"
 			}
