@@ -8,12 +8,25 @@ const getAllProducts = async () => {
 		const products = (await productsResponse.json()) as Product[];
 		return products;
 	} catch (err) {
-		// TODO error handling
-		console.error(err);
-		return [];
+		console.error("Error fetching products", err);
+		throw err;  // rethrow & catch in ui
 	}
 };
 
+const getProductById = async (productId: string) => {
+	try {
+		const productResponse = await fetch(
+			`https://naszsklep-api.vercel.app/api/products/${productId}`,
+		);
+		const product = (await productResponse.json()) as Product;
+		return product;
+	} catch (err) {
+		console.error(`Error fetching product with id: ${productId}`, err);
+		throw err;  // rethrow & catch in ui
+	}
+}
+
 export const productService = {
 	getAllProducts,
+	getProductById,
 };

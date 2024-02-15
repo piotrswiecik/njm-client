@@ -1,9 +1,11 @@
-import { productService } from "@/api/product.service";
+import { type Product } from "@/app/models";
 import ProductListItemCard from "@/ui/components/ProductListItemCard";
 
-export default async function ProductDashboard() {
-	const products = await productService.getAllProducts();
+type ProductDashboardProps = {
+	products: Product[];
+};
 
+const ProductDashboard = async ({ products }: ProductDashboardProps) => {
 	return (
 		<ul
 			data-testid="products-list"
@@ -14,4 +16,6 @@ export default async function ProductDashboard() {
 			))}
 		</ul>
 	);
-}
+};
+
+export default ProductDashboard;
