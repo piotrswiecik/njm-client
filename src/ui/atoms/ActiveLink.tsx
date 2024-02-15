@@ -1,10 +1,11 @@
 "use client";
 
+import { type Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export type ActiveLinkProps = {
-	href: string;
+	href: Route;
 	children: React.ReactNode;
 	className: string;
 	activeClassName: string;
