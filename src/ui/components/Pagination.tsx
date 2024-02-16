@@ -10,7 +10,10 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 	const currentPage = Number(searchParams.get("page") || 1);
 
 	const paginationLinkClass =
-		"rounded-md px-4 py-2 hover:bg-neutral-200 transition-all duration-300 text-gray-400";
+		"rounded-md px-4 py-2 hover:bg-slate-100 transition-all duration-300 text-gray-400";
+
+	const paginationLinkActiveClass =
+		"rounded-md px-4 py-2 bg-slate-200 transition-all duration-300 text-gray-400 font-bold";
 
 	console.log("Pagination totalPages:", totalPages);
 	return (
@@ -24,13 +27,25 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 					<span aria-hidden="true">&laquo;</span>
 				</ActiveLink>
 			)}
-			<ActiveLink href="#" className={paginationLinkClass} activeClassName="">
+			<ActiveLink
+				href={"/products"}
+				className={paginationLinkClass}
+				activeClassName={paginationLinkActiveClass}
+			>
 				<span aria-hidden="true">{currentPage}</span>
 			</ActiveLink>
-			<ActiveLink href="#" className={paginationLinkClass} activeClassName="">
+			<ActiveLink
+				href="#"
+				className={paginationLinkClass}
+				activeClassName={paginationLinkActiveClass}
+			>
 				<span aria-hidden="true">{currentPage}</span>
 			</ActiveLink>
-			<ActiveLink href="#" className={paginationLinkClass} activeClassName="">
+			<ActiveLink
+				href="#"
+				className={paginationLinkClass}
+				activeClassName={paginationLinkActiveClass}
+			>
 				<span aria-hidden="true">{currentPage}</span>
 			</ActiveLink>
 			{currentPage === totalPages ? (
