@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 import { productService } from "@/api/product.service";
 import ProductDashboard from "@/ui/components/ProductDashboard";
+import Pagination from "@/ui/components/Pagination";
 
 export const metadata: Metadata = {
 	title: "NJM Record Store - Products",
@@ -22,6 +23,9 @@ const ProductsPage = async () => {
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
 			<ProductDashboard products={products} />
+			<div className="flex mt-12 justify-center">
+				<Pagination totalPages={10} />
+			</div>
 		</div>
 	);
 };

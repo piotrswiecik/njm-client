@@ -29,7 +29,7 @@ const ActiveLink = ({
 	return (
 		<Link
 			href={href}
-			className={`${className} ${active ? activeClassName : null} ${active ? "aria-current" : null}`}
+			className={`${active ? activeClassName : className} ${active ? "aria-current" : null}`}
 		>
 			{children}
 		</Link>
