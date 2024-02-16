@@ -1,7 +1,6 @@
 // client component capabilities required to parse path
 "use client";
 
-import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import ActiveLink from "@/ui/atoms/ActiveLink";
 
@@ -11,36 +10,38 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 	const currentPage = Number(searchParams.get("page") || 1);
 
 	const paginationLinkClass =
-		"rounded-md px-4 py-2 hover:bg-neutral-200 transition-all duration-300";
+		"rounded-md px-4 py-2 hover:bg-neutral-200 transition-all duration-300 text-gray-400";
 
 	console.log("Pagination totalPages:", totalPages);
 	return (
 		<div className="flex items-center justify-between border-t border-gray-300 p-4 sm:px-6">
-			<ActiveLink href="#" className={paginationLinkClass} activeClassName="">
-				<span aria-hidden="true" className="text-gray-500">
+			{currentPage === 1 ? (
+				<span aria-hidden="true" className="rounded-md px-4 py-2 text-gray-200">
 					&laquo;
 				</span>
+			) : (
+				<ActiveLink href="#" className={paginationLinkClass} activeClassName="">
+					<span aria-hidden="true">&laquo;</span>
+				</ActiveLink>
+			)}
+			<ActiveLink href="#" className={paginationLinkClass} activeClassName="">
+				<span aria-hidden="true">{currentPage}</span>
 			</ActiveLink>
 			<ActiveLink href="#" className={paginationLinkClass} activeClassName="">
-				<span aria-hidden="true" className="text-gray-500">
-					{currentPage}
-				</span>
-			</ActiveLink>
-      <ActiveLink href="#" className={paginationLinkClass} activeClassName="">
-				<span aria-hidden="true" className="text-gray-500">
-					{currentPage}
-				</span>
-			</ActiveLink>
-      <ActiveLink href="#" className={paginationLinkClass} activeClassName="">
-				<span aria-hidden="true" className="text-gray-500">
-					{currentPage}
-				</span>
+				<span aria-hidden="true">{currentPage}</span>
 			</ActiveLink>
 			<ActiveLink href="#" className={paginationLinkClass} activeClassName="">
-				<span aria-hidden="true" className="text-gray-500">
-					&raquo;
-				</span>
+				<span aria-hidden="true">{currentPage}</span>
 			</ActiveLink>
+			{currentPage === totalPages ? (
+				<span aria-hidden="true" className="rounded-md px-4 py-2 text-gray-200">
+					&laquo;
+				</span>
+			) : (
+				<ActiveLink href="#" className={paginationLinkClass} activeClassName="">
+					<span aria-hidden="true">&raquo;</span>
+				</ActiveLink>
+			)}
 		</div>
 	);
 };
