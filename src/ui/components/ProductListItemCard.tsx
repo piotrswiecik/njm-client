@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Product } from "@/app/models";
 import ProductImage from "@/ui/atoms/ProductImage";
-import ProductInfo from "@/ui/atoms/ProductInfo";
+import ProductInfo from "@/ui/atoms/ProductListInfo";
 
 type ProductCardProps = {
 	product: Product;

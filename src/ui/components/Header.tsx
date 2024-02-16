@@ -7,7 +7,7 @@ export const Header = () => {
 			<div className="mx-auto max-w-7xl p-12">
 				<div className="flex flex-col items-center sm:flex-row sm:items-baseline">
 				<h1 className="text-2xl font-bold text-slate-800">NJM Record Store</h1>
-				<nav className="mx-8">
+				<nav className="mx-8 mt-4 sm:mt-0">
 					<ActiveLink
 						href="/"
 						exact={true}

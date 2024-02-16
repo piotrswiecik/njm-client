@@ -6,7 +6,7 @@ const getAllProducts = async () => {
 			"https://naszsklep-api.vercel.app/api/products?take=20",
 		);
 		const products = (await productsResponse.json()) as Product[];
-		return products.slice(0,2);
+		return products.slice(0,20);
 	} catch (err) {
 		console.error("Error fetching products", err);
 		throw err; // rethrow & catch in ui

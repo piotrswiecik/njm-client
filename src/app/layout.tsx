@@ -23,7 +23,7 @@ export default function RootLayout({
 					<header className="grow-0">
 						<Header />
 					</header>
-					<main className="grow">
+					<main className="grow sm:mt-4">
 					{children}
 					</main>
 					<footer className="grow-0">
