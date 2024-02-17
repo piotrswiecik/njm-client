@@ -28,7 +28,7 @@ const ProductsPage = async () => {
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
 			<ProductDashboard products={products} />
-			<div className="mt-12 flex justify-center">
+			<div className="flex mt-12 justify-center">
 				<Pagination totalPages={Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE)} />
 			</div>
 		</div>
