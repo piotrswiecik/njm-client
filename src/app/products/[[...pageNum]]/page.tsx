@@ -19,8 +19,7 @@ export const metadata: Metadata = {
 
 const ProductsPage = async () => {
 	// TODO optimize this fetch later!!! maybe some caching?
-	// const numberOfProducts = await productService.getNumberOfProducts(); // TODO unhandled err thrown by service layer
-	const numberOfProducts = 100;
+	const numberOfProducts = await productService.getNumberOfProducts(); // TODO unhandled err thrown by service layer
 	// TODO optimize this, maybe base on media query
 	const PRODUCTS_PER_PAGE = 12; 
 
