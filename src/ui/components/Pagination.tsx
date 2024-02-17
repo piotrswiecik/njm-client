@@ -12,7 +12,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 	const currentPage = Number(pathname.split("/products/")[1] || 1);
 
 	return (
-		<div className="flex gap-4 pt-2 border-t border-gray-300 justify-center max-w-md px-4 sm:px-8">
+		<div className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8">
 			{/* l-arrow always visible */}
 			{currentPage === 1 ? (
 				<PaginationPlaceholderArrow dir="left" />
@@ -31,7 +31,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 			{/* core links */}
 			{currentPage <= 2 && (
 				<>
-					<PaginationActiveLink href="/products/2">2</PaginationActiveLink>
+					<PaginationActiveLink href="/products">2</PaginationActiveLink>
 					<PaginationActiveLink href="/products/3">3</PaginationActiveLink>
 				</>
 			)}
