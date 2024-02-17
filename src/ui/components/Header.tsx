@@ -17,7 +17,7 @@ export const Header = () => {
 						Home
 					</ActiveLink>
 					<ActiveLink
-						href={`/products/1`}
+						href={`/products`}
 						exact={false}
 						className="px-4 text-slate-800 hover:text-slate-500"
 						activeClassName={activeClassName}
