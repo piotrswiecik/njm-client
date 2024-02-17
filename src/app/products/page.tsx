@@ -21,15 +21,17 @@ const ProductsPage = async () => {
 	// TODO optimize this fetch later!!! maybe some caching?
 	const numberOfProducts = await productService.getNumberOfProducts(); // TODO unhandled err thrown by service layer
 	// TODO optimize this, maybe base on media query
-	const PRODUCTS_PER_PAGE = 12; 
+	const PRODUCTS_PER_PAGE = 12;
 
-	const products = await productService.getAllProducts(); // TODO unhandled err thrown by service layer
+	const products = await productService.getProducts(PRODUCTS_PER_PAGE, 0); // TODO unhandled err thrown by service layer
 
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
 			<ProductDashboard products={products} />
-			<div className="flex mt-12 justify-center">
-				<Pagination totalPages={Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE)} />
+			<div className="mt-12 flex justify-center">
+				<Pagination
+					totalPages={Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE)}
+				/>
 			</div>
 		</div>
 	);

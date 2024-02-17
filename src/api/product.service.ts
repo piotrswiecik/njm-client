@@ -1,9 +1,9 @@
 import { type Product } from "@/app/models";
 
-const getAllProducts = async () => {
+const getProducts = async (take: number, offset: number) => {
 	try {
 		const productsResponse = await fetch(
-			"https://naszsklep-api.vercel.app/api/products?take=20",
+			`https://naszsklep-api.vercel.app/api/products?take=${take}&offset=${offset}`,
 		);
 		const products = (await productsResponse.json()) as Product[];
 		return products.slice(0, 20);
@@ -42,7 +42,7 @@ const getNumberOfProducts = async () => {
 };
 
 export const productService = {
-	getAllProducts,
+	getProducts,
 	getProductById,
 	getNumberOfProducts,
 };
