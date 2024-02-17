@@ -12,7 +12,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 	const currentPage = Number(pathname.split("/products/")[1] || 1);
 
 	return (
-		<div className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8">
+		<div aria-label="pagination" className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8">
 			{/* l-arrow always visible */}
 			{currentPage === 1 ? (
 				<PaginationPlaceholderArrow dir="left" />

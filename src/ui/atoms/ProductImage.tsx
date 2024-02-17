@@ -6,7 +6,7 @@ type ProductImageProps = {
 const ProductImage = ({ url, alt }: ProductImageProps) => {
 	return (
 		// keep the aspect ratio of the image
-		<div className="aspect-square overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75">
+		<div className="aspect-square overflow-hidden rounded-lg bg-gray-200 group-hover:opacity-75 transition-all duration-300">
 			<img
 				src={url}
 				alt={alt}
