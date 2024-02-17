@@ -19,17 +19,22 @@ const ActiveLink = <T extends string>({
 	activeClassName,
 	exact = true,
 }: ActiveLinkProps<T>) => {
+
 	const pathname = usePathname();
+
 	let active;
 	if (exact) {
 		active = pathname === href;
 	} else {
 		active = pathname.startsWith(href);
 	}
+
 	return (
 		<Link
 			href={href}
-			className={`${active ? activeClassName : className} ${active ? "aria-current" : null}`}
+			className={`${active ? activeClassName : className}`}
+			aria-current={active ? "page" : undefined}
+			role="link"
 		>
 			{children}
 		</Link>
