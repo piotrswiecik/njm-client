@@ -12,7 +12,7 @@ const ProductListItemCard = ({ product }: ProductCardProps) => {
 		<>
 			<li className="group relative list-none">
 				<div className="">
-					<Link href={`/products/${product.id}`}>
+					<Link href={`/product/${product.id}`}>
 						<ProductImage url={product.image} alt={product.title} />
 						<ProductListInfo product={product} />
 					</Link>

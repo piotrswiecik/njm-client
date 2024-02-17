@@ -6,9 +6,9 @@ const getAllProducts = async () => {
 			"https://naszsklep-api.vercel.app/api/products?take=20",
 		);
 		const products = (await productsResponse.json()) as Product[];
-		return products.slice(0,20);
+		return products.slice(0, 20);
 	} catch (err) {
-		console.error("Error fetching products", err);
+		console.error("Product API error", err);
 		throw err; // rethrow & catch in ui
 	}
 };
@@ -21,7 +21,22 @@ const getProductById = async (productId: string) => {
 		const product = (await productResponse.json()) as Product;
 		return product;
 	} catch (err) {
-		console.error("Error fetching product", err);
+		console.error("Product API error", err);
+		throw err; // rethrow & catch in ui
+	}
+};
+
+// TODO this will require some form of caching but for now it's problematic because of the size
+const getNumberOfProducts = async () => {
+	try {
+		const productResponse = await fetch(
+			`https://naszsklep-api.vercel.app/api/products?take=-1`,
+			{ cache: "no-store" },
+		);
+		const products = (await productResponse.json()) as Product[];
+		return products.length;
+	} catch (err) {
+		console.error("Product API error", err);
 		throw err; // rethrow & catch in ui
 	}
 };
@@ -29,4 +44,5 @@ const getProductById = async (productId: string) => {
 export const productService = {
 	getAllProducts,
 	getProductById,
+	getNumberOfProducts,
 };
