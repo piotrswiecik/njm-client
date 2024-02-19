@@ -52,7 +52,7 @@ export type Product = {
 export type Query = {
   count: Scalars['Int']['output'];
   product?: Maybe<Product>;
-  products?: Maybe<Array<Maybe<Product>>>;
+  products?: Maybe<Array<Product>>;
 };
 
 
@@ -81,13 +81,18 @@ export type Track = {
   url: Scalars['String']['output'];
 };
 
+export type ProductsCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductsCountQuery = { count: number };
+
 export type ProductsOverviewDataQueryVariables = Exact<{
   take: Scalars['Int']['input'];
   skip?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
-export type ProductsOverviewDataQuery = { products?: Array<{ artist: string, category: string, id: string, price: number, title: string, collection?: Array<{ name: string }> | null, coverImg: { url: string, height: number, width: number } } | null> | null };
+export type ProductsOverviewDataQuery = { products?: Array<{ artist: string, category: string, id: string, price: number, title: string, collection?: Array<{ name: string }> | null, coverImg: { url: string, height: number, width: number } }> | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -104,6 +109,11 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const ProductsCountDocument = new TypedDocumentString(`
+    query ProductsCount {
+  count
+}
+    `) as unknown as TypedDocumentString<ProductsCountQuery, ProductsCountQueryVariables>;
 export const ProductsOverviewDataDocument = new TypedDocumentString(`
     query ProductsOverviewData($take: Int!, $skip: Int) {
   products(take: $take, skip: $skip) {

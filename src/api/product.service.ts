@@ -1,6 +1,6 @@
 import { queryGraphql } from "@/api/gql.service";
 import { type ProductDashboardItemDto } from "@/api/models";
-import { ProductsOverviewDataDocument } from "@/gql/graphql";
+import { ProductsCountDocument, ProductsOverviewDataDocument } from "@/gql/graphql";
 
 const getProducts = async (take: number, skip?: number): Promise<ProductDashboardItemDto[]> => {
 	// raw graphql data
@@ -11,30 +11,18 @@ const getProducts = async (take: number, skip?: number): Promise<ProductDashboar
 	}
 	// map to dto
 	return products.map((product) => ({
-		id: product!.id,
-		artist: product!.artist,
-		category: product!.category,
-		title: product!.title,
-		price: product!.price,
+		id: product.id,
+		artist: product.artist,
+		category: product.category,
+		title: product.title,
+		price: product.price,
 		image: {
-			url: product!.coverImg.url,
-			width: product!.coverImg.width,
-			height: product!.coverImg.height,
+			url: product.coverImg.url,
+			width: product.coverImg.width,
+			height: product.coverImg.height,
 		},
 		collections: [],
 	}));
-
-	// try {
-	// 	const productsResponse = await fetch(
-	// 		`https://naszsklep-api.vercel.app/api/products?take=${take}&offset=${offset}`,
-	// 	);
-	// 	const products =
-	// 		(await productsResponse.json()) as ProductDashboardItemDto[];
-	// 	return products.slice(0, 20);
-	// } catch (err) {
-	// 	console.error("Product API error", err);
-	// 	throw err; // rethrow & catch in ui
-	// }
 };
 
 const getProductById = async (productId: string) => {
@@ -51,15 +39,10 @@ const getProductById = async (productId: string) => {
 };
 
 // TODO this will require some form of caching but for now it's problematic because of the size
-const getNumberOfProducts = async () => {
+const getProductCount = async () => {
 	try {
-		const productResponse = await fetch(
-			`https://naszsklep-api.vercel.app/api/products?take=-1`,
-			{ cache: "no-store" },
-		);
-		const products =
-			(await productResponse.json()) as ProductDashboardItemDto[];
-		return products.length;
+		const { count } = await queryGraphql(ProductsCountDocument, {});
+		return count;
 	} catch (err) {
 		console.error("Product API error", err);
 		throw err; // rethrow & catch in ui
@@ -69,5 +52,5 @@ const getNumberOfProducts = async () => {
 export const productService = {
 	getProducts,
 	getProductById,
-	getNumberOfProducts,
+	getProductCount,
 };
