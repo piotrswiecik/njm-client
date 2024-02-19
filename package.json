@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix --dir src"
+    "lint": "next lint --fix --dir src",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "lucide-react": "^0.331.0",
@@ -15,7 +16,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/cli": "5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -30,6 +31,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@graphql-codegen/client-preset": "4.2.2"
   }
 }
