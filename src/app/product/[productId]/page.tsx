@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 import { productService } from "@/api/product.service";
 import ProductDetails from "@/ui/components/ProductDetails";
+import { ProductDetailsDto } from "@/api/models";
 
 export async function generateMetadata({
 	params,
@@ -25,7 +26,10 @@ const ProductDetailsPage = async ({
 	params: { productId: string };
 }) => {
 	// TODO unhandled err thrown by service layer
-	const product = await productService.getProductById(params.productId);
+	const product: ProductDetailsDto | null = await productService.getProductById(params.productId);
+	if (!product) {
+		return null; // TODO 404 later
+	}
 	return <ProductDetails product={product} />;
 };
 

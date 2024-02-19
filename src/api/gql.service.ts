@@ -7,9 +7,7 @@ const queryGraphql = async <TResult, TVariables>(
 	query: TypedDocumentString<TResult, TVariables>,
 	variables: TVariables,
 ): Promise<TResult> => {
-	console.log("fetching");
 
-	// TODO de-hardcode api url
 	const res = await fetch(`${process.env.GRAPHQL_API_URL}`, {
 		method: "POST",
 		body: JSON.stringify({ query, variables }),

@@ -17,6 +17,7 @@ export type ProductDashboardItemDto = {
 export type ProductDetailsDto = ProductDashboardItemDto & {
 	tracks: ProductTrackDto[];
 	stock: ProductStockDto;
+	releaseDate: string;
 }
 
 export type ProductCoverImageDto = {
@@ -36,5 +37,5 @@ export type ProductStockDto = {
 
 export type ProductTrackDto = {
 	name: string;
-	url: string;
+	url?: string;
 };

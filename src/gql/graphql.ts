@@ -86,6 +86,13 @@ export type ProductsCountQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProductsCountQuery = { count: number };
 
+export type ProductDetailsDataQueryVariables = Exact<{
+  productId: Scalars['ID']['input'];
+}>;
+
+
+export type ProductDetailsDataQuery = { product?: { artist: string, category: string, id: string, price: number, releaseDate: string, title: string, coverImg: { height: number, width: number, url: string }, stock: { qtyCd: number, qtyLp: number }, tracks: Array<{ name: string }> } | null };
+
 export type ProductsOverviewDataQueryVariables = Exact<{
   take: Scalars['Int']['input'];
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -114,6 +121,30 @@ export const ProductsCountDocument = new TypedDocumentString(`
   count
 }
     `) as unknown as TypedDocumentString<ProductsCountQuery, ProductsCountQueryVariables>;
+export const ProductDetailsDataDocument = new TypedDocumentString(`
+    query ProductDetailsData($productId: ID!) {
+  product(id: $productId) {
+    artist
+    category
+    coverImg {
+      height
+      width
+      url
+    }
+    id
+    price
+    releaseDate
+    stock {
+      qtyCd
+      qtyLp
+    }
+    title
+    tracks {
+      name
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ProductDetailsDataQuery, ProductDetailsDataQueryVariables>;
 export const ProductsOverviewDataDocument = new TypedDocumentString(`
     query ProductsOverviewData($take: Int!, $skip: Int) {
   products(take: $take, skip: $skip) {
