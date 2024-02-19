@@ -16,6 +16,7 @@ const config: CodegenConfig = {
       config: {
         defaultScalarType: "unknown",
         useTypeImports: true,
+        enumsAsTypes: true,
         skipTypename: true,
         documentMode: "string"
       }
