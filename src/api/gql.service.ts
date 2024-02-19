@@ -1,4 +1,7 @@
+import { loadEnvConfig } from "@next/env";
 import { type TypedDocumentString } from "@/gql/graphql";
+
+loadEnvConfig(process.cwd());
 
 const queryGraphql = async <TResult, TVariables>(
 	query: TypedDocumentString<TResult, TVariables>,
@@ -7,7 +10,7 @@ const queryGraphql = async <TResult, TVariables>(
 	console.log("fetching");
 
 	// TODO de-hardcode api url
-	const res = await fetch("http://localhost:8000/graphql", {
+	const res = await fetch(`${process.env.GRAPHQL_API_URL}`, {
 		method: "POST",
 		body: JSON.stringify({ query, variables }),
 		headers: {
