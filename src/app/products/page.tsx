@@ -25,8 +25,6 @@ const ProductsPage = async () => {
 
 	const products = await productService.getProducts(PRODUCTS_PER_PAGE, 0);
 
-	// const products = await productService.getProducts(PRODUCTS_PER_PAGE, 0); // TODO unhandled err thrown by service layer
-
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
 			<ProductDashboard products={products} />
