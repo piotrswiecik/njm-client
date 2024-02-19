@@ -7,11 +7,9 @@ export async function generateMetadata({
 }: {
 	params: { productId: string };
 }): Promise<Metadata> {
-	// TODO verify if next will optimize this
-	const product = await productService.getProductById(params.productId);
 	return {
-		title: product.title,
-		description: product.description,
+		title: "todo",
+		// description: product.description,
 		generator: "Next.js",
 		applicationName: "NJM Record Store",
 		keywords: ["music", "vinyl", "records", "albums", "store"],
