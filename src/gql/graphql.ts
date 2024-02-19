@@ -81,10 +81,13 @@ export type Track = {
   url: Scalars['String']['output'];
 };
 
-export type ProductGetListQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductsOverviewDataQueryVariables = Exact<{
+  take: Scalars['Int']['input'];
+  skip?: InputMaybe<Scalars['Int']['input']>;
+}>;
 
 
-export type ProductGetListQuery = { products?: Array<{ title: string } | null> | null };
+export type ProductsOverviewDataQuery = { products?: Array<{ artist: string, category: string, id: string, price: number, title: string, collection?: Array<{ name: string }> | null, coverImg: { url: string, height: number, width: number } } | null> | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -101,10 +104,22 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
-export const ProductGetListDocument = new TypedDocumentString(`
-    query ProductGetList {
-  products(take: 20) {
+export const ProductsOverviewDataDocument = new TypedDocumentString(`
+    query ProductsOverviewData($take: Int!, $skip: Int) {
+  products(take: $take, skip: $skip) {
+    artist
+    category
+    collection {
+      name
+    }
+    coverImg {
+      url
+      height
+      width
+    }
+    id
+    price
     title
   }
 }
-    `) as unknown as TypedDocumentString<ProductGetListQuery, ProductGetListQueryVariables>;
+    `) as unknown as TypedDocumentString<ProductsOverviewDataQuery, ProductsOverviewDataQueryVariables>;

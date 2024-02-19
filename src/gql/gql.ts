@@ -14,13 +14,13 @@ import * as types from './graphql';
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "query ProductGetList {\n  products(take: 20) {\n    title\n  }\n}": types.ProductGetListDocument,
+    "query ProductsOverviewData($take: Int!, $skip: Int) {\n  products(take: $take, skip: $skip) {\n    artist\n    category\n    collection {\n      name\n    }\n    coverImg {\n      url\n      height\n      width\n    }\n    id\n    price\n    title\n  }\n}": types.ProductsOverviewDataDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductGetList {\n  products(take: 20) {\n    title\n  }\n}"): typeof import('./graphql').ProductGetListDocument;
+export function graphql(source: "query ProductsOverviewData($take: Int!, $skip: Int) {\n  products(take: $take, skip: $skip) {\n    artist\n    category\n    collection {\n      name\n    }\n    coverImg {\n      url\n      height\n      width\n    }\n    id\n    price\n    title\n  }\n}"): typeof import('./graphql').ProductsOverviewDataDocument;
 
 
 export function graphql(source: string) {

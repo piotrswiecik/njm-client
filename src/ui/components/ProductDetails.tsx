@@ -1,9 +1,13 @@
-import { type Product } from "@/app/models";
+import { type ProductDashboardItemDto } from "@/api/models";
 import ProductDetailsHeader from "@/ui/atoms/ProductDetailsHeader";
 import ProductDetailsInfo from "@/ui/atoms/ProductDetailsInfo";
 import ProductImage from "@/ui/atoms/ProductImage";
 
-const ProductDetails = async ({ product }: { product: Product }) => {
+const ProductDetails = async ({
+	product,
+}: {
+	product: ProductDashboardItemDto;
+}) => {
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
 			<div className="flex flex-col sm:flex-row">

@@ -1,10 +1,10 @@
 import Link from "next/link";
-import type { Product } from "@/app/models";
+import type { ProductDashboardItemDto } from "@/api/models";
 import ProductImage from "@/ui/atoms/ProductImage";
 import ProductListInfo from "@/ui/atoms/ProductListInfo";
 
 type ProductCardProps = {
-	product: Product;
+	product: ProductDashboardItemDto;
 };
 
 const ProductListItemCard = ({ product }: ProductCardProps) => {
@@ -13,7 +13,7 @@ const ProductListItemCard = ({ product }: ProductCardProps) => {
 			<li className="group relative list-none">
 				<div className="">
 					<Link href={`/product/${product.id}`}>
-						<ProductImage url={product.image} alt={product.title} />
+						<ProductImage url={product.image.url} alt={product.title} />
 						<ProductListInfo product={product} />
 					</Link>
 				</div>

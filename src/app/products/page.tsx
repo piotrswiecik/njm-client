@@ -2,7 +2,6 @@ import { type Metadata } from "next";
 import { productService } from "@/api/product.service";
 import ProductDashboard from "@/ui/components/ProductDashboard";
 import Pagination from "@/ui/components/Pagination";
-import { ProductGetListDocument } from "@/gql/graphql";
 
 export const metadata: Metadata = {
 	title: "NJM Record Store - Products",
@@ -20,15 +19,15 @@ export const metadata: Metadata = {
 
 const ProductsPage = async () => {
 	// TODO optimize this fetch later!!! maybe some caching?
-	const numberOfProducts = await productService.getNumberOfProducts(); // TODO unhandled err thrown by service layer
+	const numberOfProducts = 280; // TODO unhandled err thrown by service layer
 	// TODO optimize this, maybe base on media query
 	const PRODUCTS_PER_PAGE = 12;
 
 	// testing
-	const x = await productService.queryGraphql(ProductGetListDocument, {});
-	console.log(x);
+	const products = await productService.getProducts(PRODUCTS_PER_PAGE, 0);
+	console.log(products);
 
-	const products = await productService.getProducts(PRODUCTS_PER_PAGE, 0); // TODO unhandled err thrown by service layer
+	// const products = await productService.getProducts(PRODUCTS_PER_PAGE, 0); // TODO unhandled err thrown by service layer
 
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
