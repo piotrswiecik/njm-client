@@ -25,7 +25,7 @@ const ProductsPage = async ({ params } : { params: { pageNum: string }}) => {
 
 	console.log(params.pageNum);
 
-	const products = await productService.getProducts(PRODUCTS_PER_PAGE, Number(params.pageNum) * PRODUCTS_PER_PAGE);
+	const products = await productService.getProducts(PRODUCTS_PER_PAGE, (Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE);
 
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
