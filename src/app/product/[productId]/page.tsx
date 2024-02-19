@@ -1,17 +1,17 @@
 import { type Metadata } from "next";
 import { productService } from "@/api/product.service";
 import ProductDetails from "@/ui/components/ProductDetails";
-import { ProductDetailsDto } from "@/api/models";
+import { type ProductDetailsDto } from "@/api/models";
 
 export async function generateMetadata({
 	params,
 }: {
 	params: { productId: string };
 }): Promise<Metadata> {
-	console.log(params);
+	const product: ProductDetailsDto | null = await productService.getProductById(params.productId);
 	return {
-		title: "todo",
-		// description: product.description,
+		title: product?.title,
+		description: product?.artist + " - " + product?.title,
 		generator: "Next.js",
 		applicationName: "NJM Record Store",
 		keywords: ["music", "vinyl", "records", "albums", "store"],
