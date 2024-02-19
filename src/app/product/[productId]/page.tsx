@@ -7,6 +7,7 @@ export async function generateMetadata({
 }: {
 	params: { productId: string };
 }): Promise<Metadata> {
+	console.log(params);
 	return {
 		title: "todo",
 		// description: product.description,
