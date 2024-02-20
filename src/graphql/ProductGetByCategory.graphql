@@ -1,0 +1,14 @@
+query CategoryGetProducts($name: String!) {
+  category(name: $name) {
+    name
+    products {
+      title
+      artist
+      coverImg {
+        width
+        height
+        url
+      }
+    }
+  }
+}

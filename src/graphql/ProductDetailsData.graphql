@@ -1,7 +1,9 @@
 query ProductDetailsData($productId: ID!) {
   product(id: $productId) {
     artist
-    category
+    category {
+      name
+    }
     coverImg {
       height
       width

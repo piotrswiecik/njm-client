@@ -1,7 +1,8 @@
 import { type Metadata } from "next";
-import { productService } from "@/api/product.service";
 import ProductDashboard from "@/ui/components/ProductDashboard";
 import Pagination from "@/ui/components/Pagination";
+import { getProductCount } from "@/api/getProductCount";
+import { getProducts } from "@/api/getProducts";
 
 export const metadata: Metadata = {
 	title: "NJM Record Store - Products",
@@ -18,12 +19,12 @@ export const metadata: Metadata = {
 };
 
 const ProductsPage = async ({ params } : { params: { pageNum: string }}) => {
-	const numberOfProducts = await productService.getProductCount(); // TODO unhandled err thrown by service layer
+	const numberOfProducts = await getProductCount(); // TODO unhandled err thrown by service layer
 	
 	// TODO optimize this, maybe base on media query
 	const PRODUCTS_PER_PAGE = 12;
 
-	const products = await productService.getProducts(PRODUCTS_PER_PAGE, (Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE);
+	const products = await getProducts(PRODUCTS_PER_PAGE, (Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE);
 
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">

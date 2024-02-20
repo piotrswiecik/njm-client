@@ -1,17 +1,19 @@
 query ProductsOverviewData($take: Int!, $skip: Int) {
-  products(take: $take, skip: $skip) {
-    artist
-    category
-    collection {
-      name
-    }
-    coverImg {
-      url
-      height
-      width
-    }
-    id
-    price
-    title
-  }
+	products(take: $take, skip: $skip) {
+		artist
+		category {
+			name
+		}
+		collection {
+			name
+		}
+		coverImg {
+			url
+			height
+			width
+		}
+		id
+		price
+		title
+	}
 }

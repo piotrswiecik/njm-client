@@ -22,6 +22,12 @@ export type Artist = {
   product?: Maybe<Array<Product>>;
 };
 
+export type Category = {
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  products?: Maybe<Array<Product>>;
+};
+
 export type Collection = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
@@ -38,7 +44,7 @@ export type CoverImage = {
 
 export type Product = {
   artist: Scalars['String']['output'];
-  category: Scalars['String']['output'];
+  category: Category;
   collection?: Maybe<Array<Collection>>;
   coverImg: CoverImage;
   id: Scalars['ID']['output'];
@@ -50,9 +56,15 @@ export type Product = {
 };
 
 export type Query = {
+  category?: Maybe<Category>;
   count: Scalars['Int']['output'];
   product?: Maybe<Product>;
   products?: Maybe<Array<Product>>;
+};
+
+
+export type QueryCategoryArgs = {
+  name: Scalars['String']['input'];
 };
 
 
@@ -91,7 +103,14 @@ export type ProductDetailsDataQueryVariables = Exact<{
 }>;
 
 
-export type ProductDetailsDataQuery = { product?: { artist: string, category: string, id: string, price: number, releaseDate: string, title: string, coverImg: { height: number, width: number, url: string }, stock: { qtyCd: number, qtyLp: number }, tracks: Array<{ name: string }> } | null };
+export type ProductDetailsDataQuery = { product?: { artist: string, id: string, price: number, releaseDate: string, title: string, category: { name: string }, coverImg: { height: number, width: number, url: string }, stock: { qtyCd: number, qtyLp: number }, tracks: Array<{ name: string }> } | null };
+
+export type CategoryGetProductsQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type CategoryGetProductsQuery = { category?: { name: string, products?: Array<{ title: string, artist: string, coverImg: { width: number, height: number, url: string } }> | null } | null };
 
 export type ProductsOverviewDataQueryVariables = Exact<{
   take: Scalars['Int']['input'];
@@ -99,7 +118,7 @@ export type ProductsOverviewDataQueryVariables = Exact<{
 }>;
 
 
-export type ProductsOverviewDataQuery = { products?: Array<{ artist: string, category: string, id: string, price: number, title: string, collection?: Array<{ name: string }> | null, coverImg: { url: string, height: number, width: number } }> | null };
+export type ProductsOverviewDataQuery = { products?: Array<{ artist: string, id: string, price: number, title: string, category: { name: string }, collection?: Array<{ name: string }> | null, coverImg: { url: string, height: number, width: number } }> | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -125,7 +144,9 @@ export const ProductDetailsDataDocument = new TypedDocumentString(`
     query ProductDetailsData($productId: ID!) {
   product(id: $productId) {
     artist
-    category
+    category {
+      name
+    }
     coverImg {
       height
       width
@@ -145,11 +166,29 @@ export const ProductDetailsDataDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProductDetailsDataQuery, ProductDetailsDataQueryVariables>;
+export const CategoryGetProductsDocument = new TypedDocumentString(`
+    query CategoryGetProducts($name: String!) {
+  category(name: $name) {
+    name
+    products {
+      title
+      artist
+      coverImg {
+        width
+        height
+        url
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoryGetProductsQuery, CategoryGetProductsQueryVariables>;
 export const ProductsOverviewDataDocument = new TypedDocumentString(`
     query ProductsOverviewData($take: Int!, $skip: Int) {
   products(take: $take, skip: $skip) {
     artist
-    category
+    category {
+      name
+    }
     collection {
       name
     }

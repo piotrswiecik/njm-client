@@ -1,16 +1,16 @@
 import { type Metadata } from "next";
-import { productService } from "@/api/product.service";
 import ProductDetailsComponent from "@/ui/components/ProductDetails";
 import { type ProductDetailsDto } from "@/api/models";
 import RecommenderComponent from "@/ui/components/Recommender";
 import ReviewsComponent from "@/ui/components/Reviews";
+import { getProductById } from "@/api/getProductById";
 
 export async function generateMetadata({
 	params,
 }: {
 	params: { productId: string };
 }): Promise<Metadata> {
-	const product: ProductDetailsDto | null = await productService.getProductById(
+	const product: ProductDetailsDto | null = await getProductById(
 		params.productId,
 	);
 	return {
@@ -34,7 +34,7 @@ const ProductDetailsPage = async ({
 	params: { productId: string };
 }) => {
 	// TODO unhandled err thrown by service layer
-	const product: ProductDetailsDto | null = await productService.getProductById(
+	const product: ProductDetailsDto | null = await getProductById(
 		params.productId,
 	);
 	if (!product) {
