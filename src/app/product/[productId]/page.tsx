@@ -1,7 +1,9 @@
 import { type Metadata } from "next";
 import { productService } from "@/api/product.service";
-import ProductDetails from "@/ui/components/ProductDetails";
+import ProductDetailsComponent from "@/ui/components/ProductDetails";
 import { type ProductDetailsDto } from "@/api/models";
+import RecommenderComponent from "@/ui/components/Recommender";
+import ReviewsComponent from "@/ui/components/Reviews";
 
 export async function generateMetadata({
 	params,
@@ -39,10 +41,18 @@ const ProductDetailsPage = async ({
 		return null; // TODO 404 later
 	}
 	return (
-		<section className="mx-auto max-w-7xl px-6 sm:px-12">
-			<ProductDetails product={product} />
-			Recommended items
-		</section>
+		<div className="mx-auto max-w-7xl px-6 sm:px-12">
+			<article>
+				<ProductDetailsComponent product={product} />
+			</article>
+			<aside className="sm:mt-8">
+				<RecommenderComponent />
+				<div className="flex flex-row">
+					{/* add review component displayed if user logged in & maybe if purchased this product? */}
+					<ReviewsComponent />
+				</div>
+			</aside>
+		</div>
 	);
 };
 

@@ -3,5 +3,5 @@ export default function ProductLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	return <article className="2xl:p-6">{children}</article>;
+	return <div className="2xl:p-6">{children}</div>;
 }
