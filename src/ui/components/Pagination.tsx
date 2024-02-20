@@ -31,7 +31,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 			{/* core links */}
 			{currentPage <= 2 && (
 				<>
-					<PaginationActiveLink href="/products">2</PaginationActiveLink>
+					<PaginationActiveLink href="/products/2">2</PaginationActiveLink>
 					<PaginationActiveLink href="/products/3">3</PaginationActiveLink>
 				</>
 			)}

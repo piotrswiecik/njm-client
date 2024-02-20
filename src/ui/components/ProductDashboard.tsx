@@ -1,8 +1,8 @@
-import { type Product } from "@/app/models";
+import { type ProductDashboardItemDto } from "@/api/models";
 import ProductListItemCard from "@/ui/components/ProductListItemCard";
 
 type ProductDashboardProps = {
-	products: Product[];
+	products: ProductDashboardItemDto[];
 };
 
 const ProductDashboard = async ({ products }: ProductDashboardProps) => {

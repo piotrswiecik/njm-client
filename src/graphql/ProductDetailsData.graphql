@@ -1,0 +1,22 @@
+query ProductDetailsData($productId: ID!) {
+  product(id: $productId) {
+    artist
+    category
+    coverImg {
+      height
+      width
+      url
+    }
+    id
+    price
+    releaseDate
+    stock {
+      qtyCd
+      qtyLp
+    }
+    title
+    tracks {
+      name
+    }
+  }
+}
