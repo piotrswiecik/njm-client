@@ -23,8 +23,6 @@ const ProductsPage = async ({ params } : { params: { pageNum: string }}) => {
 	// TODO optimize this, maybe base on media query
 	const PRODUCTS_PER_PAGE = 12;
 
-	console.log(params.pageNum);
-
 	const products = await productService.getProducts(PRODUCTS_PER_PAGE, (Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE);
 
 	return (
