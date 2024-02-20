@@ -1,4 +1,4 @@
-import { queryGraphql } from "@/api/gql.service";
+import { queryGraphql } from "@/api/gql";
 import { type ProductDetailsDto } from "@/api/models";
 import { ProductDetailsDataDocument } from "@/gql/graphql";
 

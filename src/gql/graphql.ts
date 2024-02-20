@@ -93,6 +93,13 @@ export type Track = {
   url: Scalars['String']['output'];
 };
 
+export type CategoryGetProductsQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type CategoryGetProductsQuery = { category?: { name: string, products?: Array<{ id: string, title: string, artist: string, coverImg: { width: number, height: number, url: string } }> | null } | null };
+
 export type ProductsCountQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -104,13 +111,6 @@ export type ProductDetailsDataQueryVariables = Exact<{
 
 
 export type ProductDetailsDataQuery = { product?: { artist: string, id: string, price: number, releaseDate: string, title: string, category: { name: string }, coverImg: { height: number, width: number, url: string }, stock: { qtyCd: number, qtyLp: number }, tracks: Array<{ name: string }> } | null };
-
-export type CategoryGetProductsQueryVariables = Exact<{
-  name: Scalars['String']['input'];
-}>;
-
-
-export type CategoryGetProductsQuery = { category?: { name: string, products?: Array<{ title: string, artist: string, coverImg: { width: number, height: number, url: string } }> | null } | null };
 
 export type ProductsOverviewDataQueryVariables = Exact<{
   take: Scalars['Int']['input'];
@@ -135,6 +135,23 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const CategoryGetProductsDocument = new TypedDocumentString(`
+    query CategoryGetProducts($name: String!) {
+  category(name: $name) {
+    name
+    products {
+      id
+      title
+      artist
+      coverImg {
+        width
+        height
+        url
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoryGetProductsQuery, CategoryGetProductsQueryVariables>;
 export const ProductsCountDocument = new TypedDocumentString(`
     query ProductsCount {
   count
@@ -166,22 +183,6 @@ export const ProductDetailsDataDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProductDetailsDataQuery, ProductDetailsDataQueryVariables>;
-export const CategoryGetProductsDocument = new TypedDocumentString(`
-    query CategoryGetProducts($name: String!) {
-  category(name: $name) {
-    name
-    products {
-      title
-      artist
-      coverImg {
-        width
-        height
-        url
-      }
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<CategoryGetProductsQuery, CategoryGetProductsQueryVariables>;
 export const ProductsOverviewDataDocument = new TypedDocumentString(`
     query ProductsOverviewData($take: Int!, $skip: Int) {
   products(take: $take, skip: $skip) {

@@ -14,12 +14,16 @@ import * as types from './graphql';
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "query CategoryGetProducts($name: String!) {\n  category(name: $name) {\n    name\n    products {\n      id\n      title\n      artist\n      coverImg {\n        width\n        height\n        url\n      }\n    }\n  }\n}": types.CategoryGetProductsDocument,
     "query ProductsCount {\n  count\n}": types.ProductsCountDocument,
     "query ProductDetailsData($productId: ID!) {\n  product(id: $productId) {\n    artist\n    category {\n      name\n    }\n    coverImg {\n      height\n      width\n      url\n    }\n    id\n    price\n    releaseDate\n    stock {\n      qtyCd\n      qtyLp\n    }\n    title\n    tracks {\n      name\n    }\n  }\n}": types.ProductDetailsDataDocument,
-    "query CategoryGetProducts($name: String!) {\n  category(name: $name) {\n    name\n    products {\n      title\n      artist\n      coverImg {\n        width\n        height\n        url\n      }\n    }\n  }\n}": types.CategoryGetProductsDocument,
     "query ProductsOverviewData($take: Int!, $skip: Int) {\n  products(take: $take, skip: $skip) {\n    artist\n    category {\n      name\n    }\n    collection {\n      name\n    }\n    coverImg {\n      url\n      height\n      width\n    }\n    id\n    price\n    title\n  }\n}": types.ProductsOverviewDataDocument,
 };
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query CategoryGetProducts($name: String!) {\n  category(name: $name) {\n    name\n    products {\n      id\n      title\n      artist\n      coverImg {\n        width\n        height\n        url\n      }\n    }\n  }\n}"): typeof import('./graphql').CategoryGetProductsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -28,10 +32,6 @@ export function graphql(source: "query ProductsCount {\n  count\n}"): typeof imp
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query ProductDetailsData($productId: ID!) {\n  product(id: $productId) {\n    artist\n    category {\n      name\n    }\n    coverImg {\n      height\n      width\n      url\n    }\n    id\n    price\n    releaseDate\n    stock {\n      qtyCd\n      qtyLp\n    }\n    title\n    tracks {\n      name\n    }\n  }\n}"): typeof import('./graphql').ProductDetailsDataDocument;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "query CategoryGetProducts($name: String!) {\n  category(name: $name) {\n    name\n    products {\n      title\n      artist\n      coverImg {\n        width\n        height\n        url\n      }\n    }\n  }\n}"): typeof import('./graphql').CategoryGetProductsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

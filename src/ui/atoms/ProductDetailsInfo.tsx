@@ -7,7 +7,6 @@ type ProductDetailsProps = {
 
 // TODO maybe refactor into subcomponents - atoms
 const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
-	console.log(product);
 	return (
 		<>
 			<header className="border-b border-slate-400 pb-2">

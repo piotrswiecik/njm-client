@@ -46,7 +46,7 @@ const ProductDetailsPage = async ({
 				<ProductDetailsComponent product={product} />
 			</article>
 			<aside className="sm:mt-8">
-				<RecommenderComponent />
+				<RecommenderComponent categoryName={product.category}/>
 				<div className="flex flex-row">
 					{/* add review component displayed if user logged in & maybe if purchased this product? */}
 					<ReviewsComponent />

@@ -1,4 +1,4 @@
-import { queryGraphql } from "@/api/gql.service";
+import { queryGraphql } from "@/api/gql";
 import { ProductsCountDocument } from "@/gql/graphql";
 
 export const getProductCount = async () => {

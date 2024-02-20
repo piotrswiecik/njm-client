@@ -12,6 +12,20 @@ export type ProductDashboardItemDto = {
 };
 
 /**
+ * Represents a category with nested product list.
+ */
+export type ProductInCategoryDto = Omit<ProductDashboardItemDto, "price" | "category" | "collections">;
+export type CategoryDto = {
+	name: string;
+	products: ProductInCategoryDto[];
+}
+
+/**
+ * Represents recommender generated item.
+ */
+export type ProductRecommendationDto = Omit<ProductDashboardItemDto, "price" | "collections" | "category">;
+
+/**
  * DTO for full product view with track & stock details.
  */
 export type ProductDetailsDto = ProductDashboardItemDto & {

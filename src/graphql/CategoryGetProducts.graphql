@@ -2,6 +2,7 @@ query CategoryGetProducts($name: String!) {
   category(name: $name) {
     name
     products {
+      id
       title
       artist
       coverImg {
