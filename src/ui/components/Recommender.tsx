@@ -14,7 +14,7 @@ const RecommenderComponent = async ({
 	const recommendedProducts: ProductRecommendationDto[] =
 		await getRecommendation({ categoryName: categoryName }, 4);
 	return (
-		<section>
+		<section data-testid="related-products">
 			<h2 className="text-xl font-bold">You might also like:</h2>
 			<ul className="flex flex-col flex-wrap justify-around py-4 sm:flex-row">
 				{recommendedProducts.map((product) => (
