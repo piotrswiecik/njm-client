@@ -1,8 +1,8 @@
 import { queryGraphql } from "@/api/gql";
 import { CategoryGetProductsDocument } from "@/gql/graphql";
 
-export const getProductsByCategory = async (name: string) => {
-  const { category } = await queryGraphql(CategoryGetProductsDocument, {name: name });
+export const getProductsByCategory = async (name: string, skip: number, take: number) => {
+  const { category } = await queryGraphql(CategoryGetProductsDocument, {name: name, skip: skip, take: take});
   
   if (!category) {
     return [];
@@ -17,14 +17,16 @@ export const getProductsByCategory = async (name: string) => {
   return productsInCategory.map((product) => (
     {
       id: product.id,
-      artist: product.artist,
-      title: product.title,
-      image: {
-        url: product.coverImg.url,
-        width: product.coverImg.width,
-        height: product.coverImg.height,
-      },
-      collections: [],
+		artist: product.artist,
+		category: product.category.name,
+		title: product.title,
+		price: product.price,
+		image: {
+			url: product.coverImg.url,
+			width: product.coverImg.width,
+			height: product.coverImg.height,
+		},
+		collections: [],
     }
   ));
 }

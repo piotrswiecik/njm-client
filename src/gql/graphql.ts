@@ -28,6 +28,12 @@ export type Category = {
   products?: Maybe<Array<Product>>;
 };
 
+
+export type CategoryProductsArgs = {
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type Collection = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
@@ -98,7 +104,7 @@ export type CategoryGetProductsQueryVariables = Exact<{
 }>;
 
 
-export type CategoryGetProductsQuery = { category?: { name: string, products?: Array<{ id: string, title: string, artist: string, coverImg: { width: number, height: number, url: string } }> | null } | null };
+export type CategoryGetProductsQuery = { category?: { name: string, products?: Array<{ id: string, title: string, artist: string, price: number, category: { name: string }, collection?: Array<{ name: string }> | null, coverImg: { width: number, height: number, url: string } }> | null } | null };
 
 export type ProductsCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -143,11 +149,18 @@ export const CategoryGetProductsDocument = new TypedDocumentString(`
       id
       title
       artist
+      category {
+        name
+      }
+      collection {
+        name
+      }
       coverImg {
         width
         height
         url
       }
+      price
     }
   }
 }

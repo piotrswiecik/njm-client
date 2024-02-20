@@ -5,11 +5,18 @@ query CategoryGetProducts($name: String!) {
       id
       title
       artist
+      category {
+			  name
+		  }
+      collection {
+			  name
+		  }
       coverImg {
         width
         height
         url
       }
+      price
     }
   }
 }

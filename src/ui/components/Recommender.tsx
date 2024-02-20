@@ -12,7 +12,7 @@ const RecommenderComponent = async ({
 }: RecommenderComponentProps) => {
 	// currently returns N products from same category
 	const recommendedProducts: ProductRecommendationDto[] =
-		await getRecommendation({ categoryName: categoryName }, 5);
+		await getRecommendation({ categoryName: categoryName }, 4);
 	return (
 		<section>
 			<h2 className="text-xl font-bold">You might also like:</h2>
