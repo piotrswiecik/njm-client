@@ -27,7 +27,7 @@ const ProductsPage = async ({ params } : { params: { pageNum: string }}) => {
 	const products = await getProducts(PRODUCTS_PER_PAGE, (Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE);
 
 	return (
-		<div className="mx-auto max-w-7xl px-6 sm:px-12">
+		<div className="px-6 sm:px-12">
 			<ProductDashboard products={products} />
 			<div className="mt-12 flex justify-center">
 				<Pagination
