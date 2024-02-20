@@ -4,7 +4,7 @@ import ProductImage from "@/ui/atoms/ProductImage";
 
 const ProductDetails = async ({ product }: { product: ProductDetailsDto }) => {
 	return (
-		<div className="mx-auto flex max-w-7xl flex-col justify-start px-6 sm:flex-row sm:px-12">
+		<div className="flex flex-col justify-start sm:flex-row">
 			<div className="m-0 sm:mr-8">
 				<ProductImage url={product.image.url} alt={"temp"} />
 			</div>

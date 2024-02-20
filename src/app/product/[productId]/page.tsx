@@ -8,14 +8,20 @@ export async function generateMetadata({
 }: {
 	params: { productId: string };
 }): Promise<Metadata> {
-	const product: ProductDetailsDto | null = await productService.getProductById(params.productId);
+	const product: ProductDetailsDto | null = await productService.getProductById(
+		params.productId,
+	);
 	return {
 		title: product?.title,
 		description: product?.artist + " - " + product?.title,
 		generator: "Next.js",
 		applicationName: "NJM Record Store",
 		keywords: ["music", "vinyl", "records", "albums", "store"],
-		authors: [ { name: "NJM Record Store" }, { name: "piotr.swiecik@gmail.com" }, { name: "capricorndev" } ],
+		authors: [
+			{ name: "NJM Record Store" },
+			{ name: "piotr.swiecik@gmail.com" },
+			{ name: "capricorndev" },
+		],
 		creator: "Piotr Święcik",
 	};
 }
@@ -26,11 +32,18 @@ const ProductDetailsPage = async ({
 	params: { productId: string };
 }) => {
 	// TODO unhandled err thrown by service layer
-	const product: ProductDetailsDto | null = await productService.getProductById(params.productId);
+	const product: ProductDetailsDto | null = await productService.getProductById(
+		params.productId,
+	);
 	if (!product) {
 		return null; // TODO 404 later
 	}
-	return <ProductDetails product={product} />;
+	return (
+		<section className="mx-auto max-w-7xl px-6 sm:px-12">
+			<ProductDetails product={product} />
+			Recommended items
+		</section>
+	);
 };
 
 export default ProductDetailsPage;
