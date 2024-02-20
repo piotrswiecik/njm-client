@@ -4,7 +4,7 @@ export default function ProductDashboardLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-    <div className="max-w-7xl mx-auto">
+    <div className="w-10/12 max-w-7xl mx-auto">
 				{children}
     </div>
 	);
