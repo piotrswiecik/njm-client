@@ -48,14 +48,13 @@ const CategoryPage = async ({ params }: PageProps) => {
 		(Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE,
 	);
 
-	console.log(products.length);
-
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
 			<ProductDashboard products={products} />
 			<div className="mt-12 flex justify-center">
 				<Pagination
 					totalPages={Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE)}
+					corePathSegment={`categories/${params.categoryName}`}
 				/>
 			</div>
 		</div>

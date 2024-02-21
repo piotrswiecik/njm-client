@@ -1,31 +1,44 @@
-// client component capabilities required to parse path
 "use client";
 
 import { usePathname } from "next/navigation";
+import { type Route } from "next";
 import PaginationPlaceholderArrow from "@/ui/atoms/PaginationPlaceholderArrow";
 import PaginationPlaceholderDots from "@/ui/atoms/PaginationPlaceholderDots";
 import PaginationActiveLink from "@/ui/atoms/PaginationActiveLink";
 
-const Pagination = ({ totalPages }: { totalPages: number }) => {
+type PaginationProps = {
+	totalPages: number;
+	corePathSegment: string;
+};
+
+const Pagination = ({ totalPages, corePathSegment }: PaginationProps) => {
 	// TODO handle case when totalPages is something nonsensical / out of range
 	const pathname = usePathname();
-	const currentPage = Number(pathname.split("/products/")[1] || 1);
+	const currentPage = Number(pathname.split(`/${corePathSegment}/`)[1] || 1);
 
 	if (totalPages < 6) {
 		return (
-			<div aria-label="pagination" className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8">
+			<div
+				aria-label="pagination"
+				className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8"
+			>
 				{/* l-arrow always visible */}
 				{currentPage === 1 ? (
 					<PaginationPlaceholderArrow dir="left" />
 				) : (
-					<PaginationActiveLink href={`/products/${currentPage - 1}`}>
+					<PaginationActiveLink
+						href={`/${corePathSegment}/${currentPage - 1}` as Route}
+					>
 						<span aria-hidden="true">&laquo;</span>
 					</PaginationActiveLink>
 				)}
 
 				{/* core links */}
 				{Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-					<PaginationActiveLink key={page} href={`/products/${page}`}>
+					<PaginationActiveLink
+						key={page}
+						href={`/${corePathSegment}/${page}` as Route}
+					>
 						{page}
 					</PaginationActiveLink>
 				))}
@@ -34,28 +47,36 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 				{currentPage === totalPages ? (
 					<PaginationPlaceholderArrow dir="right" />
 				) : (
-					<PaginationActiveLink href={`/products/${currentPage + 1}`}>
+					<PaginationActiveLink
+						href={`/${corePathSegment}/${currentPage + 1}` as Route}
+					>
 						<span aria-hidden="true">&raquo;</span>
 					</PaginationActiveLink>
 				)}
 			</div>
 		);
-	
 	}
 
 	return (
-		<div aria-label="pagination" className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8">
+		<div
+			aria-label="pagination"
+			className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8"
+		>
 			{/* l-arrow always visible */}
 			{currentPage === 1 ? (
 				<PaginationPlaceholderArrow dir="left" />
 			) : (
-				<PaginationActiveLink href={`/products/${currentPage - 1}`}>
+				<PaginationActiveLink
+					href={`/${corePathSegment}/${currentPage - 1}` as Route}
+				>
 					<span aria-hidden="true">&laquo;</span>
 				</PaginationActiveLink>
 			)}
 
 			{/* link to page 1 always visible */}
-			<PaginationActiveLink href="/products/1">1</PaginationActiveLink>
+			<PaginationActiveLink href={`/${corePathSegment}/1` as Route}>
+				1
+			</PaginationActiveLink>
 
 			{/* left dots visible when page > 3 */}
 			{currentPage > 3 && <PaginationPlaceholderDots />}
@@ -63,19 +84,29 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 			{/* core links */}
 			{currentPage <= 2 && (
 				<>
-					<PaginationActiveLink href="/products/2">2</PaginationActiveLink>
-					<PaginationActiveLink href="/products/3">3</PaginationActiveLink>
+					<PaginationActiveLink href={`/${corePathSegment}/2` as Route}>
+						2
+					</PaginationActiveLink>
+					<PaginationActiveLink href={`/${corePathSegment}/3` as Route}>
+						3
+					</PaginationActiveLink>
 				</>
 			)}
 			{currentPage > 2 && currentPage < totalPages - 1 && (
 				<>
-					<PaginationActiveLink href={`/products/${currentPage - 1}`}>
+					<PaginationActiveLink
+						href={`/${corePathSegment}/${currentPage - 1}` as Route}
+					>
 						{currentPage - 1}
 					</PaginationActiveLink>
-					<PaginationActiveLink href={`/products/${currentPage}`}>
+					<PaginationActiveLink
+						href={`/${corePathSegment}/${currentPage}` as Route}
+					>
 						{currentPage}
 					</PaginationActiveLink>
-					<PaginationActiveLink href={`/products/${currentPage + 1}`}>
+					<PaginationActiveLink
+						href={`/${corePathSegment}/${currentPage + 1}` as Route}
+					>
 						{" "}
 						{currentPage + 1}
 					</PaginationActiveLink>
@@ -83,10 +114,14 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 			)}
 			{currentPage >= totalPages - 1 && (
 				<>
-					<PaginationActiveLink href={`/products/${totalPages - 2}`}>
+					<PaginationActiveLink
+						href={`/${corePathSegment}/${totalPages - 2}` as Route}
+					>
 						{totalPages - 2}
 					</PaginationActiveLink>
-					<PaginationActiveLink href={`/products/${totalPages - 1}`}>
+					<PaginationActiveLink
+						href={`/${corePathSegment}/${totalPages - 1}` as Route}
+					>
 						{totalPages - 1}
 					</PaginationActiveLink>
 				</>
@@ -96,7 +131,7 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 			{currentPage < totalPages - 2 && <PaginationPlaceholderDots />}
 
 			{/* item n always visible */}
-			<PaginationActiveLink href={`/products/${totalPages}`}>
+			<PaginationActiveLink href={`/${corePathSegment}/${totalPages}` as Route}>
 				{totalPages}
 			</PaginationActiveLink>
 
@@ -104,7 +139,9 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 			{currentPage === totalPages ? (
 				<PaginationPlaceholderArrow dir="right" />
 			) : (
-				<PaginationActiveLink href={`/products/${currentPage + 1}`}>
+				<PaginationActiveLink
+					href={`/${corePathSegment}/${currentPage + 1}` as Route}
+				>
 					<span aria-hidden="true">&raquo;</span>
 				</PaginationActiveLink>
 			)}

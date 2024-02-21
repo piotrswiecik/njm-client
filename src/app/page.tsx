@@ -32,6 +32,7 @@ const ProductsPage = async () => {
 			<div className="mt-12 flex justify-center">
 				<Pagination
 					totalPages={Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE)}
+					corePathSegment="products"
 				/>
 			</div>
 		</div>
