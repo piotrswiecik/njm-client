@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import ActiveLink from "@/ui/atoms/ActiveLink";
 import SearchBar from "@/ui/components/SearchBar";
 
@@ -84,9 +84,11 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 				className={`${active ? "h-[216px] py-6" : "h-0"} overflow-hidden transition-all duration-700`}
 			>
 				<div className="my-4 xl:mt-0">
-				<div className="">
-					<SearchBar />
-				</div>
+					<div className="">
+						<Suspense>
+							<SearchBar />
+						</Suspense>
+					</div>
 				</div>
 				<ul className="list-none">
 					<li key="all">

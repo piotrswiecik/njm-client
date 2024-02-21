@@ -15,8 +15,6 @@ export const getRecommendation = async (
 	try {
 		const allProductsInCategory = await getProductsByCategory(
 			criteria.categoryName,
-			null,
-			null
 		);
 		return allProductsInCategory
 			.sort(() => Math.random() - 0.5)

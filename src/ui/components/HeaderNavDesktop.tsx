@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import ActiveLink from "@/ui/atoms/ActiveLink";
 import ShoppingCartLink from "@/ui/atoms/ShoppingCartLink";
 import SearchBar from "@/ui/components/SearchBar";
@@ -66,7 +67,9 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</ul>
 				<div className="mt-4 xl:mt-0">
 					<div className="mx-8">
-				<SearchBar />
+						<Suspense>
+							<SearchBar />
+						</Suspense>
 					</div>
 				</div>
 			</div>
