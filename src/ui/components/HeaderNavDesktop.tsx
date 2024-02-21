@@ -13,47 +13,52 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 		<div className="hidden flex-row items-center sm:flex">
 			{/* todo use compact and wide variants */}
 			<h1 className="grow-0">
-				<ActiveLink href="/" className="hover:opacity-75" activeClassName="hover:opacity-75">
-				<div className="flex flex-row items-center">
-					<img
-						src="/vinyl-svgrepo-com.svg"
-						alt="NJM Record Store"
-						className="aspect-square max-w-16"
-					/>
-					<span className="max-w-28 pl-4 text-xl font-bold lg:pr-8">
-						NJM Records
-					</span>
-				</div>
+				<ActiveLink
+					href="/"
+					className="hover:opacity-75"
+					activeClassName="hover:opacity-75"
+					exact={true}
+					label="Home"
+				>
+					<div className="flex flex-row items-center">
+						<img
+							src="/vinyl-svgrepo-com.svg"
+							alt="NJM Record Store"
+							className="aspect-square max-w-16"
+						/>
+						<span className="max-w-28 pl-4 text-xl font-bold lg:pr-8">
+							NJM Records
+						</span>
+					</div>
 				</ActiveLink>
 			</h1>
 			<div className="grow" />
-				<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
-					<li key="all">
+			<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
+				<li key="all">
+					<ActiveLink
+						href={`/products`}
+						className={linkClassName}
+						activeClassName={linkActiveClassName}
+					>
+						All
+					</ActiveLink>
+				</li>
+				{categories.map((category) => (
+					<li key={category}>
 						<ActiveLink
-							href={`/products`}
+							href={`/categories/${category}/1`}
+							exact={false}
 							className={linkClassName}
 							activeClassName={linkActiveClassName}
 						>
-							All
+							{category
+								.split("")
+								.map((char, index) => (index === 0 ? char.toUpperCase() : char))
+								.join("")}
 						</ActiveLink>
 					</li>
-					{categories.map((category) => (
-						<li key={category}>
-							<ActiveLink
-								href={`/categories/${category}/1`}
-								exact={false}
-								className={linkClassName}
-								activeClassName={linkActiveClassName}
-							>
-								{category
-									.split("")
-									.map((char, index) =>
-										index === 0 ? char.toUpperCase() : char,
-									)}
-							</ActiveLink>
-						</li>
-					))}
-				</ul>
+				))}
+			</ul>
 			<div className="grow" />
 			<ShoppingCartLink />
 		</div>

@@ -10,6 +10,7 @@ export type ActiveLinkProps<T extends string> = {
 	className: string;
 	activeClassName: string;
 	exact?: boolean;
+	label?: string;
 };
 
 const ActiveLink = <T extends string>({
@@ -18,6 +19,7 @@ const ActiveLink = <T extends string>({
 	className,
 	activeClassName,
 	exact = true,
+	label,
 }: ActiveLinkProps<T>) => {
 
 	const pathname = usePathname();
@@ -35,6 +37,7 @@ const ActiveLink = <T extends string>({
 			className={`${active ? activeClassName : className}`}
 			aria-current={active ? "page" : undefined}
 			role="link"
+			aria-label={label}
 		>
 			{children}
 		</Link>

@@ -24,6 +24,8 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 						href="/"
 						className="hover:opacity-75"
 						activeClassName="hover:opacity-75"
+						exact={true}
+						label="Home"
 					>
 						<div className="flex flex-row items-center">
 							<img
@@ -102,7 +104,8 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 									.split("")
 									.map((char, index) =>
 										index === 0 ? char.toUpperCase() : char,
-									)}
+									)
+									.join("")}
 							</ActiveLink>
 						</li>
 					))}
