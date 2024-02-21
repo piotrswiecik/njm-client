@@ -14,7 +14,6 @@ type PageProps = {
 export const generateMetadata = async ({
 	params,
 }: PageProps): Promise<Metadata> => {
-	console.log(params);
 	return {
 		title: `NJM Record Store - ${params.categoryName}`,
 		description: `NJM Record Store - ${params.categoryName}`,
