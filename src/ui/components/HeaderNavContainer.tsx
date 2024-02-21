@@ -12,7 +12,7 @@ const availableCategories = [
 
 const HeaderNavContainer = async () => {
 	return (
-		<nav role="navigation">
+		<nav>
 			<HeaderNavDesktop categories={availableCategories}/>
 			<HeaderNavMobile categories={availableCategories}/>
 		</nav>

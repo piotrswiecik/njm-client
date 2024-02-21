@@ -20,10 +20,20 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 		<div className="flex flex-col sm:hidden">
 			<div className="flex flex-row">
 				<h1 className="grow-0">
-					<div className="flex flex-row items-center">
-					<img src="/vinyl-svgrepo-com.svg" alt="NJM Record Store" className="max-w-16 aspect-square"/>
-					<span className="font-bold text-xl px-4">NJM Records</span>
-					</div>
+					<ActiveLink
+						href="/"
+						className="hover:opacity-75"
+						activeClassName="hover:opacity-75"
+					>
+						<div className="flex flex-row items-center">
+							<img
+								src="/vinyl-svgrepo-com.svg"
+								alt="NJM Record Store"
+								className="aspect-square max-w-16"
+							/>
+							<span className="px-4 text-xl font-bold">NJM Records</span>
+						</div>
+					</ActiveLink>
 				</h1>
 				<span className="grow"></span>
 				<button
@@ -88,7 +98,11 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 								className={linkClassName}
 								activeClassName={linkActiveClassName}
 							>
-								{category.split("").map((char, index) => (index === 0 ? char.toUpperCase() : char))}
+								{category
+									.split("")
+									.map((char, index) =>
+										index === 0 ? char.toUpperCase() : char,
+									)}
 							</ActiveLink>
 						</li>
 					))}
