@@ -11,6 +11,38 @@ const Pagination = ({ totalPages }: { totalPages: number }) => {
 	const pathname = usePathname();
 	const currentPage = Number(pathname.split("/products/")[1] || 1);
 
+	if (totalPages < 6) {
+		return (
+			<div aria-label="pagination" className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8">
+				{/* l-arrow always visible */}
+				{currentPage === 1 ? (
+					<PaginationPlaceholderArrow dir="left" />
+				) : (
+					<PaginationActiveLink href={`/products/${currentPage - 1}`}>
+						<span aria-hidden="true">&laquo;</span>
+					</PaginationActiveLink>
+				)}
+
+				{/* core links */}
+				{Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+					<PaginationActiveLink key={page} href={`/products/${page}`}>
+						{page}
+					</PaginationActiveLink>
+				))}
+
+				{/* r-arrow always visible */}
+				{currentPage === totalPages ? (
+					<PaginationPlaceholderArrow dir="right" />
+				) : (
+					<PaginationActiveLink href={`/products/${currentPage + 1}`}>
+						<span aria-hidden="true">&raquo;</span>
+					</PaginationActiveLink>
+				)}
+			</div>
+		);
+	
+	}
+
 	return (
 		<div aria-label="pagination" className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8">
 			{/* l-arrow always visible */}
