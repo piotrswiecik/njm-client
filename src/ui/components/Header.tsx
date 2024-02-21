@@ -4,7 +4,7 @@ import HeaderNavContainer from "@/ui/components/HeaderNavContainer";
 
 export const Header = () => {
 
-	// const activeClassName = "font-bold underline";
+	
 	
 
 	return (

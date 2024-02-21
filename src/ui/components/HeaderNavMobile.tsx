@@ -1,10 +1,19 @@
 "use client";
-
 import { useState } from "react";
+import ActiveLink from "@/ui/atoms/ActiveLink";
 
 type HeaderNavMobileProps = {
 	categories: string[];
 };
+// const activeClassName = "font-bold underline";
+{
+	/* <ActiveLink */
+}
+// 							href="/"
+// 							exact={true}
+// 							className="px-4 text-slate-800 hover:text-slate-500"
+// 							activeClassName={activeClassName}
+// 						>
 
 const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 	const [active, setActive] = useState<boolean>(false);
@@ -12,6 +21,9 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 	const handleMenuToggle = () => {
 		setActive(!active);
 	};
+
+	const linkClassName = "text-slate-800 hover:text-slate-500";
+	const linkActiveClassName = "font-bold underline";
 
 	return (
 		<div className="flex flex-col sm:hidden">
@@ -64,11 +76,24 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 			>
 				<ul className="list-none">
 					<li key="home">
-						<a href={`/products`}>All</a>
+						<ActiveLink
+							href={`/products`}
+							className={linkClassName}
+							activeClassName={linkActiveClassName}
+						>
+							All
+						</ActiveLink>
 					</li>
 					{categories.map((category) => (
 						<li key={category}>
-							<a href={`/categories/${category}/1`}>{category}</a>
+							<ActiveLink
+								href={`/categories/${category}/1`}
+								exact={false}
+								className={linkClassName}
+								activeClassName={linkActiveClassName}
+							>
+								{category}
+							</ActiveLink>
 						</li>
 					))}
 				</ul>
