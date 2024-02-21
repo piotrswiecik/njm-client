@@ -5,15 +5,6 @@ import ActiveLink from "@/ui/atoms/ActiveLink";
 type HeaderNavMobileProps = {
 	categories: string[];
 };
-// const activeClassName = "font-bold underline";
-{
-	/* <ActiveLink */
-}
-// 							href="/"
-// 							exact={true}
-// 							className="px-4 text-slate-800 hover:text-slate-500"
-// 							activeClassName={activeClassName}
-// 						>
 
 const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 	const [active, setActive] = useState<boolean>(false);
@@ -80,7 +71,7 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 				className={`${active ? "h-[200px] py-6" : "h-0"} overflow-hidden transition-all duration-700`}
 			>
 				<ul className="list-none">
-					<li key="home">
+					<li key="all">
 						<ActiveLink
 							href={`/products`}
 							className={linkClassName}
@@ -103,30 +94,6 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 					))}
 				</ul>
 			</div>
-			{/* <button
-      type="button"
-      className="hover:opacity-50"
-				aria-expanded="false"
-        aria-controls="mobile-menu"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					className="h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M4 6h16M4 12h16M4 18h16"
-					/>
-				</svg>
-			</button> */}
-			{/* <div className="" id="mobileMenu" data-mobile-menu-collapse-item>
-        <div>xwrr</div>
-      </div> */}
 		</div>
 	);
 };
