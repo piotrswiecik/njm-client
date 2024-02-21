@@ -28,7 +28,12 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 	return (
 		<div className="flex flex-col sm:hidden">
 			<div className="flex flex-row">
-				<h1 className="grow-0">logo</h1>
+				<h1 className="grow-0">
+					<div className="flex flex-row items-center">
+					<img src="/vinyl-svgrepo-com.svg" alt="NJM Record Store" className="max-w-16 aspect-square"/>
+					<span className="font-bold text-xl px-4">NJM Records</span>
+					</div>
+				</h1>
 				<span className="grow"></span>
 				<button
 					type="button"
