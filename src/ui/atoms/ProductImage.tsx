@@ -11,7 +11,7 @@ const ProductImage = ({ url, alt }: ProductImageProps) => {
 				src={url}
 				alt={alt}
 				// stretch the image to fill the container
-				className="aspect-square object-cover max-w-[500px] w-full h-full"
+				className="aspect-square object-cover max-w-[600px] w-full h-full"
 			/>
 		</div>
 	);
