@@ -101,6 +101,8 @@ export type Track = {
 
 export type CategoryGetProductsQueryVariables = Exact<{
   name: Scalars['String']['input'];
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
@@ -142,10 +144,10 @@ export class TypedDocumentString<TResult, TVariables>
 }
 
 export const CategoryGetProductsDocument = new TypedDocumentString(`
-    query CategoryGetProducts($name: String!) {
+    query CategoryGetProducts($name: String!, $skip: Int, $take: Int) {
   category(name: $name) {
     name
-    products {
+    products(skip: $skip, take: $take) {
       id
       title
       artist

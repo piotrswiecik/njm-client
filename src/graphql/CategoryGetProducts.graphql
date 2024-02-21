@@ -1,7 +1,7 @@
-query CategoryGetProducts($name: String!) {
+query CategoryGetProducts($name: String!, $skip: Int, $take: Int) {
   category(name: $name) {
     name
-    products {
+    products(skip: $skip, take: $take) {
       id
       title
       artist

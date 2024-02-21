@@ -1,7 +1,7 @@
 import { queryGraphql } from "@/api/gql";
 import { CategoryGetProductsDocument } from "@/gql/graphql";
 
-export const getProductsByCategory = async (name: string, skip: number | null, take: number | null) => {
+export const getProductsByCategory = async (name: string, take: number, skip: number) => {
   const { category } = await queryGraphql(CategoryGetProductsDocument, {name: name, skip: skip, take: take});
   
   if (!category) {

@@ -48,6 +48,8 @@ const CategoryPage = async ({ params }: PageProps) => {
 		(Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE,
 	);
 
+	console.log(products.length);
+
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
 			<ProductDashboard products={products} />
