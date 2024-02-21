@@ -15,7 +15,7 @@ export async function generateMetadata({
 	);
 	return {
 		title: product?.title,
-		description: product?.artist + " - " + product?.title,
+		description: product?.title,
 		generator: "Next.js",
 		applicationName: "NJM Record Store",
 		keywords: ["music", "vinyl", "records", "albums", "store"],

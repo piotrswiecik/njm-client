@@ -19,7 +19,7 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 	return (
 		<div className="flex flex-col sm:hidden">
 			<div className="flex flex-row">
-				<h1 className="grow-0">
+				<div className="grow-0">
 					<ActiveLink
 						href="/"
 						className="hover:opacity-75"
@@ -36,7 +36,7 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 							<span className="px-4 text-xl font-bold">NJM Records</span>
 						</div>
 					</ActiveLink>
-				</h1>
+				</div>
 				<span className="grow"></span>
 				<button
 					type="button"
