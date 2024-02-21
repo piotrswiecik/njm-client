@@ -66,6 +66,7 @@ export type Query = {
   categoryCount: Scalars['Int']['output'];
   count: Scalars['Int']['output'];
   product?: Maybe<Product>;
+  productSearch?: Maybe<Array<Product>>;
   products?: Maybe<Array<Product>>;
 };
 
@@ -82,6 +83,11 @@ export type QueryCategoryCountArgs = {
 
 export type QueryProductArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryProductSearchArgs = {
+  query: Scalars['String']['input'];
 };
 
 
@@ -140,6 +146,13 @@ export type ProductsOverviewDataQueryVariables = Exact<{
 
 
 export type ProductsOverviewDataQuery = { products?: Array<{ artist: string, id: string, price: number, title: string, category: { name: string }, collection?: Array<{ name: string }> | null, coverImg: { url: string, height: number, width: number } }> | null };
+
+export type ProductSearchQueryVariables = Exact<{
+  query: Scalars['String']['input'];
+}>;
+
+
+export type ProductSearchQuery = { productSearch?: Array<{ artist: string, id: string, price: number, title: string, category: { name: string }, collection?: Array<{ name: string }> | null, coverImg: { url: string, height: number, width: number } }> | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -237,3 +250,24 @@ export const ProductsOverviewDataDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProductsOverviewDataQuery, ProductsOverviewDataQueryVariables>;
+export const ProductSearchDocument = new TypedDocumentString(`
+    query ProductSearch($query: String!) {
+  productSearch(query: $query) {
+    artist
+    category {
+      name
+    }
+    collection {
+      name
+    }
+    coverImg {
+      url
+      height
+      width
+    }
+    id
+    price
+    title
+  }
+}
+    `) as unknown as TypedDocumentString<ProductSearchQuery, ProductSearchQueryVariables>;

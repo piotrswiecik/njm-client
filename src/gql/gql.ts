@@ -19,6 +19,7 @@ const documents = {
     "query ProductsCount {\n  count\n}": types.ProductsCountDocument,
     "query ProductDetailsData($productId: ID!) {\n  product(id: $productId) {\n    artist\n    category {\n      name\n    }\n    coverImg {\n      height\n      width\n      url\n    }\n    id\n    price\n    releaseDate\n    stock {\n      qtyCd\n      qtyLp\n    }\n    title\n    tracks {\n      name\n    }\n  }\n}": types.ProductDetailsDataDocument,
     "query ProductsOverviewData($take: Int!, $skip: Int) {\n  products(take: $take, skip: $skip) {\n    artist\n    category {\n      name\n    }\n    collection {\n      name\n    }\n    coverImg {\n      url\n      height\n      width\n    }\n    id\n    price\n    title\n  }\n}": types.ProductsOverviewDataDocument,
+    "query ProductSearch($query: String!) {\n  productSearch(query: $query) {\n    artist\n    category {\n      name\n    }\n    collection {\n      name\n    }\n    coverImg {\n      url\n      height\n      width\n    }\n    id\n    price\n    title\n  }\n}": types.ProductSearchDocument,
 };
 
 /**
@@ -41,6 +42,10 @@ export function graphql(source: "query ProductDetailsData($productId: ID!) {\n  
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query ProductsOverviewData($take: Int!, $skip: Int) {\n  products(take: $take, skip: $skip) {\n    artist\n    category {\n      name\n    }\n    collection {\n      name\n    }\n    coverImg {\n      url\n      height\n      width\n    }\n    id\n    price\n    title\n  }\n}"): typeof import('./graphql').ProductsOverviewDataDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductSearch($query: String!) {\n  productSearch(query: $query) {\n    artist\n    category {\n      name\n    }\n    collection {\n      name\n    }\n    coverImg {\n      url\n      height\n      width\n    }\n    id\n    price\n    title\n  }\n}"): typeof import('./graphql').ProductSearchDocument;
 
 
 export function graphql(source: string) {
