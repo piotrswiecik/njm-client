@@ -19,9 +19,10 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 						alt="NJM Record Store"
 						className="aspect-square max-w-16"
 					/>
-					<span className="pl-4 pr-2 lg:pr-8 text-xl font-bold">NJM Records</span>
+					<span className="pl-4 lg:pr-8 text-xl font-bold max-w-28">NJM Records</span>
 				</div>
 			</h1>
+			<div className="grow" />
 			<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
 				<li key="all">
 					<ActiveLink
