@@ -72,7 +72,7 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 			</div>
 			<div
 				id="mobile-menu"
-				className={`${active ? "h-[200px]" : "h-0"} overflow-hidden transition-all duration-700`}
+				className={`${active ? "h-[200px] py-6" : "h-0"} overflow-hidden transition-all duration-700`}
 			>
 				<ul className="list-none">
 					<li key="home">
@@ -92,7 +92,7 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 								className={linkClassName}
 								activeClassName={linkActiveClassName}
 							>
-								{category}
+								{category.split("").map((char, index) => (index === 0 ? char.toUpperCase() : char))}
 							</ActiveLink>
 						</li>
 					))}
