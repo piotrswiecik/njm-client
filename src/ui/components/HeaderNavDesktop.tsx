@@ -33,32 +33,54 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</ActiveLink>
 			</div>
 			<div className="grow" />
-			<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
-				<li key="all">
-					<ActiveLink
-						href={`/products`}
-						className={linkClassName}
-						activeClassName={linkActiveClassName}
-					>
-						All
-					</ActiveLink>
-				</li>
-				{categories.map((category) => (
-					<li key={category}>
+			{/* search item component */}
+			<div className="flex flex-col xl:flex-row">
+				<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
+					<li key="all">
 						<ActiveLink
-							href={`/categories/${category}/1`}
-							exact={false}
+							href={`/products`}
 							className={linkClassName}
 							activeClassName={linkActiveClassName}
 						>
-							{category
-								.split("")
-								.map((char, index) => (index === 0 ? char.toUpperCase() : char))
-								.join("")}
+							All
 						</ActiveLink>
 					</li>
-				))}
-			</ul>
+					{categories.map((category) => (
+						<li key={category}>
+							<ActiveLink
+								href={`/categories/${category}/1`}
+								exact={false}
+								className={linkClassName}
+								activeClassName={linkActiveClassName}
+							>
+								{category
+									.split("")
+									.map((char, index) =>
+										index === 0 ? char.toUpperCase() : char,
+									)
+									.join("")}
+							</ActiveLink>
+						</li>
+					))}
+				</ul>
+				{/* extract to separate component later */}
+				<div className="mt-4 xl:mt-0">
+					<form>
+						<div className="mx-8">
+							<div className="flex rounded-lg shadow-sm sm:max-w-md">
+								<input
+									type="text"
+									name="username"
+									id="username"
+									autoComplete="username"
+									className="focus-within:ring-2 w-60 focus-within:ring-inset focus-within:ring-slate-400 outline-none block flex-1 rounded-lg border-0 py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+									placeholder="Search"
+								/>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 			<div className="grow" />
 			<ShoppingCartLink />
 		</div>
