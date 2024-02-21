@@ -6,7 +6,7 @@ type HeaderNavDesktopProps = {
 };
 
 const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
-	const linkClassName = "text-slate-800 hover:text-slate-500";
+	const linkClassName = "text-slate-800 hover:text-slate-500 px-2 lg:px-4";
 	const linkActiveClassName = "font-bold underline";
 
 	return (
@@ -19,10 +19,10 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 						alt="NJM Record Store"
 						className="aspect-square max-w-16"
 					/>
-					<span className="px-4 text-xl font-bold">NJM Records</span>
+					<span className="pl-4 pr-2 text-xl font-bold">NJM Records</span>
 				</div>
 			</h1>
-			<ul className="flex grow list-none flex-row items-center justify-evenly max-w-lg">
+			<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
 				<li key="all">
 					<ActiveLink
 						href={`/products`}
