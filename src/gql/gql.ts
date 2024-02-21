@@ -14,12 +14,17 @@ import * as types from './graphql';
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "query CategoryCount($name: String!) {\n  categoryCount(name: $name)\n}": types.CategoryCountDocument,
     "query CategoryGetProducts($name: String!, $skip: Int, $take: Int) {\n  category(name: $name) {\n    name\n    products(skip: $skip, take: $take) {\n      id\n      title\n      artist\n      category {\n        name\n      }\n      collection {\n        name\n      }\n      coverImg {\n        width\n        height\n        url\n      }\n      price\n    }\n  }\n}": types.CategoryGetProductsDocument,
     "query ProductsCount {\n  count\n}": types.ProductsCountDocument,
     "query ProductDetailsData($productId: ID!) {\n  product(id: $productId) {\n    artist\n    category {\n      name\n    }\n    coverImg {\n      height\n      width\n      url\n    }\n    id\n    price\n    releaseDate\n    stock {\n      qtyCd\n      qtyLp\n    }\n    title\n    tracks {\n      name\n    }\n  }\n}": types.ProductDetailsDataDocument,
     "query ProductsOverviewData($take: Int!, $skip: Int) {\n  products(take: $take, skip: $skip) {\n    artist\n    category {\n      name\n    }\n    collection {\n      name\n    }\n    coverImg {\n      url\n      height\n      width\n    }\n    id\n    price\n    title\n  }\n}": types.ProductsOverviewDataDocument,
 };
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query CategoryCount($name: String!) {\n  categoryCount(name: $name)\n}"): typeof import('./graphql').CategoryCountDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

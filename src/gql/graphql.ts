@@ -63,6 +63,7 @@ export type Product = {
 
 export type Query = {
   category?: Maybe<Category>;
+  categoryCount: Scalars['Int']['output'];
   count: Scalars['Int']['output'];
   product?: Maybe<Product>;
   products?: Maybe<Array<Product>>;
@@ -70,6 +71,11 @@ export type Query = {
 
 
 export type QueryCategoryArgs = {
+  name: Scalars['String']['input'];
+};
+
+
+export type QueryCategoryCountArgs = {
   name: Scalars['String']['input'];
 };
 
@@ -98,6 +104,13 @@ export type Track = {
   product?: Maybe<Product>;
   url: Scalars['String']['output'];
 };
+
+export type CategoryCountQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type CategoryCountQuery = { categoryCount: number };
 
 export type CategoryGetProductsQueryVariables = Exact<{
   name: Scalars['String']['input'];
@@ -143,6 +156,11 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
+export const CategoryCountDocument = new TypedDocumentString(`
+    query CategoryCount($name: String!) {
+  categoryCount(name: $name)
+}
+    `) as unknown as TypedDocumentString<CategoryCountQuery, CategoryCountQueryVariables>;
 export const CategoryGetProductsDocument = new TypedDocumentString(`
     query CategoryGetProducts($name: String!, $skip: Int, $take: Int) {
   category(name: $name) {

@@ -3,6 +3,7 @@ import ProductDashboard from "@/ui/components/ProductDashboard";
 import Pagination from "@/ui/components/Pagination";
 import { getProductCount } from "@/api/getProductCount";
 import { getProductsByCategory } from "@/api/getProductsByCategory";
+import { getCategoryCount } from "@/api/getCategoryCount";
 
 type PageProps = {
 	params: {
@@ -37,7 +38,7 @@ export const generateMetadata = async ({
 };
 
 const CategoryPage = async ({ params }: PageProps) => {
-	const numberOfProducts = await getProductCount(); // TODO unhandled err thrown by service layer
+	const numberOfProducts = await getCategoryCount("jazz"); // TODO unhandled err thrown by service layer
 
 	// TODO optimize this, maybe base on media query
 	const PRODUCTS_PER_PAGE = 12;

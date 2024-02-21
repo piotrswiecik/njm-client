@@ -1,0 +1,3 @@
+query CategoryCount($name: String!) {
+  categoryCount(name: $name)
+}
