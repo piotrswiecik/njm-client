@@ -1,5 +1,6 @@
 import ActiveLink from "@/ui/atoms/ActiveLink";
 import ShoppingCartLink from "@/ui/atoms/ShoppingCartLink";
+import SearchBar from "@/ui/components/SearchBar";
 
 type HeaderNavDesktopProps = {
 	categories: string[];
@@ -63,22 +64,10 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 						</li>
 					))}
 				</ul>
-				{/* extract to separate component later */}
 				<div className="mt-4 xl:mt-0">
-					<form>
-						<div className="mx-8">
-							<div className="flex rounded-lg shadow-sm sm:max-w-md">
-								<input
-									type="text"
-									name="username"
-									id="username"
-									autoComplete="username"
-									className="focus-within:ring-2 w-60 focus-within:ring-inset focus-within:ring-slate-400 outline-none block flex-1 rounded-lg border-0 py-1.5 pl-2 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-									placeholder="Search"
-								/>
-							</div>
-						</div>
-					</form>
+					<div className="mx-8">
+				<SearchBar />
+					</div>
 				</div>
 			</div>
 			<div className="grow" />
