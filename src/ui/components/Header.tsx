@@ -1,26 +1,18 @@
-import ActiveLink from "@/ui/atoms/ActiveLink";
-import ShoppingCartLink from "@/ui/atoms/ShoppingCartLink";
-import NavDesktop from "@/ui/components/NavDesktop";
-import NavMobile from "@/ui/components/NavMobile";
+// import ActiveLink from "@/ui/atoms/ActiveLink";
+// import ShoppingCartLink from "@/ui/atoms/ShoppingCartLink";
+import HeaderNavContainer from "@/ui/components/HeaderNavContainer";
 
 export const Header = () => {
+
 	const activeClassName = "font-bold underline";
-	const availableCategories = [
-		"rock",
-		"jazz",
-		"classical",
-		"electronic",
-		"rap",
-		"metal",
-	];
+	
 
 	return (
 		// side to side
 		<div className="min-w-full bg-gradient-to-b from-slate-400 to-slate-200">
-			{/* centered container */}
+			{/* centered container wrapped around client component */}
 			<div className="mx-auto max-w-7xl px-12 py-8">
-				<NavDesktop />
-				<NavMobile />
+				<HeaderNavContainer />
 			</div>
 		</div>
 		// <div className="min-w-full bg-gradient-to-b from-slate-400 to-slate-200">
