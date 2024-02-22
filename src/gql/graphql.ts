@@ -38,6 +38,7 @@ export type Collection = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   product?: Maybe<Array<Product>>;
+  products?: Maybe<Array<Product>>;
 };
 
 export type CoverImage = {
@@ -64,6 +65,8 @@ export type Product = {
 export type Query = {
   category?: Maybe<Category>;
   categoryCount: Scalars['Int']['output'];
+  collection?: Maybe<Collection>;
+  collections?: Maybe<Array<Collection>>;
   count: Scalars['Int']['output'];
   product?: Maybe<Product>;
   productSearch?: Maybe<Array<Product>>;
@@ -77,6 +80,11 @@ export type QueryCategoryArgs = {
 
 
 export type QueryCategoryCountArgs = {
+  name: Scalars['String']['input'];
+};
+
+
+export type QueryCollectionArgs = {
   name: Scalars['String']['input'];
 };
 
@@ -126,6 +134,11 @@ export type CategoryGetProductsQueryVariables = Exact<{
 
 
 export type CategoryGetProductsQuery = { category?: { name: string, products?: Array<{ id: string, title: string, artist: string, price: number, category: { name: string }, collection?: Array<{ name: string }> | null, coverImg: { width: number, height: number, url: string } }> | null } | null };
+
+export type CollectionsGetQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionsGetQuery = { collections?: Array<{ name: string }> | null };
 
 export type ProductsCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -198,6 +211,13 @@ export const CategoryGetProductsDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CategoryGetProductsQuery, CategoryGetProductsQueryVariables>;
+export const CollectionsGetDocument = new TypedDocumentString(`
+    query CollectionsGet {
+  collections {
+    name
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionsGetQuery, CollectionsGetQueryVariables>;
 export const ProductsCountDocument = new TypedDocumentString(`
     query ProductsCount {
   count

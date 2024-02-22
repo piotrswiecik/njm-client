@@ -1,9 +1,5 @@
 import { type Metadata } from "next";
-import ProductDashboard from "@/ui/components/ProductDashboard";
-import Pagination from "@/ui/components/Pagination";
-import { getProductCount } from "@/api/getProductCount";
-import { getProducts } from "@/api/getProducts";
-
+import { getCollections } from "@/api/getCollections";
 export const metadata: Metadata = {
 	title: "NJM Record Store - Products",
 	description: "NJM Record Store - Products",
@@ -18,25 +14,17 @@ export const metadata: Metadata = {
 	creator: "Piotr Święcik",
 };
 
-const ProductsPage = async () => {
-	const numberOfProducts = await getProductCount(); // TODO unhandled err thrown by service layer
-
-	// TODO optimize this, maybe base on media query
-	const PRODUCTS_PER_PAGE = 12;
-
-	const products = await getProducts(PRODUCTS_PER_PAGE, 0);
+const HomePage = async () => {
+	const collections = await getCollections();
 
 	return (
 		<div className="mx-auto w-10/12 max-w-7xl px-6 sm:px-12">
-			<ProductDashboard products={products} />
-			<div className="mt-12 flex justify-center">
-				<Pagination
-					totalPages={Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE)}
-					corePathSegment="products"
-				/>
-			</div>
+			<span>Welcome to NJM Record Store!</span>
+			{ collections?.map((collection) => (
+				<p key="">{ collection.name }</p>
+			))}
 		</div>
 	);
 };
 
-export default ProductsPage;
+export default HomePage;
