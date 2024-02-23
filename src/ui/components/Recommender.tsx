@@ -23,7 +23,7 @@ const RecommenderComponent = async ({
 						className="group relative max-w-[200px] list-none"
 					>
 						<Link href={`/product/${product.id}`}>
-							<RecommenderItem item={product} />
+							<RecommenderItem product={product}/>
 						</Link>
 					</li>
 				))}

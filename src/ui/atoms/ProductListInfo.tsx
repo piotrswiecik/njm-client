@@ -1,16 +1,11 @@
 import type { ProductOverviewDto } from "@/api/models";
-import { formatPrice } from "@/utils/utils";
+import { formatPrice, getBasicVariantPrice } from "@/utils/utils";
 
 type ProductInfoProps = {
 	product: ProductOverviewDto;
 };
 
 const ProductListInfo = ({ product }: ProductInfoProps) => {
-	const getBasicVariantPrice = (product: ProductOverviewDto) => {
-		const prices = product.variants.map((v) => v.price);
-		return Math.min(...prices);
-	};
-
 	return (
 		<div className="mt-4 flex justify-between">
 			<div>
