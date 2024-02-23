@@ -1,13 +1,4 @@
 import { type Metadata } from "next";
-import ProductDashboard from "@/ui/components/ProductDashboard";
-import Pagination from "@/ui/components/Pagination";
-import { getProductCount } from "@/api/getProductCount";
-import { getProducts } from "@/api/getProducts";
-import { getCollections } from "@/api/getCollections";
-
-type CollectionsPageProps = {
-	collectionName: string;
-};
 
 export const metadata: Metadata = {
 	title: "NJM Record Store - Collections",
@@ -23,13 +14,14 @@ export const metadata: Metadata = {
 	creator: "Piotr Święcik",
 };
 
-const CollectionsPage = async ({ collectionName }: CollectionsPageProps) => {
+const CollectionsPage = async () => {
 	
 
 	return (
-		<div className="px-6 sm:px-12">
-			<ProductDashboard products={products} />
-		</div>
+		<div>tbd</div>
+		// <div className="px-6 sm:px-12">
+		// 	<ProductDashboard products={products} />
+		// </div>
 	);
 };
 

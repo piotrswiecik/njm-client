@@ -12,6 +12,11 @@ query CollectionFindByNameWithAllProducts($name: String!) {
         name
       }
       coverImageUrl
+      variants {
+        name
+        price
+        stock
+      }
     }
   }
 }

@@ -129,7 +129,7 @@ export type CollectionFindByNameWithAllProductsQueryVariables = Exact<{
 }>;
 
 
-export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string } }> } | null };
+export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }> }> } | null };
 
 export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -156,7 +156,7 @@ export type ProductsSearchQueryVariables = Exact<{
 }>;
 
 
-export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number }> }> | null };
+export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }> }> | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -223,6 +223,11 @@ export const CollectionFindByNameWithAllProductsDocument = new TypedDocumentStri
         name
       }
       coverImageUrl
+      variants {
+        name
+        price
+        stock
+      }
     }
   }
 }
@@ -290,6 +295,7 @@ export const ProductsSearchDocument = new TypedDocumentString(`
     }
     coverImageUrl
     variants {
+      name
       price
       stock
     }

@@ -16,5 +16,6 @@ export const getProductsByCollection = async (
 		...product,
 		artist: product.artist,
 		category: product.category.name,
+		variants: product.variants,
 	}));
 };

@@ -1,33 +1,35 @@
 import { queryGraphql } from "@/api/queryGraphql";
 import { type ProductOverviewDto } from "@/api/models";
-import { ProductSearchDocument } from "@/gql/graphql";
+import { ProductsSearchDocument } from "@/graphql/generated/graphql";
 
 export const getSearchResults = async (
 	query: string,
 ): Promise<ProductOverviewDto[]> => {
-	// raw graphql data
-	const { productSearch } = await queryGraphql(ProductSearchDocument, {
-		query,
-	});
+	try {
+		const { productSearch } = await queryGraphql(ProductsSearchDocument, {
+			query,
+		});
+	
+		if (!productSearch) {
+			return [];
+		}
 
-	if (!productSearch) {
-		return [];
+		return productSearch.map((product) => (
+			{
+				...product,
+				artist: {
+					name: product.artist.name,
+				},
+				category: product.category.name,
+				variants: product.variants
+			}
+		));
+
+	} catch (err ) {
+		console.error(err);
+		throw err;
 	}
+	
 
-	// map to dto
-	return productSearch.map((product) => {
-		return {
-			id: product.id,
-			artist: product.artist,
-			category: product.category.name,
-			title: product.title,
-			price: product.price,
-			image: {
-				url: product.coverImg.url,
-				width: product.coverImg.width,
-				height: product.coverImg.height,
-			},
-			collections: [],
-		};
-	});
+	
 };

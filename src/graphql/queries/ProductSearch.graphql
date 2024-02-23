@@ -10,6 +10,7 @@ query ProductsSearch($query: String!) {
     }
     coverImageUrl
     variants {
+      name
       price
       stock
     }
