@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getRecommendation } from "@/api/getRecommendation";
 import RecommenderItem from "@/ui/atoms/RecommenderItem";
-import { type ProductOverview } from "@/api/getProducts";
+import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 
 type RecommenderComponentProps = {
 	categoryName: string;
@@ -11,7 +11,7 @@ const RecommenderComponent = async ({
 	categoryName,
 }: RecommenderComponentProps) => {
 	// currently returns N products from same category
-	const recommendedProducts: ProductOverview[] =
+	const recommendedProducts: ProductOverviewFragment[] =
 		await getRecommendation({ categoryName: categoryName }, 4);
 	return (
 		<section data-testid="related-products">

@@ -1,0 +1,5 @@
+query ProductsSearch($query: String!) {
+  productSearch(query: $query) {
+    ...ProductOverview
+  }
+}

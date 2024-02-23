@@ -1,6 +1,6 @@
-import { type ProductOverview } from "@/api/getProducts";
+import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 
-const RecommenderItem = ({ product }: { product: ProductOverview }) => {
+const RecommenderItem = ({ product }: { product: ProductOverviewFragment }) => {
 	return (
 		<div className="flex flex-col">
 			<h2 className="order-2">{product.title}</h2>

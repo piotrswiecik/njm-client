@@ -1,10 +1,10 @@
 import Link from "next/link";
 import ProductImage from "@/ui/atoms/ProductImage";
 import ProductListInfo from "@/ui/atoms/ProductListInfo";
-import { type ProductOverview } from "@/api/getProducts";
+import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 
 type ProductCardProps = {
-	product: ProductOverview;
+	product: ProductOverviewFragment;
 };
 
 const ProductListItemCard = ({ product }: ProductCardProps) => {

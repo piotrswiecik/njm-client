@@ -7,7 +7,7 @@ loadEnvConfig(process.cwd());
 const config: CodegenConfig = {
   overwrite: true,
   schema: process.env.GRAPHQL_API_URL,
-  documents: "src/graphql/queries/*.graphql",
+  documents: "src/graphql/source/**/*.graphql",
   ignoreNoDocuments: true,
   generates: {
     "src/graphql/generated/": {

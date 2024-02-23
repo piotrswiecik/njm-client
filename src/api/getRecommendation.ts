@@ -1,5 +1,5 @@
-import { type ProductOverview } from "@/api/getProducts";
 import { getProductsByCategory } from "@/api/getProductsByCategory";
+import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 
 type Criteria = {
 	categoryName: string;
@@ -11,7 +11,7 @@ type Criteria = {
 export const getRecommendation = async (
 	criteria: Criteria,
 	take?: number,
-): Promise<ProductOverview[]> => {
+): Promise<ProductOverviewFragment[]> => {
 	try {
 		const allProductsInCategory = await getProductsByCategory(
 			criteria.categoryName,

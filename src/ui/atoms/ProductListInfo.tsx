@@ -1,8 +1,8 @@
-import { type ProductOverview } from "@/api/getProducts";
+import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 import { formatPrice, getBasicVariantPrice } from "@/utils/utils";
 
 type ProductInfoProps = {
-	product: ProductOverview;
+	product: ProductOverviewFragment;
 };
 
 const ProductListInfo = ({ product }: ProductInfoProps) => {

@@ -1,11 +1,11 @@
-import { type Product } from "@/graphql/generated/graphql";
+import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 import ProductInfoPanel from "@/ui/atoms/ProductDetailsInfo";
 import ProductImage from "@/ui/atoms/ProductImage";
 
 const ProductDetailsComponent = async ({
 	product,
 }: {
-	product: Product;
+	product: ProductDetailsFragment;
 }) => {
 	return (
 		<div className="flex flex-col justify-start sm:flex-row">

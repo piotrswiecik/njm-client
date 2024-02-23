@@ -1,8 +1,8 @@
-import { type ProductOverview } from "@/api/getProducts";
+import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 import ProductListItemCard from "@/ui/components/ProductListItemCard";
 
 type ProductDashboardProps = {
-	products: ProductOverview[];
+	products: ProductOverviewFragment[];
 };
 
 const ProductDashboard = async ({ products }: ProductDashboardProps) => {

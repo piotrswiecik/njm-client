@@ -103,6 +103,10 @@ export type Variant = {
   stock: Scalars['Int']['output'];
 };
 
+export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
+
+export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
+
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
 }>;
@@ -117,7 +121,7 @@ export type CategoryFindByNameWithPaginatedProductsQueryVariables = Exact<{
 }>;
 
 
-export type CategoryFindByNameWithPaginatedProductsQuery = { category?: { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }> }> } | null };
+export type CategoryFindByNameWithPaginatedProductsQuery = { category?: { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> } | null };
 
 export type CollectionFindAllQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -129,7 +133,7 @@ export type CollectionFindByNameWithAllProductsQueryVariables = Exact<{
 }>;
 
 
-export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }> }> } | null };
+export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> } | null };
 
 export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -156,7 +160,7 @@ export type ProductsSearchQueryVariables = Exact<{
 }>;
 
 
-export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }> }> | null };
+export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -172,7 +176,47 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-
+export const ProductDetailsFragmentDoc = new TypedDocumentString(`
+    fragment ProductDetails on Product {
+  id
+  artist {
+    name
+  }
+  category {
+    name
+  }
+  coverImageUrl
+  variants {
+    name
+    price
+    stock
+  }
+  title
+  releaseDate
+  tracks {
+    name
+    number
+  }
+}
+    `, {"fragmentName":"ProductDetails"}) as unknown as TypedDocumentString<ProductDetailsFragment, unknown>;
+export const ProductOverviewFragmentDoc = new TypedDocumentString(`
+    fragment ProductOverview on Product {
+  id
+  artist {
+    name
+  }
+  title
+  category {
+    name
+  }
+  coverImageUrl
+  variants {
+    price
+    stock
+    name
+  }
+}
+    `, {"fragmentName":"ProductOverview"}) as unknown as TypedDocumentString<ProductOverviewFragment, unknown>;
 export const CategoryCountDocument = new TypedDocumentString(`
     query CategoryCount($name: String!) {
   categoryCount(name: $name)
@@ -182,24 +226,26 @@ export const CategoryFindByNameWithPaginatedProductsDocument = new TypedDocument
     query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {
   category(name: $name) {
     products(skip: $skip, take: $take) {
-      id
-      artist {
-        name
-      }
-      title
-      category {
-        name
-      }
-      coverImageUrl
-      variants {
-        name
-        price
-        stock
-      }
+      ...ProductOverview
     }
   }
 }
-    `) as unknown as TypedDocumentString<CategoryFindByNameWithPaginatedProductsQuery, CategoryFindByNameWithPaginatedProductsQueryVariables>;
+    fragment ProductOverview on Product {
+  id
+  artist {
+    name
+  }
+  title
+  category {
+    name
+  }
+  coverImageUrl
+  variants {
+    price
+    stock
+    name
+  }
+}`) as unknown as TypedDocumentString<CategoryFindByNameWithPaginatedProductsQuery, CategoryFindByNameWithPaginatedProductsQueryVariables>;
 export const CollectionFindAllDocument = new TypedDocumentString(`
     query CollectionFindAll {
   collections {
@@ -214,24 +260,26 @@ export const CollectionFindByNameWithAllProductsDocument = new TypedDocumentStri
     id
     name
     products {
-      id
-      artist {
-        name
-      }
-      title
-      category {
-        name
-      }
-      coverImageUrl
-      variants {
-        name
-        price
-        stock
-      }
+      ...ProductOverview
     }
   }
 }
-    `) as unknown as TypedDocumentString<CollectionFindByNameWithAllProductsQuery, CollectionFindByNameWithAllProductsQueryVariables>;
+    fragment ProductOverview on Product {
+  id
+  artist {
+    name
+  }
+  title
+  category {
+    name
+  }
+  coverImageUrl
+  variants {
+    price
+    stock
+    name
+  }
+}`) as unknown as TypedDocumentString<CollectionFindByNameWithAllProductsQuery, CollectionFindByNameWithAllProductsQueryVariables>;
 export const ProductCountDocument = new TypedDocumentString(`
     query ProductCount {
   productCount
@@ -240,65 +288,71 @@ export const ProductCountDocument = new TypedDocumentString(`
 export const ProductFindAllDocument = new TypedDocumentString(`
     query ProductFindAll($skip: Int, $take: Int) {
   products(skip: $skip, take: $take) {
-    id
-    artist {
-      name
-    }
-    title
-    category {
-      name
-    }
-    coverImageUrl
-    variants {
-      price
-      stock
-      name
-    }
+    ...ProductOverview
   }
 }
-    `) as unknown as TypedDocumentString<ProductFindAllQuery, ProductFindAllQueryVariables>;
+    fragment ProductOverview on Product {
+  id
+  artist {
+    name
+  }
+  title
+  category {
+    name
+  }
+  coverImageUrl
+  variants {
+    price
+    stock
+    name
+  }
+}`) as unknown as TypedDocumentString<ProductFindAllQuery, ProductFindAllQueryVariables>;
 export const ProductFindByIdDocument = new TypedDocumentString(`
     query ProductFindById($productId: ID!) {
   product(id: $productId) {
-    id
-    artist {
-      name
-    }
-    category {
-      name
-    }
-    coverImageUrl
-    variants {
-      name
-      price
-      stock
-    }
-    title
-    releaseDate
-    tracks {
-      name
-      number
-    }
+    ...ProductDetails
   }
 }
-    `) as unknown as TypedDocumentString<ProductFindByIdQuery, ProductFindByIdQueryVariables>;
+    fragment ProductDetails on Product {
+  id
+  artist {
+    name
+  }
+  category {
+    name
+  }
+  coverImageUrl
+  variants {
+    name
+    price
+    stock
+  }
+  title
+  releaseDate
+  tracks {
+    name
+    number
+  }
+}`) as unknown as TypedDocumentString<ProductFindByIdQuery, ProductFindByIdQueryVariables>;
 export const ProductsSearchDocument = new TypedDocumentString(`
     query ProductsSearch($query: String!) {
   productSearch(query: $query) {
-    id
-    artist {
-      name
-    }
-    title
-    category {
-      name
-    }
-    coverImageUrl
-    variants {
-      name
-      price
-      stock
-    }
+    ...ProductOverview
   }
 }
-    `) as unknown as TypedDocumentString<ProductsSearchQuery, ProductsSearchQueryVariables>;
+    fragment ProductOverview on Product {
+  id
+  artist {
+    name
+  }
+  title
+  category {
+    name
+  }
+  coverImageUrl
+  variants {
+    price
+    stock
+    name
+  }
+}`) as unknown as TypedDocumentString<ProductsSearchQuery, ProductsSearchQueryVariables>;

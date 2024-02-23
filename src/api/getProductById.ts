@@ -1,9 +1,12 @@
 import { queryGraphql } from "@/api/queryGraphql";
-import { type Product, ProductFindByIdDocument } from "@/graphql/generated/graphql";
+import {
+	ProductFindByIdDocument,
+	type ProductDetailsFragment,
+} from "@/graphql/generated/graphql";
 
 export const getProductById = async (
 	productId: string,
-): Promise<Product> => {
+): Promise<ProductDetailsFragment> => {
 	try {
 		const { product } = await queryGraphql(ProductFindByIdDocument, {
 			productId: productId,
@@ -11,11 +14,7 @@ export const getProductById = async (
 		if (!product) {
 			throw new Error("Product not found");
 		}
-		return {
-			...product,
-			// FIXME: temporary type workaround
-			category: { ...product.category, id: "null", products: [] },
-		};
+		return product;
 	} catch (err) {
 		console.error("Product API error", err);
 		throw err; // rethrow & catch in ui

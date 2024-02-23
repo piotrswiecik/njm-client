@@ -1,0 +1,9 @@
+query CollectionFindByNameWithAllProducts($name: String!) {
+  collection(name: $name) {
+    id
+    name
+    products {
+      ...ProductOverview
+    }
+  }
+}

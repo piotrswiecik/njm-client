@@ -3,14 +3,14 @@ import ProductDetailsComponent from "@/ui/components/ProductDetails";
 import RecommenderComponent from "@/ui/components/Recommender";
 import ReviewsComponent from "@/ui/components/Reviews";
 import { getProductById } from "@/api/getProductById";
-import { type Product } from "@/graphql/generated/graphql";
+import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 
 export async function generateMetadata({
 	params,
 }: {
 	params: { productId: string };
 }): Promise<Metadata> {
-	const product: Product = await getProductById(
+	const product: ProductDetailsFragment = await getProductById(
 		params.productId,
 	);
 	return {
@@ -34,7 +34,7 @@ const ProductDetailsPage = async ({
 	params: { productId: string };
 }) => {
 	// TODO unhandled err thrown by service layer
-	const product: Product = await getProductById(
+	const product: ProductDetailsFragment = await getProductById(
 		params.productId,
 	);
 	if (!product) {

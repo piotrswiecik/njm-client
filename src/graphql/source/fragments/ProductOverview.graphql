@@ -1,0 +1,16 @@
+fragment ProductOverview on Product {
+  id
+  artist {
+    name
+  }
+  title
+  category {
+    name
+  }
+  coverImageUrl
+  variants {
+    price
+    stock
+    name
+  }
+}

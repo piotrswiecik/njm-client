@@ -1,10 +1,12 @@
-import { type ProductOverview } from "@/api/getProducts";
 import { queryGraphql } from "@/api/queryGraphql";
-import { CollectionFindByNameWithAllProductsDocument } from "@/graphql/generated/graphql";
+import {
+	CollectionFindByNameWithAllProductsDocument,
+	type ProductOverviewFragment,
+} from "@/graphql/generated/graphql";
 
 export const getProductsByCollection = async (
 	name: string,
-): Promise<ProductOverview[]> => {
+): Promise<ProductOverviewFragment[]> => {
 	const { collection } = await queryGraphql(
 		CollectionFindByNameWithAllProductsDocument,
 		{
@@ -12,10 +14,5 @@ export const getProductsByCollection = async (
 		},
 	);
 	if (!collection) return [];
-	return collection.products.map((product) => ({
-		...product,
-		artist: product.artist,
-		category: product.category.name,
-		variants: product.variants,
-	}));
+	return collection.products;
 };

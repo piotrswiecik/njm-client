@@ -1,8 +1,8 @@
-import { type Product } from "@/graphql/generated/graphql";
+import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 import { formatPrice, getBasicVariantPrice } from "@/utils/utils";
 
 type ProductDetailsProps = {
-	product: Product;
+	product: ProductDetailsFragment;
 };
 
 // TODO maybe refactor into subcomponents - atoms
