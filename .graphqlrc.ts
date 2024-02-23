@@ -1,9 +1,12 @@
 
 import type { CodegenConfig } from '@graphql-codegen/cli';
+import { loadEnvConfig } from "@next/env";
+
+loadEnvConfig(process.cwd());
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "./src/graphql/schemas/*.graphql",
+  schema: process.env.GRAPHQL_API_URL,
   documents: "src/graphql/queries/*.graphql",
   ignoreNoDocuments: true,
   generates: {
