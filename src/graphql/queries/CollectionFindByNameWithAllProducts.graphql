@@ -1,0 +1,17 @@
+query CollectionFindByNameWithAllProducts($name: String!) {
+  collection(name: $name) {
+    id
+    name
+    products {
+      id
+      artist {
+        name
+      }
+      title
+      category {
+        name
+      }
+      coverImageUrl
+    }
+  }
+}

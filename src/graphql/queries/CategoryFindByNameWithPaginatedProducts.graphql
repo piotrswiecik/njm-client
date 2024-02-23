@@ -1,0 +1,15 @@
+query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {
+  category(name: $name) {
+    products(skip: $skip, take: $take) {
+      id
+      artist {
+        name
+      }
+      title
+      category {
+        name
+      }
+      coverImageUrl
+    }
+  }
+}

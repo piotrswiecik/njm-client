@@ -1,0 +1,13 @@
+query ProductFindAll($skip: Int, $take: Int) {
+  products(skip: $skip, take: $take) {
+    id
+    artist {
+      name
+    }
+    title
+    category {
+      name
+    }
+    coverImageUrl
+  }
+}

@@ -1,0 +1,13 @@
+query ProductsSearch($query: String!) {
+  productSearch(query: $query) {
+    id
+    artist {
+      name
+    }
+    title
+    category {
+      name
+    }
+    coverImageUrl
+  }
+}

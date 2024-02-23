@@ -1,0 +1,6 @@
+query CollectionFindAll {
+  collections {
+    id
+    name
+  }
+}

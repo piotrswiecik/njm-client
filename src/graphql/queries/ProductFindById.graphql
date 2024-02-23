@@ -1,0 +1,22 @@
+query ProductFindById($productId: ID!) {
+  product(id: $productId) {
+    id
+    artist {
+      name
+    }
+    category {
+      name
+    }
+    coverImageUrl
+    variants {
+      name
+      price
+      stock
+    }
+    title
+    tracks {
+      name
+      number
+    }
+  }
+}
