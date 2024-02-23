@@ -1,4 +1,5 @@
-import { type ProductDetailsDto, type ProductOverviewDto } from "@/api/models";
+import { type ProductOverview } from "@/api/getProducts";
+import { type Product } from "@/graphql/generated/graphql";
 
 export const formatPrice = (price: number) => {
 	return new Intl.NumberFormat("en-US", {
@@ -8,7 +9,7 @@ export const formatPrice = (price: number) => {
 };
 
 export const getBasicVariantPrice = (
-	product: ProductOverviewDto | ProductDetailsDto,
+	product: ProductOverview | Product,
 ) => {
 	const prices = product.variants.map((v) => v.price);
 	return Math.min(...prices);

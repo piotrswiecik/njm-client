@@ -1,5 +1,5 @@
+import { type ProductOverview } from "@/api/getProducts";
 import { getProductsByCategory } from "@/api/getProductsByCategory";
-import { type ProductRecommendationDto } from "@/api/models";
 
 type Criteria = {
 	categoryName: string;
@@ -11,9 +11,11 @@ type Criteria = {
 export const getRecommendation = async (
 	criteria: Criteria,
 	take?: number,
-): Promise<ProductRecommendationDto[]> => {
+): Promise<ProductOverview[]> => {
 	try {
-		const allProductsInCategory = await getProductsByCategory(criteria.categoryName);
+		const allProductsInCategory = await getProductsByCategory(
+			criteria.categoryName,
+		);
 		return allProductsInCategory
 			.sort(() => Math.random() - 0.5)
 			.slice(0, take || 5);

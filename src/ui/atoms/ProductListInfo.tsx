@@ -1,8 +1,8 @@
-import type { ProductOverviewDto } from "@/api/models";
+import { type ProductOverview } from "@/api/getProducts";
 import { formatPrice, getBasicVariantPrice } from "@/utils/utils";
 
 type ProductInfoProps = {
-	product: ProductOverviewDto;
+	product: ProductOverview;
 };
 
 const ProductListInfo = ({ product }: ProductInfoProps) => {

@@ -1,10 +1,10 @@
 import Link from "next/link";
-import type { ProductOverviewDto } from "@/api/models";
 import ProductImage from "@/ui/atoms/ProductImage";
 import ProductListInfo from "@/ui/atoms/ProductListInfo";
+import { type ProductOverview } from "@/api/getProducts";
 
 type ProductCardProps = {
-	product: ProductOverviewDto;
+	product: ProductOverview;
 };
 
 const ProductListItemCard = ({ product }: ProductCardProps) => {

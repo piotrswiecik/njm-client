@@ -1,6 +1,6 @@
-import { type ProductRecommendationDto } from "@/api/models";
+import { type ProductOverview } from "@/api/getProducts";
 
-const RecommenderItem = ({ product }: { product: ProductRecommendationDto }) => {
+const RecommenderItem = ({ product }: { product: ProductOverview }) => {
 	return (
 		<div className="flex flex-col">
 			<h2 className="order-2">{product.title}</h2>

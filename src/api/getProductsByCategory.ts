@@ -1,4 +1,4 @@
-import { type ProductOverviewDto } from "@/api/models";
+import { type ProductOverview } from "@/api/getProducts";
 import { queryGraphql } from "@/api/queryGraphql";
 import { CategoryFindByNameWithPaginatedProductsDocument } from "@/graphql/generated/graphql";
 
@@ -6,7 +6,7 @@ export const getProductsByCategory = async (
 	name: string,
 	take?: number,
 	skip?: number,
-): Promise<ProductOverviewDto[]> => {
+): Promise<ProductOverview[]> => {
 	const { category } = await queryGraphql(CategoryFindByNameWithPaginatedProductsDocument, {
 		name,
 		take,
