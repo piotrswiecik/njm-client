@@ -1,4 +1,5 @@
 /* eslint-disable */
+import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -107,6 +108,61 @@ export type Variant = {
   stock: Scalars['Int']['output'];
 };
 
+export type CategoryCountQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type CategoryCountQuery = { categoryCount: number };
+
+export type CategoryFindByNameWithPaginatedProductsQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type CategoryFindByNameWithPaginatedProductsQuery = { category?: { products?: Array<{ id: string, title: string, coverImageUrl: string, artist?: { name: string } | null, category?: { name: string } | null }> | null } | null };
+
+export type CollectionFindAllQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionFindAllQuery = { collections?: Array<{ id: string, name: string }> | null };
+
+export type CollectionFindByNameWithAllProductsQueryVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+
+export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products?: Array<{ id: string, title: string, coverImageUrl: string, artist?: { name: string } | null, category?: { name: string } | null }> | null } | null };
+
+export type ProductsCountQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ProductsCountQuery = { productCount: number };
+
+export type ProductFindAllQueryVariables = Exact<{
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type ProductFindAllQuery = { products?: Array<{ id: string, title: string, coverImageUrl: string, artist?: { name: string } | null, category?: { name: string } | null } | null> | null };
+
+export type ProductFindByIdQueryVariables = Exact<{
+  productId: Scalars['ID']['input'];
+}>;
+
+
+export type ProductFindByIdQuery = { product?: { id: string, coverImageUrl: string, title: string, artist?: { name: string } | null, category?: { name: string } | null, variants?: Array<{ name: string, price: number, stock: number } | null> | null, tracks?: Array<{ name: string, number: number } | null> | null } | null };
+
+export type ProductsSearchQueryVariables = Exact<{
+  query: Scalars['String']['input'];
+}>;
+
+
+export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist?: { name: string } | null, category?: { name: string } | null } | null> | null };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -121,3 +177,112 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+
+export const CategoryCountDocument = new TypedDocumentString(`
+    query CategoryCount($name: String!) {
+  categoryCount(name: $name)
+}
+    `) as unknown as TypedDocumentString<CategoryCountQuery, CategoryCountQueryVariables>;
+export const CategoryFindByNameWithPaginatedProductsDocument = new TypedDocumentString(`
+    query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {
+  category(name: $name) {
+    products(skip: $skip, take: $take) {
+      id
+      artist {
+        name
+      }
+      title
+      category {
+        name
+      }
+      coverImageUrl
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CategoryFindByNameWithPaginatedProductsQuery, CategoryFindByNameWithPaginatedProductsQueryVariables>;
+export const CollectionFindAllDocument = new TypedDocumentString(`
+    query CollectionFindAll {
+  collections {
+    id
+    name
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionFindAllQuery, CollectionFindAllQueryVariables>;
+export const CollectionFindByNameWithAllProductsDocument = new TypedDocumentString(`
+    query CollectionFindByNameWithAllProducts($name: String!) {
+  collection(name: $name) {
+    id
+    name
+    products {
+      id
+      artist {
+        name
+      }
+      title
+      category {
+        name
+      }
+      coverImageUrl
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionFindByNameWithAllProductsQuery, CollectionFindByNameWithAllProductsQueryVariables>;
+export const ProductsCountDocument = new TypedDocumentString(`
+    query ProductsCount {
+  productCount
+}
+    `) as unknown as TypedDocumentString<ProductsCountQuery, ProductsCountQueryVariables>;
+export const ProductFindAllDocument = new TypedDocumentString(`
+    query ProductFindAll($skip: Int, $take: Int) {
+  products(skip: $skip, take: $take) {
+    id
+    artist {
+      name
+    }
+    title
+    category {
+      name
+    }
+    coverImageUrl
+  }
+}
+    `) as unknown as TypedDocumentString<ProductFindAllQuery, ProductFindAllQueryVariables>;
+export const ProductFindByIdDocument = new TypedDocumentString(`
+    query ProductFindById($productId: ID!) {
+  product(id: $productId) {
+    id
+    artist {
+      name
+    }
+    category {
+      name
+    }
+    coverImageUrl
+    variants {
+      name
+      price
+      stock
+    }
+    title
+    tracks {
+      name
+      number
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ProductFindByIdQuery, ProductFindByIdQueryVariables>;
+export const ProductsSearchDocument = new TypedDocumentString(`
+    query ProductsSearch($query: String!) {
+  productSearch(query: $query) {
+    id
+    artist {
+      name
+    }
+    title
+    category {
+      name
+    }
+    coverImageUrl
+  }
+}
+    `) as unknown as TypedDocumentString<ProductsSearchQuery, ProductsSearchQueryVariables>;
