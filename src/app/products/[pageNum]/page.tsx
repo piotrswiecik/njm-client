@@ -18,13 +18,23 @@ export const metadata: Metadata = {
 	creator: "Piotr Święcik",
 };
 
-const ProductsPage = async ({ params } : { params: { pageNum: string }}) => {
+export async function generateStaticParams() {
+	const numberOfProducts = await getProductCount();
+	const PRODUCTS_PER_PAGE = 12;
+	const totalPages = Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE);
+	return Array.from({ length: totalPages }, (_, i) => (i + 1).toString());
+}
+
+const ProductsPage = async ({ params }: { params: { pageNum: string } }) => {
 	const numberOfProducts = await getProductCount(); // TODO unhandled err thrown by service layer
-	
+
 	// TODO optimize this, maybe base on media query
 	const PRODUCTS_PER_PAGE = 12;
 
-	const products = await getProducts(PRODUCTS_PER_PAGE, (Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE);
+	const products = await getProducts(
+		PRODUCTS_PER_PAGE,
+		(Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE,
+	);
 
 	return (
 		<div className="px-6 sm:px-12">
