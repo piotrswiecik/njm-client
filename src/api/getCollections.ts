@@ -1,12 +1,12 @@
-import { queryGraphql } from "@/api/gql";
-import { CollectionsGetDocument } from "@/gql/graphql";
+import { queryGraphql } from "@/api/queryGraphql";
+import { CollectionFindAllDocument } from "@/graphql/generated/graphql";
 
 export const getCollections = async () => {
-  try {
-    const { collections } = await queryGraphql(CollectionsGetDocument, {});
-    return collections;
-  } catch (err) {
-    console.error("Collections API error", err);
-    throw err; // rethrow & catch in ui
-  }
+	try {
+		const { collections } = await queryGraphql(CollectionFindAllDocument, {});
+		return collections;
+	} catch (err) {
+		console.error("Collections API error", err);
+		throw err; // rethrow & catch in ui
+	}
 };

@@ -1,32 +1,23 @@
-import { queryGraphql } from "@/api/gql";
-import { CategoryGetProductsDocument } from "@/gql/graphql";
+import { type ProductOverviewDto } from "@/api/models";
+import { queryGraphql } from "@/api/queryGraphql";
+import { CategoryFindByNameWithPaginatedProductsDocument } from "@/graphql/generated/graphql";
 
-export const getProductsByCategory = async (name: string, take?: number, skip?: number) => {
-  const { category } = await queryGraphql(CategoryGetProductsDocument, {name: name, skip: skip, take: take});
-  
-  if (!category) {
-    return [];
-  }
-  
-  const productsInCategory = category.products;
-  
-  if (!productsInCategory) {
-    return [];
-  }
-  
-  return productsInCategory.map((product) => (
-    {
-      id: product.id,
-		artist: product.artist,
-		category: product.category.name,
-		title: product.title,
-		price: product.price,
-		image: {
-			url: product.coverImg.url,
-			width: product.coverImg.width,
-			height: product.coverImg.height,
-		},
-		collections: [],
-    }
-  ));
-}
+export const getProductsByCategory = async (
+	name: string,
+	take?: number,
+	skip?: number,
+): Promise<ProductOverviewDto[]> => {
+	const { category } = await queryGraphql(CategoryFindByNameWithPaginatedProductsDocument, {
+		name,
+		take,
+		skip,
+	});
+	if (!category) return [];
+	return category.products.map((product) => (
+		{
+			...product,
+			artist: product.artist,
+			category: product.category.name,
+		}
+	));
+};

@@ -1,9 +1,11 @@
-import { queryGraphql } from "@/api/gql";
-import { CategoryCountDocument } from "@/gql/graphql";
+import { queryGraphql } from "@/api/queryGraphql";
+import { CategoryCountDocument } from "@/graphql/generated/graphql";
 
 export const getCategoryCount = async (name: string) => {
 	try {
-		const { categoryCount } = await queryGraphql(CategoryCountDocument, {name: name});
+		const { categoryCount } = await queryGraphql(CategoryCountDocument, {
+			name: name,
+		});
 		return categoryCount;
 	} catch (err) {
 		console.error("Product API error", err);

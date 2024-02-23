@@ -1,13 +1,12 @@
 import { loadEnvConfig } from "@next/env";
-import { type TypedDocumentString } from "@/gql/graphql";
+import { type TypedDocumentString } from "@/graphql/generated/graphql";
 
 loadEnvConfig(process.cwd());
 
-const queryGraphql = async <TResult, TVariables>(
+export const queryGraphql = async <TResult, TVariables>(
 	query: TypedDocumentString<TResult, TVariables>,
 	variables: TVariables,
 ): Promise<TResult> => {
-
 	const res = await fetch(`${process.env.GRAPHQL_API_URL}`, {
 		method: "POST",
 		body: JSON.stringify({ query, variables }),
@@ -29,5 +28,3 @@ const queryGraphql = async <TResult, TVariables>(
 
 	return graphqlResponse.data;
 };
-
-export { queryGraphql };

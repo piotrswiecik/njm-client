@@ -1,36 +1,19 @@
-import { queryGraphql } from "@/api/gql";
+import { queryGraphql } from "@/api/queryGraphql";
 import { type ProductDetailsDto } from "@/api/models";
-import { ProductDetailsDataDocument } from "@/gql/graphql";
+import { ProductFindByIdDocument } from "@/graphql/generated/graphql";
 
 export const getProductById = async (
 	productId: string,
 ): Promise<ProductDetailsDto | null> => {
 	try {
-		const { product } = await queryGraphql(ProductDetailsDataDocument, {
-			productId,
+		const { product } = await queryGraphql(ProductFindByIdDocument, {
+			productId: productId,
 		});
-		if (!product) {
-			return null;
-		}
+		if (!product) return null;
 		return {
-			id: product.id,
-			artist: product.artist,
+			...product,
+			artist: { name: product.artist.name },
 			category: product.category.name,
-			title: product.title,
-			price: product.price,
-			image: {
-				url: product.coverImg.url,
-				width: product.coverImg.width,
-				height: product.coverImg.height,
-			},
-			releaseDate: product.releaseDate,
-			stock: {
-				qtyCd: product.stock.qtyCd,
-				qtyLp: product.stock.qtyLp,
-			},
-			tracks: product.tracks.map((track) => ({
-				name: track.name,
-			})),
 		};
 	} catch (err) {
 		console.error("Product API error", err);

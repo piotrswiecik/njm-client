@@ -18,9 +18,9 @@ const documents = {
     "query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {\n  category(name: $name) {\n    products(skip: $skip, take: $take) {\n      id\n      artist {\n        name\n      }\n      title\n      category {\n        name\n      }\n      coverImageUrl\n    }\n  }\n}": types.CategoryFindByNameWithPaginatedProductsDocument,
     "query CollectionFindAll {\n  collections {\n    id\n    name\n  }\n}": types.CollectionFindAllDocument,
     "query CollectionFindByNameWithAllProducts($name: String!) {\n  collection(name: $name) {\n    id\n    name\n    products {\n      id\n      artist {\n        name\n      }\n      title\n      category {\n        name\n      }\n      coverImageUrl\n    }\n  }\n}": types.CollectionFindByNameWithAllProductsDocument,
-    "query ProductsCount {\n  productCount\n}": types.ProductsCountDocument,
+    "query ProductCount {\n  productCount\n}": types.ProductCountDocument,
     "query ProductFindAll($skip: Int, $take: Int) {\n  products(skip: $skip, take: $take) {\n    id\n    artist {\n      name\n    }\n    title\n    category {\n      name\n    }\n    coverImageUrl\n  }\n}": types.ProductFindAllDocument,
-    "query ProductFindById($productId: ID!) {\n  product(id: $productId) {\n    id\n    artist {\n      name\n    }\n    category {\n      name\n    }\n    coverImageUrl\n    variants {\n      name\n      price\n      stock\n    }\n    title\n    tracks {\n      name\n      number\n    }\n  }\n}": types.ProductFindByIdDocument,
+    "query ProductFindById($productId: ID!) {\n  product(id: $productId) {\n    id\n    artist {\n      name\n    }\n    category {\n      name\n    }\n    coverImageUrl\n    variants {\n      name\n      price\n      stock\n    }\n    title\n    releaseDate\n    tracks {\n      name\n      number\n    }\n  }\n}": types.ProductFindByIdDocument,
     "query ProductsSearch($query: String!) {\n  productSearch(query: $query) {\n    id\n    artist {\n      name\n    }\n    title\n    category {\n      name\n    }\n    coverImageUrl\n  }\n}": types.ProductsSearchDocument,
 };
 
@@ -43,7 +43,7 @@ export function graphql(source: "query CollectionFindByNameWithAllProducts($name
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductsCount {\n  productCount\n}"): typeof import('./graphql').ProductsCountDocument;
+export function graphql(source: "query ProductCount {\n  productCount\n}"): typeof import('./graphql').ProductCountDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -51,7 +51,7 @@ export function graphql(source: "query ProductFindAll($skip: Int, $take: Int) {\
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductFindById($productId: ID!) {\n  product(id: $productId) {\n    id\n    artist {\n      name\n    }\n    category {\n      name\n    }\n    coverImageUrl\n    variants {\n      name\n      price\n      stock\n    }\n    title\n    tracks {\n      name\n      number\n    }\n  }\n}"): typeof import('./graphql').ProductFindByIdDocument;
+export function graphql(source: "query ProductFindById($productId: ID!) {\n  product(id: $productId) {\n    id\n    artist {\n      name\n    }\n    category {\n      name\n    }\n    coverImageUrl\n    variants {\n      name\n      price\n      stock\n    }\n    title\n    releaseDate\n    tracks {\n      name\n      number\n    }\n  }\n}"): typeof import('./graphql').ProductFindByIdDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

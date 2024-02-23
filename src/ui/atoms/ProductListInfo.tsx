@@ -1,8 +1,8 @@
-import type { ProductDashboardItemDto } from "@/api/models";
+import type { ProductOverviewDto } from "@/api/models";
 import { formatPrice } from "@/utils/utils";
 
 type ProductInfoProps = {
-	product: ProductDashboardItemDto;
+	product: ProductOverviewDto;
 };
 
 const ProductListInfo = ({ product }: ProductInfoProps) => {

@@ -1,55 +1,57 @@
 /**
- * DTO for short product view with no track & stock details.
+ * DTO for short product view with no additional details.
+ * To be used on dashboard views.
  */
-export type ProductDashboardItemDto = {
+export type ProductOverviewDto = {
 	id: string;
 	title: string;
-	artist: string;
-	price: number;
+	artist: ArtistDto;
 	category: string;
-	image: ProductCoverImageDto;
-	collections?: ProductCollectionDto[];
+	coverImageUrl: string;
+};
+
+/**
+ * DTO for product detail view.
+ */
+export type ProductDetailsDto = ProductOverviewDto & {
+	tracks: TrackDto[];
+	variants: VariantDto[];
+	releaseDate: string;
 };
 
 /**
  * Represents a category with nested product list.
  */
-export type ProductInCategoryDto = Omit<ProductDashboardItemDto, "price" | "category" | "collections">;
+export type ProductInCategoryDto = Omit<ProductOverviewDto, "category">;
 export type CategoryDto = {
 	name: string;
 	products: ProductInCategoryDto[];
-}
+};
 
 /**
  * Represents recommender generated item.
  */
-export type ProductRecommendationDto = Omit<ProductDashboardItemDto, "price" | "collections" | "category">;
+export type ProductRecommendationDto = Omit<
+	ProductOverviewDto,
+	"price" | "collections" | "category"
+>;
 
-/**
- * DTO for full product view with track & stock details.
- */
-export type ProductDetailsDto = ProductDashboardItemDto & {
-	tracks: ProductTrackDto[];
-	stock: ProductStockDto;
-	releaseDate: string;
-}
-
-export type ProductCoverImageDto = {
-	url: string;
-	width: number;
-	height: number;
+export type CollectionDto = {
+	name: string;
+	products: ProductOverviewDto[];
 };
 
-export type ProductCollectionDto = {
+export type ArtistDto = {
 	name: string;
 };
 
-export type ProductStockDto = {
-	qtyCd: number;
-	qtyLp: number;
+export type VariantDto = {
+	name: string;
+	price: number;
+	stock: number;
 };
 
-export type ProductTrackDto = {
+export type TrackDto = {
 	name: string;
 	url?: string;
 };

@@ -1,32 +1,22 @@
-import { queryGraphql } from "@/api/gql";
-import { type ProductDashboardItemDto } from "@/api/models";
-import { ProductsOverviewDataDocument } from "@/gql/graphql";
+import { queryGraphql } from "@/api/queryGraphql";
+import { type ProductOverviewDto } from "@/api/models";
+import { ProductFindAllDocument } from "@/graphql/generated/graphql";
 
 export const getProducts = async (
 	take: number,
 	skip?: number,
-): Promise<ProductDashboardItemDto[]> => {
+): Promise<ProductOverviewDto[]> => {
 	// raw graphql data
-	const { products } = await queryGraphql(ProductsOverviewDataDocument, {
+	const { products } = await queryGraphql(ProductFindAllDocument, {
 		take,
 		skip,
 	});
 
-	if (!products) {
-		return [];
-	}
-	// map to dto
 	return products.map((product) => ({
-		id: product.id,
-		artist: product.artist,
-		category: product.category.name,
-		title: product.title,
-		price: product.price,
-		image: {
-			url: product.coverImg.url,
-			width: product.coverImg.width,
-			height: product.coverImg.height,
+		...product,
+		artist: {
+			name: product.artist.name,
 		},
-		collections: [],
+		category: product.category.name,
 	}));
 };

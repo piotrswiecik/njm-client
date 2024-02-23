@@ -23,7 +23,7 @@ export type Artist = {
 export type Category = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  products?: Maybe<Array<Product>>;
+  products: Array<Product>;
 };
 
 
@@ -35,18 +35,18 @@ export type CategoryProductsArgs = {
 export type Collection = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
-  products?: Maybe<Array<Product>>;
+  products: Array<Product>;
 };
 
 export type Product = {
-  artist?: Maybe<Artist>;
-  category?: Maybe<Category>;
+  artist: Artist;
+  category: Category;
   coverImageUrl: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   releaseDate: Scalars['String']['output'];
   title: Scalars['String']['output'];
-  tracks?: Maybe<Array<Maybe<Track>>>;
-  variants?: Maybe<Array<Maybe<Variant>>>;
+  tracks: Array<Track>;
+  variants: Array<Variant>;
 };
 
 export type Query = {
@@ -56,8 +56,8 @@ export type Query = {
   collections?: Maybe<Array<Collection>>;
   product?: Maybe<Product>;
   productCount: Scalars['Int']['output'];
-  productSearch?: Maybe<Array<Maybe<Product>>>;
-  products?: Maybe<Array<Maybe<Product>>>;
+  productSearch?: Maybe<Array<Product>>;
+  products: Array<Product>;
 };
 
 
@@ -91,11 +91,6 @@ export type QueryProductsArgs = {
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type Stock = {
-  qtyCd: Scalars['Int']['output'];
-  qtyLp: Scalars['Int']['output'];
-};
-
 export type Track = {
   name: Scalars['String']['output'];
   number: Scalars['Int']['output'];
@@ -122,7 +117,7 @@ export type CategoryFindByNameWithPaginatedProductsQueryVariables = Exact<{
 }>;
 
 
-export type CategoryFindByNameWithPaginatedProductsQuery = { category?: { products?: Array<{ id: string, title: string, coverImageUrl: string, artist?: { name: string } | null, category?: { name: string } | null }> | null } | null };
+export type CategoryFindByNameWithPaginatedProductsQuery = { category?: { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string } }> } | null };
 
 export type CollectionFindAllQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -134,12 +129,12 @@ export type CollectionFindByNameWithAllProductsQueryVariables = Exact<{
 }>;
 
 
-export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products?: Array<{ id: string, title: string, coverImageUrl: string, artist?: { name: string } | null, category?: { name: string } | null }> | null } | null };
+export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string } }> } | null };
 
-export type ProductsCountQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProductsCountQuery = { productCount: number };
+export type ProductCountQuery = { productCount: number };
 
 export type ProductFindAllQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']['input']>;
@@ -147,21 +142,21 @@ export type ProductFindAllQueryVariables = Exact<{
 }>;
 
 
-export type ProductFindAllQuery = { products?: Array<{ id: string, title: string, coverImageUrl: string, artist?: { name: string } | null, category?: { name: string } | null } | null> | null };
+export type ProductFindAllQuery = { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string } }> };
 
 export type ProductFindByIdQueryVariables = Exact<{
   productId: Scalars['ID']['input'];
 }>;
 
 
-export type ProductFindByIdQuery = { product?: { id: string, coverImageUrl: string, title: string, artist?: { name: string } | null, category?: { name: string } | null, variants?: Array<{ name: string, price: number, stock: number } | null> | null, tracks?: Array<{ name: string, number: number } | null> | null } | null };
+export type ProductFindByIdQuery = { product?: { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> } | null };
 
 export type ProductsSearchQueryVariables = Exact<{
   query: Scalars['String']['input'];
 }>;
 
 
-export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist?: { name: string } | null, category?: { name: string } | null } | null> | null };
+export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string } }> | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -227,11 +222,11 @@ export const CollectionFindByNameWithAllProductsDocument = new TypedDocumentStri
   }
 }
     `) as unknown as TypedDocumentString<CollectionFindByNameWithAllProductsQuery, CollectionFindByNameWithAllProductsQueryVariables>;
-export const ProductsCountDocument = new TypedDocumentString(`
-    query ProductsCount {
+export const ProductCountDocument = new TypedDocumentString(`
+    query ProductCount {
   productCount
 }
-    `) as unknown as TypedDocumentString<ProductsCountQuery, ProductsCountQueryVariables>;
+    `) as unknown as TypedDocumentString<ProductCountQuery, ProductCountQueryVariables>;
 export const ProductFindAllDocument = new TypedDocumentString(`
     query ProductFindAll($skip: Int, $take: Int) {
   products(skip: $skip, take: $take) {
@@ -264,6 +259,7 @@ export const ProductFindByIdDocument = new TypedDocumentString(`
       stock
     }
     title
+    releaseDate
     tracks {
       name
       number
