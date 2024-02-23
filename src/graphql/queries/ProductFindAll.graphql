@@ -9,5 +9,10 @@ query ProductFindAll($skip: Int, $take: Int) {
       name
     }
     coverImageUrl
+    variants {
+      price
+      stock
+      name
+    }
   }
 }

@@ -8,6 +8,7 @@ export type ProductOverviewDto = {
 	artist: ArtistDto;
 	category: string;
 	coverImageUrl: string;
+	variants: VariantDto[];
 };
 
 /**
@@ -15,7 +16,6 @@ export type ProductOverviewDto = {
  */
 export type ProductDetailsDto = ProductOverviewDto & {
 	tracks: TrackDto[];
-	variants: VariantDto[];
 	releaseDate: string;
 };
 

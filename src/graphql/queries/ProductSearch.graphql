@@ -9,5 +9,9 @@ query ProductsSearch($query: String!) {
       name
     }
     coverImageUrl
+    variants {
+      price
+      stock
+    }
   }
 }

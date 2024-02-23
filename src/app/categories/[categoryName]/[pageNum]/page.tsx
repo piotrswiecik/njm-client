@@ -37,7 +37,7 @@ export const generateMetadata = async ({
 };
 
 const CategoryPage = async ({ params }: PageProps) => {
-	const numberOfProducts = await getCategoryCount("jazz"); // TODO unhandled err thrown by service layer
+	const numberOfProducts = await getCategoryCount(params.categoryName); // TODO unhandled err thrown by service layer
 
 	// TODO optimize this, maybe base on media query
 	const PRODUCTS_PER_PAGE = 12;

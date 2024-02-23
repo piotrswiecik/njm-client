@@ -117,7 +117,7 @@ export type CategoryFindByNameWithPaginatedProductsQueryVariables = Exact<{
 }>;
 
 
-export type CategoryFindByNameWithPaginatedProductsQuery = { category?: { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string } }> } | null };
+export type CategoryFindByNameWithPaginatedProductsQuery = { category?: { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }> }> } | null };
 
 export type CollectionFindAllQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -142,7 +142,7 @@ export type ProductFindAllQueryVariables = Exact<{
 }>;
 
 
-export type ProductFindAllQuery = { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string } }> };
+export type ProductFindAllQuery = { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> };
 
 export type ProductFindByIdQueryVariables = Exact<{
   productId: Scalars['ID']['input'];
@@ -156,7 +156,7 @@ export type ProductsSearchQueryVariables = Exact<{
 }>;
 
 
-export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string } }> | null };
+export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number }> }> | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -191,6 +191,11 @@ export const CategoryFindByNameWithPaginatedProductsDocument = new TypedDocument
         name
       }
       coverImageUrl
+      variants {
+        name
+        price
+        stock
+      }
     }
   }
 }
@@ -239,6 +244,11 @@ export const ProductFindAllDocument = new TypedDocumentString(`
       name
     }
     coverImageUrl
+    variants {
+      price
+      stock
+      name
+    }
   }
 }
     `) as unknown as TypedDocumentString<ProductFindAllQuery, ProductFindAllQueryVariables>;
@@ -279,6 +289,10 @@ export const ProductsSearchDocument = new TypedDocumentString(`
       name
     }
     coverImageUrl
+    variants {
+      price
+      stock
+    }
   }
 }
     `) as unknown as TypedDocumentString<ProductsSearchQuery, ProductsSearchQueryVariables>;

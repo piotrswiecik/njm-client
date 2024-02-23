@@ -9,7 +9,7 @@ export const getProducts = async (
 	// raw graphql data
 	const { products } = await queryGraphql(ProductFindAllDocument, {
 		take,
-		skip,
+		skip: skip || 0,
 	});
 
 	return products.map((product) => ({

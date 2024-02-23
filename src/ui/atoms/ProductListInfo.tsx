@@ -6,6 +6,11 @@ type ProductInfoProps = {
 };
 
 const ProductListInfo = ({ product }: ProductInfoProps) => {
+	const getBasicVariantPrice = (product: ProductOverviewDto) => {
+		const prices = product.variants.map((v) => v.price);
+		return Math.min(...prices);
+	};
+
 	return (
 		<div className="mt-4 flex justify-between">
 			<div>
@@ -13,10 +18,10 @@ const ProductListInfo = ({ product }: ProductInfoProps) => {
 					<span aria-hidden="true" className="absolute inset-0" />
 					{product.title}
 				</h3>
-				<p className="mt-1 text-sm text-gray-500">{product.artist}</p>
+				<p className="mt-1 text-sm text-gray-500">{product.artist.name}</p>
 			</div>
 			<div className="ml-6 text-sm font-medium text-gray-900">
-				{formatPrice(product.price)}
+				{formatPrice(getBasicVariantPrice(product))}
 			</div>
 		</div>
 	);

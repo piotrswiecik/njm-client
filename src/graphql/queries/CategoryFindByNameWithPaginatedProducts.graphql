@@ -10,6 +10,11 @@ query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take:
         name
       }
       coverImageUrl
+      variants {
+        name
+        price
+        stock
+      }
     }
   }
 }
