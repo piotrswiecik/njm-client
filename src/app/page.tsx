@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 import { getCollections } from "@/api/getCollections";
 import CollectionCard from "@/ui/components/CollectionCard";
+import RecommenderComponent from "@/ui/components/Recommender";
 export const metadata: Metadata = {
 	title: "NJM Record Store - Products",
 	description: "NJM Record Store - Products",
@@ -20,11 +21,16 @@ const HomePage = async () => {
 
 	return (
 		<div className="mx-auto w-10/12 max-w-7xl px-6 sm:px-12">
-			<div className="flex flex-col items-center sm:flex-row">
-				{collections?.map((collection) => (
-					<CollectionCard key={collection.name} name={collection.name} />
-				))}
-			</div>
+			<article>
+				<div className="flex flex-col items-center sm:flex-row">
+					{collections?.map((collection) => (
+						<CollectionCard key={collection.name} name={collection.name} />
+					))}
+				</div>
+			</article>
+			<aside>
+				<RecommenderComponent categoryName="jazz" leadText="Recommended"/>
+			</aside>
 		</div>
 	);
 };
