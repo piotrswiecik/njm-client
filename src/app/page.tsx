@@ -21,7 +21,7 @@ const HomePage = async () => {
 		<div className="mx-auto w-10/12 max-w-7xl px-6 sm:px-12">
 			<span>Welcome to NJM Record Store!</span>
 			{ collections?.map((collection) => (
-				<p key="">{ collection.name }</p>
+				<p key={collection.name}>{ collection.name }</p>
 			))}
 		</div>
 	);
