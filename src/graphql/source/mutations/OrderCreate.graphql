@@ -1,0 +1,24 @@
+mutation OrderCreate($userId: ID!) {
+  createOrder(userId: $userId) {
+    id
+    orderItems {
+      id
+      variant {
+        id
+        name
+        price
+        product {
+          id
+          artist {
+            name
+          }
+          title
+        }
+      }
+    }
+    status
+    user {
+      id
+    }
+  }
+}

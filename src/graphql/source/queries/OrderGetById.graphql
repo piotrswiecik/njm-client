@@ -1,0 +1,18 @@
+query OrderGetById($orderId: ID!, $status: Status) {
+  order(id: $orderId, status: $status) {
+    id
+    orderItems {
+      id
+      variant {
+        name
+        price
+        product {
+          artist {
+            name
+          }
+          title
+        }
+      }
+    }
+  }
+}

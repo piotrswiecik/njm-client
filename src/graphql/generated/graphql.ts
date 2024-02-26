@@ -38,6 +38,27 @@ export type Collection = {
   products: Array<Product>;
 };
 
+export type Mutation = {
+  createOrder: Order;
+};
+
+
+export type MutationCreateOrderArgs = {
+  userId: Scalars['ID']['input'];
+};
+
+export type Order = {
+  id: Scalars['ID']['output'];
+  orderItems?: Maybe<Array<OrderItem>>;
+  status: Status;
+  user: User;
+};
+
+export type OrderItem = {
+  id: Scalars['ID']['output'];
+  variant: Variant;
+};
+
 export type Product = {
   artist: Artist;
   category: Category;
@@ -54,10 +75,14 @@ export type Query = {
   categoryCount: Scalars['Int']['output'];
   collection?: Maybe<Collection>;
   collections?: Maybe<Array<Collection>>;
+  order?: Maybe<Order>;
+  orders: Array<Order>;
   product?: Maybe<Product>;
   productCount: Scalars['Int']['output'];
   productSearch?: Maybe<Array<Product>>;
   products: Array<Product>;
+  user?: Maybe<User>;
+  users: Array<User>;
 };
 
 
@@ -76,6 +101,12 @@ export type QueryCollectionArgs = {
 };
 
 
+export type QueryOrderArgs = {
+  id: Scalars['ID']['input'];
+  status?: InputMaybe<Status>;
+};
+
+
 export type QueryProductArgs = {
   id: Scalars['ID']['input'];
 };
@@ -91,21 +122,48 @@ export type QueryProductsArgs = {
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
+export type QueryUserArgs = {
+  id: Scalars['ID']['input'];
+};
+
+export type Status =
+  | 'AWAIT_PAY'
+  | 'AWAIT_SHIP'
+  | 'CANCELLED'
+  | 'CART'
+  | 'SHIPPED';
+
 export type Track = {
   name: Scalars['String']['output'];
   number: Scalars['Int']['output'];
   url?: Maybe<Scalars['String']['output']>;
 };
 
+export type User = {
+  email: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  isActive: Scalars['Boolean']['output'];
+};
+
 export type Variant = {
+  id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   price: Scalars['Int']['output'];
+  product?: Maybe<Product>;
   stock: Scalars['Int']['output'];
 };
 
 export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
 
 export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
+
+export type OrderCreateMutationVariables = Exact<{
+  userId: Scalars['ID']['input'];
+}>;
+
+
+export type OrderCreateMutation = { createOrder: { id: string, status: Status, orderItems?: Array<{ id: string, variant: { id: string, name: string, price: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
 
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
@@ -134,6 +192,14 @@ export type CollectionFindByNameWithAllProductsQueryVariables = Exact<{
 
 
 export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> } | null };
+
+export type OrderGetByIdQueryVariables = Exact<{
+  orderId: Scalars['ID']['input'];
+  status?: InputMaybe<Status>;
+}>;
+
+
+export type OrderGetByIdQuery = { order?: { id: string, orderItems?: Array<{ id: string, variant: { name: string, price: number, product?: { title: string, artist: { name: string } } | null } }> | null } | null };
 
 export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -217,6 +283,32 @@ export const ProductOverviewFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductOverview"}) as unknown as TypedDocumentString<ProductOverviewFragment, unknown>;
+export const OrderCreateDocument = new TypedDocumentString(`
+    mutation OrderCreate($userId: ID!) {
+  createOrder(userId: $userId) {
+    id
+    orderItems {
+      id
+      variant {
+        id
+        name
+        price
+        product {
+          id
+          artist {
+            name
+          }
+          title
+        }
+      }
+    }
+    status
+    user {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<OrderCreateMutation, OrderCreateMutationVariables>;
 export const CategoryCountDocument = new TypedDocumentString(`
     query CategoryCount($name: String!) {
   categoryCount(name: $name)
@@ -280,6 +372,26 @@ export const CollectionFindByNameWithAllProductsDocument = new TypedDocumentStri
     name
   }
 }`) as unknown as TypedDocumentString<CollectionFindByNameWithAllProductsQuery, CollectionFindByNameWithAllProductsQueryVariables>;
+export const OrderGetByIdDocument = new TypedDocumentString(`
+    query OrderGetById($orderId: ID!, $status: Status) {
+  order(id: $orderId, status: $status) {
+    id
+    orderItems {
+      id
+      variant {
+        name
+        price
+        product {
+          artist {
+            name
+          }
+          title
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<OrderGetByIdQuery, OrderGetByIdQueryVariables>;
 export const ProductCountDocument = new TypedDocumentString(`
     query ProductCount {
   productCount

@@ -1,12 +1,17 @@
-import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
+import { cookies } from "next/headers";
+import { OrderCreateDocument, type ProductDetailsFragment } from "@/graphql/generated/graphql";
 import { formatPrice, getBasicVariantPrice } from "@/utils/utils";
+import { queryGraphql } from "@/api/queryGraphql";
 
 type ProductDetailsProps = {
 	product: ProductDetailsFragment;
 };
 
-// TODO maybe refactor into subcomponents - atoms
+// TODO: refactor into subcomponents & atoms, create reusable server actions
 const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
+	/**
+	 * For given product and variant type, checks if variant is in stock.
+	 */
 	const variantInStock = (
 		product: ProductDetailsFragment,
 		type: "cd" | "lp",
@@ -16,26 +21,77 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 		return variant.stock > 0;
 	};
 
+	/**
+	 * Checks if any variant of product is in stock.
+	 */
 	const productAvailable = (product: ProductDetailsFragment) => {
-		console.log(`cd qty: ${product.variants[0].stock}`);
-		console.log(`lp qty: ${product.variants[1].stock}`);
 		return product.variants.some((v) => v.stock > 0);
 	};
 
+	/**
+	 * Set default active variant based on stock availability.
+	 */
 	const defaultVariant = (product: ProductDetailsFragment) => {
 		if (!productAvailable(product)) return null;
 		if (!variantInStock(product, "cd")) return "lp";
 		if (!variantInStock(product, "lp")) return "cd";
 		return "cd";
-	}
+	};
 
-	const addItemToCart = async (x: FormData) => {
+	/**
+	 * Try to fetch existing cart by cookie id via graphql query.
+	 * @param cartId cart id stored as client side cookie.
+	 * @returns
+	 */
+	// const getCart = async (cartId: string) => {
+	// 	"use server";
+	// 	return "cart";
+	// };
+
+	const createCart = async () => {
 		"use server";
-		// we need item id
-		const id = product.id;
-		console.log(product.id);
-		// and we need selected variant info
-		console.log(x);
+		try {
+			// FIXME: no error boundary set for this
+			const { createOrder } = await queryGraphql(OrderCreateDocument, { userId: "50e868b9-7534-4831-89e5-654da68286ae" });
+			console.log(createOrder);
+			return createOrder;
+		} catch (err) {
+			throw new Error("Failed to create cart");
+		}
+	};
+
+	/**
+	 * Get existing cart from backend based on cookie id or create a new cart and set cookie.
+	 */
+	const getOrCreateCart = async () => {
+		"use server";
+		const cartId = cookies().get("cartId")?.value;
+		console.log(`cookie cartId: ${cartId}`);
+		// if (cartId) {
+		// 	console.log(`got cart id from cookie: ${cartId}`);
+		// 	const cart = await getCart(cartId);
+		// 	if (cart) {
+		// 		console.log(`got cart from server: ${cart}`);
+		// 		return cart;
+		// 	}
+		// }
+
+		// // path #2: create new cart
+		const cart = await createCart();
+		if (!cart) {
+			// FIXME: no error boundary set for this
+			throw new Error("Failed to create cart");
+		}
+		cookies().set("cartId", cart.id);
+		return cart;
+	};
+
+	const addItemToCart = async (data: FormData) => {
+		"use server";
+		const variant = data.get("variant");
+		const cart = await getOrCreateCart();
+		console.log(`addItemToCart: cart=${cart}`);
+		// await addItemToCart(cart.id, product.id, variant);
 	};
 
 	const variantEnabledClassName = `hover:bg-slate-300 cursor-pointer peer-checked:text-red-500 mb-2 me-2 rounded-lg border border-gray-800 px-2 text-center text-sm font-medium text-gray-900 peer-checked:bg-gray-900 peer-checked:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-800`;
@@ -129,7 +185,9 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 								type="submit"
 								disabled={!productAvailable(product)}
 								className={
-									productAvailable(product) ? inStockClassName : outOfStockClassName
+									productAvailable(product)
+										? inStockClassName
+										: outOfStockClassName
 								}
 							>
 								{productAvailable(product) ? "Add to cart" : "Out of stock"}
