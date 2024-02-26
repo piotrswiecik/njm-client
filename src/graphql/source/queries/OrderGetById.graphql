@@ -14,5 +14,8 @@ query OrderGetById($orderId: ID!, $status: Status) {
         }
       }
     }
+    user {
+      id
+    }
   }
 }

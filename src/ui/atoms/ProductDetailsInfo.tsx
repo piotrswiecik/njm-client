@@ -1,5 +1,9 @@
 import { cookies } from "next/headers";
-import { OrderCreateDocument, type ProductDetailsFragment } from "@/graphql/generated/graphql";
+import {
+	OrderCreateDocument,
+	OrderGetByIdDocument,
+	type ProductDetailsFragment,
+} from "@/graphql/generated/graphql";
 import { formatPrice, getBasicVariantPrice } from "@/utils/utils";
 import { queryGraphql } from "@/api/queryGraphql";
 
@@ -43,17 +47,29 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 	 * @param cartId cart id stored as client side cookie.
 	 * @returns
 	 */
-	// const getCart = async (cartId: string) => {
-	// 	"use server";
-	// 	return "cart";
-	// };
+	const getCart = async (cartId: string) => {
+		"use server";
+		try {
+			const cart = await queryGraphql(OrderGetByIdDocument, {
+				orderId: cartId,
+			});
+			return cart;
+			// FIXME: no error boundary set for this
+		} catch (err) {
+			throw new Error("Failed to get cart");
+		}
+	};
 
+	/**
+	 * Create a new cart via graphql mutation.
+	 */
 	const createCart = async () => {
 		"use server";
 		try {
 			// FIXME: no error boundary set for this
-			const { createOrder } = await queryGraphql(OrderCreateDocument, { userId: "50e868b9-7534-4831-89e5-654da68286ae" });
-			console.log(createOrder);
+			const { createOrder } = await queryGraphql(OrderCreateDocument, {
+				userId: "50e868b9-7534-4831-89e5-654da68286ae",
+			});
 			return createOrder;
 		} catch (err) {
 			throw new Error("Failed to create cart");
@@ -66,31 +82,28 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 	const getOrCreateCart = async () => {
 		"use server";
 		const cartId = cookies().get("cartId")?.value;
-		console.log(`cookie cartId: ${cartId}`);
-		// if (cartId) {
-		// 	console.log(`got cart id from cookie: ${cartId}`);
-		// 	const cart = await getCart(cartId);
-		// 	if (cart) {
-		// 		console.log(`got cart from server: ${cart}`);
-		// 		return cart;
-		// 	}
-		// }
-
-		// // path #2: create new cart
-		const cart = await createCart();
-		if (!cart) {
-			// FIXME: no error boundary set for this
-			throw new Error("Failed to create cart");
+		if (cartId) {
+			const cart = await getCart(cartId);
+			if (cart) {
+				return cart;
+			}
+		} else {
+			const cart = await createCart();
+			if (!cart) {
+				// FIXME: no error boundary set for this
+				throw new Error("Failed to create cart");
+			}
+			cookies().set("cartId", cart.id);
+			return cart;
 		}
-		cookies().set("cartId", cart.id);
-		return cart;
 	};
 
 	const addItemToCart = async (data: FormData) => {
 		"use server";
 		const variant = data.get("variant");
 		const cart = await getOrCreateCart();
-		console.log(`addItemToCart: cart=${cart}`);
+		console.log("in addItemToCart");
+		console.log(cart);
 		// await addItemToCart(cart.id, product.id, variant);
 	};
 
