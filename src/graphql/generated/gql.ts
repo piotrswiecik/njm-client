@@ -21,7 +21,7 @@ const documents = {
     "query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {\n  category(name: $name) {\n    products(skip: $skip, take: $take) {\n      ...ProductOverview\n    }\n  }\n}": types.CategoryFindByNameWithPaginatedProductsDocument,
     "query CollectionFindAll {\n  collections {\n    id\n    name\n  }\n}": types.CollectionFindAllDocument,
     "query CollectionFindByNameWithAllProducts($name: String!) {\n  collection(name: $name) {\n    id\n    name\n    products {\n      ...ProductOverview\n    }\n  }\n}": types.CollectionFindByNameWithAllProductsDocument,
-    "query OrderGetById($orderId: ID!, $status: Status) {\n  order(id: $orderId, status: $status) {\n    id\n    orderItems {\n      id\n      variant {\n        name\n        price\n        product {\n          artist {\n            name\n          }\n          title\n        }\n      }\n    }\n  }\n}": types.OrderGetByIdDocument,
+    "query OrderGetById($orderId: ID!, $status: Status) {\n  order(id: $orderId, status: $status) {\n    id\n    orderItems {\n      id\n      variant {\n        name\n        price\n        product {\n          artist {\n            name\n          }\n          title\n        }\n      }\n    }\n    user {\n      id\n    }\n  }\n}": types.OrderGetByIdDocument,
     "query ProductCount {\n  productCount\n}": types.ProductCountDocument,
     "query ProductFindAll($skip: Int, $take: Int) {\n  products(skip: $skip, take: $take) {\n    ...ProductOverview\n  }\n}": types.ProductFindAllDocument,
     "query ProductFindById($productId: ID!) {\n  product(id: $productId) {\n    ...ProductDetails\n  }\n}": types.ProductFindByIdDocument,
@@ -59,7 +59,7 @@ export function graphql(source: "query CollectionFindByNameWithAllProducts($name
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query OrderGetById($orderId: ID!, $status: Status) {\n  order(id: $orderId, status: $status) {\n    id\n    orderItems {\n      id\n      variant {\n        name\n        price\n        product {\n          artist {\n            name\n          }\n          title\n        }\n      }\n    }\n  }\n}"): typeof import('./graphql').OrderGetByIdDocument;
+export function graphql(source: "query OrderGetById($orderId: ID!, $status: Status) {\n  order(id: $orderId, status: $status) {\n    id\n    orderItems {\n      id\n      variant {\n        name\n        price\n        product {\n          artist {\n            name\n          }\n          title\n        }\n      }\n    }\n    user {\n      id\n    }\n  }\n}"): typeof import('./graphql').OrderGetByIdDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
