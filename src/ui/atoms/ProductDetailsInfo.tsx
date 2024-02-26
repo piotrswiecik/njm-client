@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import {
 	OrderCreateDocument,
 	OrderGetByIdDocument,
+	type OrderItemDetailsFragment,
 	type ProductDetailsFragment,
 } from "@/graphql/generated/graphql";
 import { formatPrice, getBasicVariantPrice } from "@/utils/utils";
@@ -9,6 +10,14 @@ import { queryGraphql } from "@/api/queryGraphql";
 
 type ProductDetailsProps = {
 	product: ProductDetailsFragment;
+};
+
+type OrderResponse = {
+	id: string;
+	orderItems: OrderItemDetailsFragment[];
+	user: {
+		id: string;
+	};
 };
 
 // TODO: refactor into subcomponents & atoms, create reusable server actions
@@ -47,13 +56,16 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 	 * @param cartId cart id stored as client side cookie.
 	 * @returns
 	 */
-	const getCart = async (cartId: string) => {
+	const getCart = async (cartId: string): Promise<OrderResponse> => {
 		"use server";
 		try {
-			const cart = await queryGraphql(OrderGetByIdDocument, {
+			const { order } = await queryGraphql(OrderGetByIdDocument, {
 				orderId: cartId,
 			});
-			return cart;
+			if (!order) {
+				throw new Error("Cart not found");
+			}
+			return { ...order, orderItems: order.orderItems ? order.orderItems : [] };
 			// FIXME: no error boundary set for this
 		} catch (err) {
 			throw new Error("Failed to get cart");
@@ -63,14 +75,17 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 	/**
 	 * Create a new cart via graphql mutation.
 	 */
-	const createCart = async () => {
+	const createCart = async (): Promise<OrderResponse> => {
 		"use server";
 		try {
 			// FIXME: no error boundary set for this
 			const { createOrder } = await queryGraphql(OrderCreateDocument, {
 				userId: "50e868b9-7534-4831-89e5-654da68286ae",
 			});
-			return createOrder;
+			return {
+				...createOrder,
+				orderItems: createOrder.orderItems ? createOrder.orderItems : [],
+			};
 		} catch (err) {
 			throw new Error("Failed to create cart");
 		}

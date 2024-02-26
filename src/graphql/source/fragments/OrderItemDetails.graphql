@@ -1,0 +1,14 @@
+fragment OrderItemDetails on OrderItem {
+	id
+	variant {
+		name
+		price
+		product {
+			artist {
+				name
+			}
+			title
+		}
+	}
+	quantity
+}

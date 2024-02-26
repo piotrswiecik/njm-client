@@ -15,6 +15,7 @@ mutation OrderCreate($userId: ID!) {
           title
         }
       }
+      quantity
     }
     status
     user {

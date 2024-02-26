@@ -155,6 +155,8 @@ export type Variant = {
   stock: Scalars['Int']['output'];
 };
 
+export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { name: string, price: number, product?: { title: string, artist: { name: string } } | null } };
+
 export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
 
 export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
@@ -164,7 +166,7 @@ export type OrderCreateMutationVariables = Exact<{
 }>;
 
 
-export type OrderCreateMutation = { createOrder: { id: string, status: Status, orderItems?: Array<{ id: string, variant: { id: string, name: string, price: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+export type OrderCreateMutation = { createOrder: { id: string, status: Status, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
 
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
@@ -243,6 +245,22 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const OrderItemDetailsFragmentDoc = new TypedDocumentString(`
+    fragment OrderItemDetails on OrderItem {
+  id
+  variant {
+    name
+    price
+    product {
+      artist {
+        name
+      }
+      title
+    }
+  }
+  quantity
+}
+    `, {"fragmentName":"OrderItemDetails"}) as unknown as TypedDocumentString<OrderItemDetailsFragment, unknown>;
 export const ProductDetailsFragmentDoc = new TypedDocumentString(`
     fragment ProductDetails on Product {
   id
@@ -302,6 +320,7 @@ export const OrderCreateDocument = new TypedDocumentString(`
           title
         }
       }
+      quantity
     }
     status
     user {
@@ -378,25 +397,27 @@ export const OrderGetByIdDocument = new TypedDocumentString(`
   order(id: $orderId, status: $status) {
     id
     orderItems {
-      id
-      variant {
-        name
-        price
-        product {
-          artist {
-            name
-          }
-          title
-        }
-      }
-      quantity
+      ...OrderItemDetails
     }
     user {
       id
     }
   }
 }
-    `) as unknown as TypedDocumentString<OrderGetByIdQuery, OrderGetByIdQueryVariables>;
+    fragment OrderItemDetails on OrderItem {
+  id
+  variant {
+    name
+    price
+    product {
+      artist {
+        name
+      }
+      title
+    }
+  }
+  quantity
+}`) as unknown as TypedDocumentString<OrderGetByIdQuery, OrderGetByIdQueryVariables>;
 export const ProductCountDocument = new TypedDocumentString(`
     query ProductCount {
   productCount
