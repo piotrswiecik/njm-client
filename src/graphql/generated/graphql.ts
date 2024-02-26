@@ -56,6 +56,7 @@ export type Order = {
 
 export type OrderItem = {
   id: Scalars['ID']['output'];
+  quantity: Scalars['Int']['output'];
   variant: Variant;
 };
 
@@ -199,7 +200,7 @@ export type OrderGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type OrderGetByIdQuery = { order?: { id: string, orderItems?: Array<{ id: string, variant: { name: string, price: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
+export type OrderGetByIdQuery = { order?: { id: string, orderItems?: Array<{ id: string, quantity: number, variant: { name: string, price: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
 
 export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -388,6 +389,7 @@ export const OrderGetByIdDocument = new TypedDocumentString(`
           title
         }
       }
+      quantity
     }
     user {
       id

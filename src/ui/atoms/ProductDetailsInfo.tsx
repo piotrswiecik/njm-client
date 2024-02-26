@@ -85,6 +85,7 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 		if (cartId) {
 			const cart = await getCart(cartId);
 			if (cart) {
+				console.log("existing cart found");
 				return cart;
 			}
 		} else {
@@ -94,6 +95,7 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 				throw new Error("Failed to create cart");
 			}
 			cookies().set("cartId", cart.id);
+			console.log("new cart created");
 			return cart;
 		}
 	};
@@ -102,8 +104,8 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 		"use server";
 		const variant = data.get("variant");
 		const cart = await getOrCreateCart();
-		console.log("in addItemToCart");
 		console.log(cart);
+		// ok one way or another - you have a cart
 		// await addItemToCart(cart.id, product.id, variant);
 	};
 

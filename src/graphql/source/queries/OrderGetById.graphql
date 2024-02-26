@@ -13,6 +13,7 @@ query OrderGetById($orderId: ID!, $status: Status) {
           title
         }
       }
+      quantity
     }
     user {
       id
