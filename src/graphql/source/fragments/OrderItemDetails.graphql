@@ -1,6 +1,7 @@
 fragment OrderItemDetails on OrderItem {
 	id
 	variant {
+		id
 		name
 		price
 		product {

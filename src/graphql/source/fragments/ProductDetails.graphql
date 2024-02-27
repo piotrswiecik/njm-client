@@ -8,6 +8,7 @@ fragment ProductDetails on Product {
     }
     coverImageUrl
     variants {
+      id
       name
       price
       stock

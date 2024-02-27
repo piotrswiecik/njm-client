@@ -34,9 +34,12 @@ const ProductDetailsPage = async ({
 	params: { productId: string };
 }) => {
 	// TODO unhandled err thrown by service layer
-	const product: ProductDetailsFragment = await getProductById(
-		params.productId,
-	);
+	try {
+
+		const product: ProductDetailsFragment = await getProductById(
+			params.productId,
+			);
+		
 	if (!product) {
 		return null; // TODO 404 later
 	}
@@ -53,7 +56,9 @@ const ProductDetailsPage = async ({
 				</div>
 			</aside>
 		</div>
-	);
+	);} catch (err) {
+			console.log(err);
+		}
 };
 
 export default ProductDetailsPage;

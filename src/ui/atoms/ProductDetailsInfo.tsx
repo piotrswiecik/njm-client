@@ -18,7 +18,7 @@ type OrderResponse = {
 	user: {
 		id: string;
 	};
-};
+} | null;
 
 // TODO: refactor into subcomponents & atoms, create reusable server actions
 const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
@@ -56,14 +56,14 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 	 * @param cartId cart id stored as client side cookie.
 	 * @returns
 	 */
-	const getCart = async (cartId: string): Promise<OrderResponse> => {
+	const getCart = async (cartId: string) => {
 		"use server";
 		try {
 			const { order } = await queryGraphql(OrderGetByIdDocument, {
 				orderId: cartId,
 			});
 			if (!order) {
-				throw new Error("Cart not found");
+				return null;
 			}
 			return { ...order, orderItems: order.orderItems ? order.orderItems : [] };
 			// FIXME: no error boundary set for this
@@ -75,16 +75,15 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 	/**
 	 * Create a new cart via graphql mutation.
 	 */
-	const createCart = async (): Promise<OrderResponse> => {
+	const createCart = async () => {
 		"use server";
 		try {
 			// FIXME: no error boundary set for this
 			const { createOrder } = await queryGraphql(OrderCreateDocument, {
-				userId: "50e868b9-7534-4831-89e5-654da68286ae",
+				userId: "dbe0705a-87d0-4c11-9432-f55895360016",
 			});
 			return {
-				...createOrder,
-				orderItems: createOrder.orderItems ? createOrder.orderItems : [],
+				id: createOrder.id,
 			};
 		} catch (err) {
 			throw new Error("Failed to create cart");
@@ -99,29 +98,44 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 		const cartId = cookies().get("cartId")?.value;
 		if (cartId) {
 			const cart = await getCart(cartId);
+			console.log(cart);
 			if (cart) {
-				console.log("existing cart found");
 				return cart;
 			}
-		} else {
+			else {
 			const cart = await createCart();
 			if (!cart) {
 				// FIXME: no error boundary set for this
 				throw new Error("Failed to create cart");
 			}
 			cookies().set("cartId", cart.id);
-			console.log("new cart created");
 			return cart;
 		}
+	}
 	};
 
 	const addItemToCart = async (data: FormData) => {
 		"use server";
-		const variant = data.get("variant");
+		const variantName = data.get("variant") as string | null;
+		if (!variantName) {
+			console.error("No variant selected");
+			return;
+		}
+		// const variant = product.variants.find((v) => v.name === variantName);
+		// if (!variant) {
+		// 	console.error("Invalid variant");
+		// 	return;
+		// }
+		// console.log(variantName);
 		const cart = await getOrCreateCart();
-		console.log(cart);
-		// ok one way or another - you have a cart
-		// await addItemToCart(cart.id, product.id, variant);
+
+		// cart?.orderItems.push({
+		// 	id: product.id,
+		// 	variant: { id: variant.id, name: variantName, price: variant.price },
+		// 	quantity: 1,
+		// });
+		// console.log("cart updated");
+		// console.log(cart);
 	};
 
 	const variantEnabledClassName = `hover:bg-slate-300 cursor-pointer peer-checked:text-red-500 mb-2 me-2 rounded-lg border border-gray-800 px-2 text-center text-sm font-medium text-gray-900 peer-checked:bg-gray-900 peer-checked:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-800`;

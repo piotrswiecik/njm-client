@@ -38,8 +38,12 @@ export type Collection = {
   products: Array<Product>;
 };
 
+export type CreateOrderResponse = {
+  id: Scalars['ID']['output'];
+};
+
 export type Mutation = {
-  createOrder: Order;
+  createOrder: CreateOrderResponse;
 };
 
 
@@ -155,9 +159,9 @@ export type Variant = {
   stock: Scalars['Int']['output'];
 };
 
-export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { name: string, price: number, product?: { title: string, artist: { name: string } } | null } };
+export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, product?: { title: string, artist: { name: string } } | null } };
 
-export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
+export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
 
 export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
 
@@ -166,7 +170,7 @@ export type OrderCreateMutationVariables = Exact<{
 }>;
 
 
-export type OrderCreateMutation = { createOrder: { id: string, status: Status, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+export type OrderCreateMutation = { createOrder: { id: string } };
 
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
@@ -202,7 +206,7 @@ export type OrderGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type OrderGetByIdQuery = { order?: { id: string, orderItems?: Array<{ id: string, quantity: number, variant: { name: string, price: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
+export type OrderGetByIdQuery = { order?: { id: string, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
 
 export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -222,7 +226,7 @@ export type ProductFindByIdQueryVariables = Exact<{
 }>;
 
 
-export type ProductFindByIdQuery = { product?: { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> } | null };
+export type ProductFindByIdQuery = { product?: { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> } | null };
 
 export type ProductsSearchQueryVariables = Exact<{
   query: Scalars['String']['input'];
@@ -249,6 +253,7 @@ export const OrderItemDetailsFragmentDoc = new TypedDocumentString(`
     fragment OrderItemDetails on OrderItem {
   id
   variant {
+    id
     name
     price
     product {
@@ -272,6 +277,7 @@ export const ProductDetailsFragmentDoc = new TypedDocumentString(`
   }
   coverImageUrl
   variants {
+    id
     name
     price
     stock
@@ -306,26 +312,6 @@ export const OrderCreateDocument = new TypedDocumentString(`
     mutation OrderCreate($userId: ID!) {
   createOrder(userId: $userId) {
     id
-    orderItems {
-      id
-      variant {
-        id
-        name
-        price
-        product {
-          id
-          artist {
-            name
-          }
-          title
-        }
-      }
-      quantity
-    }
-    status
-    user {
-      id
-    }
   }
 }
     `) as unknown as TypedDocumentString<OrderCreateMutation, OrderCreateMutationVariables>;
@@ -407,6 +393,7 @@ export const OrderGetByIdDocument = new TypedDocumentString(`
     fragment OrderItemDetails on OrderItem {
   id
   variant {
+    id
     name
     price
     product {
@@ -461,6 +448,7 @@ export const ProductFindByIdDocument = new TypedDocumentString(`
   }
   coverImageUrl
   variants {
+    id
     name
     price
     stock
