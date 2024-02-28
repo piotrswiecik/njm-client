@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 
 const RecommenderItem = ({ product }: { product: ProductOverviewFragment }) => {
@@ -5,10 +6,12 @@ const RecommenderItem = ({ product }: { product: ProductOverviewFragment }) => {
 		<div className="flex flex-col">
 			<h2 className="order-2">{product.title}</h2>
 			<p className="order-3 text-slate-600">{product.artist.name}</p>
-			<img
+			<Image
 				className="order-1 aspect-square transition-all duration-300 group-hover:opacity-75 sm:max-w-[200px]"
 				src={product.coverImageUrl}
 				alt={product.title}
+				width={600}
+				height={600}
 			/>
 		</div>
 	);

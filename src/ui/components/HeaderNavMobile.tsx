@@ -1,5 +1,6 @@
 "use client";
 import { Suspense, useState } from "react";
+import Image from "next/image";
 import ActiveLink from "@/ui/atoms/ActiveLink";
 import SearchBar from "@/ui/components/SearchBar";
 
@@ -29,10 +30,12 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 						label="Home"
 					>
 						<div className="flex flex-row items-center">
-							<img
+							<Image
 								src="/vinyl-svgrepo-com.svg"
 								alt="NJM Record Store"
 								className="aspect-square max-w-16"
+								width={64}
+								height={64}
 							/>
 							<span className="px-4 text-xl font-bold">NJM Records</span>
 						</div>

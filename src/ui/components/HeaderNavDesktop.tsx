@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Image from "next/image";
 import ActiveLink from "@/ui/atoms/ActiveLink";
 import ShoppingCartLink from "@/ui/atoms/ShoppingCartLink";
 import SearchBar from "@/ui/components/SearchBar";
@@ -23,10 +24,12 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 					label="Home"
 				>
 					<div className="flex flex-row items-center">
-						<img
+						<Image
 							src="/vinyl-svgrepo-com.svg"
 							alt="NJM Record Store"
 							className="aspect-square max-w-16"
+							width={64}
+							height={64}
 						/>
 						<span className="max-w-28 pl-4 text-xl font-bold lg:pr-8">
 							NJM Records
