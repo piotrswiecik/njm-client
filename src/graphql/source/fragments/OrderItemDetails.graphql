@@ -1,10 +1,12 @@
 fragment OrderItemDetails on OrderItem {
 	id
+	quantity
 	variant {
 		id
 		name
 		price
 		product {
+			id
 			artist {
 				name
 			}
@@ -12,5 +14,4 @@ fragment OrderItemDetails on OrderItem {
 		}
 		stock
 	}
-	quantity
 }

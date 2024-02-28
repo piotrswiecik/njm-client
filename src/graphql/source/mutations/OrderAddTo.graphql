@@ -1,0 +1,5 @@
+mutation OrderAddTo($to: ID!, $product: ID!, $variant: VariantEnum!) {
+  addToOrder(to: $to, product: $product, variant: $variant) {
+    ...OrderDetails
+  }
+}

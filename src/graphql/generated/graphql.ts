@@ -38,13 +38,23 @@ export type Collection = {
   products: Array<Product>;
 };
 
-export type CreateOrderResponse = {
+export type DefaultOrderResponse = {
   id: Scalars['ID']['output'];
 };
 
 export type Mutation = {
-  createOrder: CreateOrderResponse;
-  updateOrder: Order;
+  addToOrder: Order;
+  createOrder: DefaultOrderResponse;
+  deleteOrder: DefaultOrderResponse;
+  removeFromOrder: Order;
+  setOrderStatus: DefaultOrderResponse;
+};
+
+
+export type MutationAddToOrderArgs = {
+  product: Scalars['ID']['input'];
+  to: Scalars['ID']['input'];
+  variant: VariantEnum;
 };
 
 
@@ -53,21 +63,29 @@ export type MutationCreateOrderArgs = {
 };
 
 
-export type MutationUpdateOrderArgs = {
-  input: OrderInput;
+export type MutationDeleteOrderArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationRemoveFromOrderArgs = {
+  from: Scalars['ID']['input'];
+  product: Scalars['ID']['input'];
+  variant: VariantEnum;
+};
+
+
+export type MutationSetOrderStatusArgs = {
+  status: StatusEnum;
+  where: Scalars['ID']['input'];
 };
 
 export type Order = {
   id: Scalars['ID']['output'];
   orderItems?: Maybe<Array<OrderItem>>;
-  status: Status;
+  status: StatusEnum;
+  total: Scalars['Int']['output'];
   user: User;
-};
-
-export type OrderInput = {
-  orderId: Scalars['ID']['input'];
-  orderItems?: InputMaybe<Array<OrderItemInput>>;
-  status?: InputMaybe<Status>;
 };
 
 export type OrderItem = {
@@ -125,7 +143,7 @@ export type QueryCollectionArgs = {
 
 export type QueryOrderArgs = {
   id: Scalars['ID']['input'];
-  status?: InputMaybe<Status>;
+  status?: InputMaybe<StatusEnum>;
 };
 
 
@@ -149,7 +167,7 @@ export type QueryUserArgs = {
   id: Scalars['ID']['input'];
 };
 
-export type Status =
+export type StatusEnum =
   | 'AWAIT_PAY'
   | 'AWAIT_SHIP'
   | 'CANCELLED'
@@ -176,11 +194,26 @@ export type Variant = {
   stock: Scalars['Int']['output'];
 };
 
-export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { title: string, artist: { name: string } } | null } };
+export type VariantEnum =
+  | 'cd'
+  | 'lp';
+
+export type OrderDetailsFragment = { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } };
+
+export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } };
 
 export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
 
 export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
+
+export type OrderAddToMutationVariables = Exact<{
+  to: Scalars['ID']['input'];
+  product: Scalars['ID']['input'];
+  variant: VariantEnum;
+}>;
+
+
+export type OrderAddToMutation = { addToOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
 
 export type OrderCreateMutationVariables = Exact<{
   userId: Scalars['ID']['input'];
@@ -189,12 +222,29 @@ export type OrderCreateMutationVariables = Exact<{
 
 export type OrderCreateMutation = { createOrder: { id: string } };
 
-export type UpdateOrderMutationVariables = Exact<{
-  input: OrderInput;
+export type OrderDeleteMutationVariables = Exact<{
+  deleteOrderId: Scalars['ID']['input'];
 }>;
 
 
-export type UpdateOrderMutation = { updateOrder: { id: string, status: Status, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+export type OrderDeleteMutation = { deleteOrder: { id: string } };
+
+export type OrderRemoveFromMutationVariables = Exact<{
+  from: Scalars['ID']['input'];
+  product: Scalars['ID']['input'];
+  variant: VariantEnum;
+}>;
+
+
+export type OrderRemoveFromMutation = { removeFromOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+
+export type OrderSetStatusMutationVariables = Exact<{
+  where: Scalars['ID']['input'];
+  status: StatusEnum;
+}>;
+
+
+export type OrderSetStatusMutation = { setOrderStatus: { id: string } };
 
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
@@ -226,11 +276,11 @@ export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: stri
 
 export type OrderGetByIdQueryVariables = Exact<{
   orderId: Scalars['ID']['input'];
-  status?: InputMaybe<Status>;
+  status?: InputMaybe<StatusEnum>;
 }>;
 
 
-export type OrderGetByIdQuery = { order?: { id: string, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
+export type OrderGetByIdQuery = { order?: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
 
 export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -276,11 +326,13 @@ export class TypedDocumentString<TResult, TVariables>
 export const OrderItemDetailsFragmentDoc = new TypedDocumentString(`
     fragment OrderItemDetails on OrderItem {
   id
+  quantity
   variant {
     id
     name
     price
     product {
+      id
       artist {
         name
       }
@@ -288,9 +340,37 @@ export const OrderItemDetailsFragmentDoc = new TypedDocumentString(`
     }
     stock
   }
-  quantity
 }
     `, {"fragmentName":"OrderItemDetails"}) as unknown as TypedDocumentString<OrderItemDetailsFragment, unknown>;
+export const OrderDetailsFragmentDoc = new TypedDocumentString(`
+    fragment OrderDetails on Order {
+  id
+  status
+  orderItems {
+    ...OrderItemDetails
+  }
+  user {
+    id
+  }
+  total
+}
+    fragment OrderItemDetails on OrderItem {
+  id
+  quantity
+  variant {
+    id
+    name
+    price
+    product {
+      id
+      artist {
+        name
+      }
+      title
+    }
+    stock
+  }
+}`, {"fragmentName":"OrderDetails"}) as unknown as TypedDocumentString<OrderDetailsFragment, unknown>;
 export const ProductDetailsFragmentDoc = new TypedDocumentString(`
     fragment ProductDetails on Product {
   id
@@ -333,33 +413,32 @@ export const ProductOverviewFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductOverview"}) as unknown as TypedDocumentString<ProductOverviewFragment, unknown>;
-export const OrderCreateDocument = new TypedDocumentString(`
-    mutation OrderCreate($userId: ID!) {
-  createOrder(userId: $userId) {
-    id
+export const OrderAddToDocument = new TypedDocumentString(`
+    mutation OrderAddTo($to: ID!, $product: ID!, $variant: VariantEnum!) {
+  addToOrder(to: $to, product: $product, variant: $variant) {
+    ...OrderDetails
   }
 }
-    `) as unknown as TypedDocumentString<OrderCreateMutation, OrderCreateMutationVariables>;
-export const UpdateOrderDocument = new TypedDocumentString(`
-    mutation UpdateOrder($input: OrderInput!) {
-  updateOrder(input: $input) {
-    id
-    orderItems {
-      ...OrderItemDetails
-    }
-    status
-    user {
-      id
-    }
-  }
-}
-    fragment OrderItemDetails on OrderItem {
+    fragment OrderDetails on Order {
   id
+  status
+  orderItems {
+    ...OrderItemDetails
+  }
+  user {
+    id
+  }
+  total
+}
+fragment OrderItemDetails on OrderItem {
+  id
+  quantity
   variant {
     id
     name
     price
     product {
+      id
       artist {
         name
       }
@@ -367,8 +446,62 @@ export const UpdateOrderDocument = new TypedDocumentString(`
     }
     stock
   }
+}`) as unknown as TypedDocumentString<OrderAddToMutation, OrderAddToMutationVariables>;
+export const OrderCreateDocument = new TypedDocumentString(`
+    mutation OrderCreate($userId: ID!) {
+  createOrder(userId: $userId) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<OrderCreateMutation, OrderCreateMutationVariables>;
+export const OrderDeleteDocument = new TypedDocumentString(`
+    mutation OrderDelete($deleteOrderId: ID!) {
+  deleteOrder(id: $deleteOrderId) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<OrderDeleteMutation, OrderDeleteMutationVariables>;
+export const OrderRemoveFromDocument = new TypedDocumentString(`
+    mutation OrderRemoveFrom($from: ID!, $product: ID!, $variant: VariantEnum!) {
+  removeFromOrder(from: $from, product: $product, variant: $variant) {
+    ...OrderDetails
+  }
+}
+    fragment OrderDetails on Order {
+  id
+  status
+  orderItems {
+    ...OrderItemDetails
+  }
+  user {
+    id
+  }
+  total
+}
+fragment OrderItemDetails on OrderItem {
+  id
   quantity
-}`) as unknown as TypedDocumentString<UpdateOrderMutation, UpdateOrderMutationVariables>;
+  variant {
+    id
+    name
+    price
+    product {
+      id
+      artist {
+        name
+      }
+      title
+    }
+    stock
+  }
+}`) as unknown as TypedDocumentString<OrderRemoveFromMutation, OrderRemoveFromMutationVariables>;
+export const OrderSetStatusDocument = new TypedDocumentString(`
+    mutation OrderSetStatus($where: ID!, $status: StatusEnum!) {
+  setOrderStatus(where: $where, status: $status) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<OrderSetStatusMutation, OrderSetStatusMutationVariables>;
 export const CategoryCountDocument = new TypedDocumentString(`
     query CategoryCount($name: String!) {
   categoryCount(name: $name)
@@ -433,24 +566,31 @@ export const CollectionFindByNameWithAllProductsDocument = new TypedDocumentStri
   }
 }`) as unknown as TypedDocumentString<CollectionFindByNameWithAllProductsQuery, CollectionFindByNameWithAllProductsQueryVariables>;
 export const OrderGetByIdDocument = new TypedDocumentString(`
-    query OrderGetById($orderId: ID!, $status: Status) {
+    query OrderGetById($orderId: ID!, $status: StatusEnum) {
   order(id: $orderId, status: $status) {
-    id
-    orderItems {
-      ...OrderItemDetails
-    }
-    user {
-      id
-    }
+    ...OrderDetails
   }
 }
-    fragment OrderItemDetails on OrderItem {
+    fragment OrderDetails on Order {
   id
+  status
+  orderItems {
+    ...OrderItemDetails
+  }
+  user {
+    id
+  }
+  total
+}
+fragment OrderItemDetails on OrderItem {
+  id
+  quantity
   variant {
     id
     name
     price
     product {
+      id
       artist {
         name
       }
@@ -458,7 +598,6 @@ export const OrderGetByIdDocument = new TypedDocumentString(`
     }
     stock
   }
-  quantity
 }`) as unknown as TypedDocumentString<OrderGetByIdQuery, OrderGetByIdQueryVariables>;
 export const ProductCountDocument = new TypedDocumentString(`
     query ProductCount {

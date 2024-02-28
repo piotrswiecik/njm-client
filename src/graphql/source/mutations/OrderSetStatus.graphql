@@ -1,0 +1,5 @@
+mutation OrderSetStatus($where: ID!, $status: StatusEnum!) {
+  setOrderStatus(where: $where, status: $status) {
+    id
+  }
+}

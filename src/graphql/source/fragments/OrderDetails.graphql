@@ -1,0 +1,11 @@
+fragment OrderDetails on Order {
+  id
+    status
+    orderItems {
+      ...OrderItemDetails
+    }
+    user {
+      id
+    }
+    total
+}

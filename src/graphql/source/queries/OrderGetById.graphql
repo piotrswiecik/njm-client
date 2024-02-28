@@ -1,11 +1,5 @@
-query OrderGetById($orderId: ID!, $status: Status) {
+query OrderGetById($orderId: ID!, $status: StatusEnum) {
   order(id: $orderId, status: $status) {
-    id
-    orderItems {
-      ...OrderItemDetails
-    }
-    user {
-      id
-    }
+    ...OrderDetails
   }
 }
