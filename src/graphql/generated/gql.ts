@@ -14,7 +14,7 @@ import * as types from './graphql';
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "fragment OrderItemDetails on OrderItem {\n  id\n  variant {\n    id\n    name\n    price\n    product {\n      artist {\n        name\n      }\n      title\n    }\n  }\n  quantity\n}": types.OrderItemDetailsFragmentDoc,
+    "fragment OrderItemDetails on OrderItem {\n  id\n  variant {\n    id\n    name\n    price\n    product {\n      artist {\n        name\n      }\n      title\n    }\n    stock\n  }\n  quantity\n}": types.OrderItemDetailsFragmentDoc,
     "fragment ProductDetails on Product {\n  id\n  artist {\n    name\n  }\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    id\n    name\n    price\n    stock\n  }\n  title\n  releaseDate\n  tracks {\n    name\n    number\n  }\n}": types.ProductDetailsFragmentDoc,
     "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n}": types.ProductOverviewFragmentDoc,
     "mutation OrderCreate($userId: ID!) {\n  createOrder(userId: $userId) {\n    id\n  }\n}": types.OrderCreateDocument,
@@ -33,7 +33,7 @@ const documents = {
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment OrderItemDetails on OrderItem {\n  id\n  variant {\n    id\n    name\n    price\n    product {\n      artist {\n        name\n      }\n      title\n    }\n  }\n  quantity\n}"): typeof import('./graphql').OrderItemDetailsFragmentDoc;
+export function graphql(source: "fragment OrderItemDetails on OrderItem {\n  id\n  variant {\n    id\n    name\n    price\n    product {\n      artist {\n        name\n      }\n      title\n    }\n    stock\n  }\n  quantity\n}"): typeof import('./graphql').OrderItemDetailsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

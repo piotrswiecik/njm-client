@@ -176,7 +176,7 @@ export type Variant = {
   stock: Scalars['Int']['output'];
 };
 
-export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, product?: { title: string, artist: { name: string } } | null } };
+export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { title: string, artist: { name: string } } | null } };
 
 export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
 
@@ -194,7 +194,7 @@ export type UpdateOrderMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOrderMutation = { updateOrder: { id: string, status: Status, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+export type UpdateOrderMutation = { updateOrder: { id: string, status: Status, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
 
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
@@ -230,7 +230,7 @@ export type OrderGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type OrderGetByIdQuery = { order?: { id: string, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
+export type OrderGetByIdQuery = { order?: { id: string, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
 
 export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -286,6 +286,7 @@ export const OrderItemDetailsFragmentDoc = new TypedDocumentString(`
       }
       title
     }
+    stock
   }
   quantity
 }
@@ -364,6 +365,7 @@ export const UpdateOrderDocument = new TypedDocumentString(`
       }
       title
     }
+    stock
   }
   quantity
 }`) as unknown as TypedDocumentString<UpdateOrderMutation, UpdateOrderMutationVariables>;
@@ -454,6 +456,7 @@ export const OrderGetByIdDocument = new TypedDocumentString(`
       }
       title
     }
+    stock
   }
   quantity
 }`) as unknown as TypedDocumentString<OrderGetByIdQuery, OrderGetByIdQueryVariables>;

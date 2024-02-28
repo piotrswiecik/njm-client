@@ -10,6 +10,7 @@ fragment OrderItemDetails on OrderItem {
 			}
 			title
 		}
+		stock
 	}
 	quantity
 }

@@ -6,6 +6,8 @@ import {
 	type OrderInput,
 	type OrderItemDetailsFragment,
 	type ProductDetailsFragment,
+	Order,
+	UpdateOrderDocument,
 } from "@/graphql/generated/graphql";
 import { formatPrice, getBasicVariantPrice } from "@/utils/utils";
 import { queryGraphql } from "@/api/queryGraphql";
@@ -93,6 +95,22 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 		}
 	};
 
+	const pushUpdate = async (payload: OrderInput) => {
+		"use server";
+		try {
+			const { updateOrder } = await queryGraphql(UpdateOrderDocument, {
+				input: payload,
+			});
+			if (!updateOrder) {
+				throw new Error("Failed to update cart");
+			}
+			return { ...updateOrder };
+		} catch (err) {
+			console.log(err);
+			throw new Error("Failed to update cart");
+		}
+	};
+
 	/**
 	 * Get existing cart from backend based on cookie id or create a new cart and set cookie.
 	 */
@@ -147,15 +165,9 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 			throw new Error("Failed to get or create cart");
 		}
 
-		const updatedItems: OrderItemInput[] = cart.orderItems.map((item) => ({
-			quantity:
-				item.variant.name === formVariant ? item.quantity + 1 : item.quantity,
-			variantId: item.variant.id,
-		}));
-		updatedItems.push({
-			quantity: 1,
-			variantId: formVariant === "lp" ? formLpVariantId : formCdVariantId,
-		} as OrderItemInput);
+		const updatedItems: OrderItemInput[] = cart.orderItems;  // przepisujemy z serwera
+		console.log("updated items:");
+		console.log(updatedItems);
 
 		const orderInput: OrderInput = {
 			orderId: cart.id,
@@ -165,6 +177,10 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 
 		console.log("payload for update:");
 		console.log(orderInput);
+
+		const updatedCart = await pushUpdate(orderInput);
+		console.log("updated cart:");
+		console.log(updatedCart);
 	};
 
 	const variantEnabledClassName = `hover:bg-slate-300 cursor-pointer peer-checked:text-red-500 mb-2 me-2 rounded-lg border border-gray-800 px-2 text-center text-sm font-medium text-gray-900 peer-checked:bg-gray-900 peer-checked:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-800`;
