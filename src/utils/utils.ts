@@ -16,3 +16,32 @@ export const getBasicVariantPrice = (
 	const prices = product.variants.map((v) => v.price);
 	return Math.min(...prices);
 };
+
+/**
+	 * For given product and variant type, checks if variant is in stock.
+	 */
+export const variantInStock = (
+	product: ProductDetailsFragment,
+	type: "cd" | "lp",
+) => {
+	const variant = product.variants.find((v) => v.name === type);
+	if (!variant) return false;
+	return variant.stock > 0;
+};
+
+/**
+ * Checks if any variant of product is in stock.
+ */
+export const productAvailable = (product: ProductDetailsFragment) => {
+	return product.variants.some((v) => v.stock > 0);
+};
+
+/**
+ * Set default active variant based on stock availability.
+ */
+export const defaultVariant = (product: ProductDetailsFragment) => {
+	if (!productAvailable(product)) return null;
+	if (!variantInStock(product, "cd")) return "lp";
+	if (!variantInStock(product, "lp")) return "cd";
+	return "cd";
+};
