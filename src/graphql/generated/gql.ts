@@ -18,7 +18,7 @@ const documents = {
     "fragment ProductDetails on Product {\n  id\n  artist {\n    name\n  }\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    id\n    name\n    price\n    stock\n  }\n  title\n  releaseDate\n  tracks {\n    name\n    number\n  }\n}": types.ProductDetailsFragmentDoc,
     "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n}": types.ProductOverviewFragmentDoc,
     "mutation OrderCreate($userId: ID!) {\n  createOrder(userId: $userId) {\n    id\n  }\n}": types.OrderCreateDocument,
-    "mutation UpdateOrder($input: OrderInput!) {\n  updateOrder(input: $input) {\n    id\n    orderItems {\n      id\n      quantity\n      variant {\n        id\n        name\n        price\n        stock\n        product {\n          artist {\n            name\n          }\n          title\n        }\n      }\n    }\n    status\n    user {\n      id\n    }\n  }\n}": types.UpdateOrderDocument,
+    "mutation UpdateOrder($input: OrderInput!) {\n  updateOrder(input: $input) {\n    id\n    orderItems {\n      ...OrderItemDetails\n    }\n    status\n    user {\n      id\n    }\n  }\n}": types.UpdateOrderDocument,
     "query CategoryCount($name: String!) {\n  categoryCount(name: $name)\n}": types.CategoryCountDocument,
     "query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {\n  category(name: $name) {\n    products(skip: $skip, take: $take) {\n      ...ProductOverview\n    }\n  }\n}": types.CategoryFindByNameWithPaginatedProductsDocument,
     "query CollectionFindAll {\n  collections {\n    id\n    name\n  }\n}": types.CollectionFindAllDocument,
@@ -49,7 +49,7 @@ export function graphql(source: "mutation OrderCreate($userId: ID!) {\n  createO
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation UpdateOrder($input: OrderInput!) {\n  updateOrder(input: $input) {\n    id\n    orderItems {\n      id\n      quantity\n      variant {\n        id\n        name\n        price\n        stock\n        product {\n          artist {\n            name\n          }\n          title\n        }\n      }\n    }\n    status\n    user {\n      id\n    }\n  }\n}"): typeof import('./graphql').UpdateOrderDocument;
+export function graphql(source: "mutation UpdateOrder($input: OrderInput!) {\n  updateOrder(input: $input) {\n    id\n    orderItems {\n      ...OrderItemDetails\n    }\n    status\n    user {\n      id\n    }\n  }\n}"): typeof import('./graphql').UpdateOrderDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

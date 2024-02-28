@@ -194,7 +194,7 @@ export type UpdateOrderMutationVariables = Exact<{
 }>;
 
 
-export type UpdateOrderMutation = { updateOrder: { id: string, status: Status, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+export type UpdateOrderMutation = { updateOrder: { id: string, status: Status, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
 
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
@@ -344,20 +344,7 @@ export const UpdateOrderDocument = new TypedDocumentString(`
   updateOrder(input: $input) {
     id
     orderItems {
-      id
-      quantity
-      variant {
-        id
-        name
-        price
-        stock
-        product {
-          artist {
-            name
-          }
-          title
-        }
-      }
+      ...OrderItemDetails
     }
     status
     user {
@@ -365,7 +352,21 @@ export const UpdateOrderDocument = new TypedDocumentString(`
     }
   }
 }
-    `) as unknown as TypedDocumentString<UpdateOrderMutation, UpdateOrderMutationVariables>;
+    fragment OrderItemDetails on OrderItem {
+  id
+  variant {
+    id
+    name
+    price
+    product {
+      artist {
+        name
+      }
+      title
+    }
+  }
+  quantity
+}`) as unknown as TypedDocumentString<UpdateOrderMutation, UpdateOrderMutationVariables>;
 export const CategoryCountDocument = new TypedDocumentString(`
     query CategoryCount($name: String!) {
   categoryCount(name: $name)
