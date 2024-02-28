@@ -44,11 +44,17 @@ export type CreateOrderResponse = {
 
 export type Mutation = {
   createOrder: CreateOrderResponse;
+  updateOrder: Order;
 };
 
 
 export type MutationCreateOrderArgs = {
   userId: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateOrderArgs = {
+  input: OrderInput;
 };
 
 export type Order = {
@@ -58,10 +64,21 @@ export type Order = {
   user: User;
 };
 
+export type OrderInput = {
+  orderId: Scalars['ID']['input'];
+  orderItems?: InputMaybe<Array<OrderItemInput>>;
+  status?: InputMaybe<Status>;
+};
+
 export type OrderItem = {
   id: Scalars['ID']['output'];
   quantity: Scalars['Int']['output'];
   variant: Variant;
+};
+
+export type OrderItemInput = {
+  quantity: Scalars['Int']['input'];
+  variantId: Scalars['ID']['input'];
 };
 
 export type Product = {
@@ -171,6 +188,13 @@ export type OrderCreateMutationVariables = Exact<{
 
 
 export type OrderCreateMutation = { createOrder: { id: string } };
+
+export type UpdateOrderMutationVariables = Exact<{
+  input: OrderInput;
+}>;
+
+
+export type UpdateOrderMutation = { updateOrder: { id: string, status: Status, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
 
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
@@ -315,6 +339,33 @@ export const OrderCreateDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<OrderCreateMutation, OrderCreateMutationVariables>;
+export const UpdateOrderDocument = new TypedDocumentString(`
+    mutation UpdateOrder($input: OrderInput!) {
+  updateOrder(input: $input) {
+    id
+    orderItems {
+      id
+      quantity
+      variant {
+        id
+        name
+        price
+        stock
+        product {
+          artist {
+            name
+          }
+          title
+        }
+      }
+    }
+    status
+    user {
+      id
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateOrderMutation, UpdateOrderMutationVariables>;
 export const CategoryCountDocument = new TypedDocumentString(`
     query CategoryCount($name: String!) {
   categoryCount(name: $name)

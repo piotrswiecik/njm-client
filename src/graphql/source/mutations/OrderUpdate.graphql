@@ -1,0 +1,25 @@
+mutation UpdateOrder($input: OrderInput!) {
+  updateOrder(input: $input) {
+    id
+    orderItems {
+      id
+      quantity
+      variant {
+        id
+        name
+        price
+        stock
+        product {
+          artist {
+            name
+          }
+          title
+        }
+      }
+    }
+    status
+    user {
+      id
+    }
+  }
+}

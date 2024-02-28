@@ -12,7 +12,7 @@ type ProductDetailsProps = {
 	product: ProductDetailsFragment;
 };
 
-type OrderResponse = {
+export type CartDto = {
 	id: string;
 	orderItems: OrderItemDetailsFragment[];
 	user: {
@@ -80,6 +80,7 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 		try {
 			// FIXME: no error boundary set for this
 			const { createOrder } = await queryGraphql(OrderCreateDocument, {
+				// FIXME: hardcoded for testing
 				userId: "dbe0705a-87d0-4c11-9432-f55895360016",
 			});
 			return {
@@ -93,25 +94,31 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 	/**
 	 * Get existing cart from backend based on cookie id or create a new cart and set cookie.
 	 */
-	const getOrCreateCart = async () => {
+	const getOrCreateCart = async (): Promise<CartDto> => {
 		"use server";
+
 		const cartId = cookies().get("cartId")?.value;
 		if (cartId) {
-			const cart = await getCart(cartId);
-			console.log(cart);
+			const cart: CartDto = await getCart(cartId);
 			if (cart) {
+				console.log(`cart found & fetched: ${cart.id}`);
 				return cart;
 			}
-			else {
-			const cart = await createCart();
-			if (!cart) {
-				// FIXME: no error boundary set for this
-				throw new Error("Failed to create cart");
-			}
-			cookies().set("cartId", cart.id);
-			return cart;
 		}
-	}
+
+		const { id: newCartId } = await createCart();
+		if (!newCartId) {
+			// FIXME: no error boundary set for this
+			throw new Error("Failed to create cart");
+		}
+		cookies().set("cartId", newCartId);
+		console.log(`new cart created: ${newCartId}`);
+		return {
+			id: newCartId,
+			orderItems: [],
+			// FIXME: hardcoded for testing
+			user: { id: "dbe0705a-87d0-4c11-9432-f55895360016" },
+		};
 	};
 
 	const addItemToCart = async (data: FormData) => {
