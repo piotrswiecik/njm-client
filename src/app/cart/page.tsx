@@ -1,8 +1,5 @@
 import { getOrCreateCart } from "@/api/cart";
-import {
-	type ProductDetailsFragment,
-	type OrderItemDetailsFragment,
-} from "@/graphql/generated/graphql";
+import { type OrderItemDetailsFragment } from "@/graphql/generated/graphql";
 import CartItemCard from "@/ui/components/CartItemCard";
 
 const CartPage = async () => {
@@ -22,15 +19,7 @@ const CartPage = async () => {
 		<>
 			{orderItems.map((item) => {
 				if (!item.variant.product) return null;
-				return (
-					<CartItemCard
-						key={"1"}
-						quantity={item.quantity}
-						product={item.variant.product}
-						price={item.variant.price}
-            variant={item.variant.name}
-					/>
-				);
+				return <CartItemCard key={item.id} item={item} cartId={cart.id} />;
 			})}
 		</>
 	);

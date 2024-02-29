@@ -1,3 +1,5 @@
+"use server";
+
 import { cookies } from "next/headers";
 import { queryGraphql } from "@/api/queryGraphql";
 import {
@@ -7,6 +9,7 @@ import {
 	OrderGetByIdDocument,
 	type VariantEnum,
 	type DefaultOrderResponse,
+	OrderRemoveFromDocument,
 } from "@/graphql/generated/graphql";
 
 /**
@@ -17,7 +20,6 @@ import {
 export const getCart = async (
 	cartId: string,
 ): Promise<OrderDetailsFragment | null> => {
-	"use server";
 	try {
 		const { order } = await queryGraphql(OrderGetByIdDocument, {
 			orderId: cartId,
@@ -36,7 +38,6 @@ export const getCart = async (
  * Create a new cart via graphql mutation.
  */
 const createCart = async (): Promise<DefaultOrderResponse> => {
-	"use server";
 	try {
 		// FIXME: no error boundary set for this
 		const { createOrder } = await queryGraphql(OrderCreateDocument, {
@@ -55,8 +56,6 @@ const createCart = async (): Promise<DefaultOrderResponse> => {
  * Get existing cart from backend based on cookie id or create a new cart and set cookie.
  */
 export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
-	"use server";
-
 	const cartId = cookies().get("cartId")?.value;
 	if (cartId) {
 		const cart = await getCart(cartId);
@@ -85,11 +84,10 @@ export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
 
 /**
  * Main action to add item to cart via graphql mutation.
- * @param data product id and variant name received from React form.
+ * @param id product id to be added.
+ * @param variant variant of the product to be added.
  */
 export const addItemToCart = async (variant: VariantEnum, id: string) => {
-	"use server";
-
 	const cart = await getOrCreateCart();
 
 	if (!cart) {
@@ -108,7 +106,6 @@ export const addItemToCart = async (variant: VariantEnum, id: string) => {
 			await queryGraphql(OrderAddToDocument, {
 				to: cart.id,
 				product: id,
-				// TODO: maybe some form of validation later on
 				variant: variant,
 			});
 		console.log("ok, added to cart");
@@ -116,5 +113,33 @@ export const addItemToCart = async (variant: VariantEnum, id: string) => {
 	} catch (err) {
 		// TODO: set error boundary
 		throw new Error("Failed to add item to cart");
+	}
+};
+
+/**
+ * Remove item from existing cart via graphql mutation.
+ * @param cartId
+ * @param variant
+ * @param productId
+ */
+export const removeItemFromCart = async (
+	variant: VariantEnum,
+	cartId: string,
+	productId: string,
+) => {
+	try {
+		console.log("removing item from cart");
+		console.log(`fetching cart: ${cartId}	`);
+		const cart = await getCart(cartId);
+		console.log("cart fetch result");
+		console.log(cart);
+		if (!cart) return;
+		await queryGraphql(OrderRemoveFromDocument, {
+			from: cart.id,
+			product: productId,
+			variant: variant,
+		});
+	} catch (err) {
+		throw new Error("removeItemFromCart failed");
 	}
 };
