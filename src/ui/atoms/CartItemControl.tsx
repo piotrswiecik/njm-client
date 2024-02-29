@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { addItemToCart, removeItemFromCart } from "@/api/cart";
 import {
 	type OrderItemDetailsFragment,
@@ -14,6 +14,7 @@ type CartItemQtyProps = {
 
 const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 	// useTransition required to call server action outside of form
+	const [quantity, setQuantity] = useState(item.quantity);
 	const [isPending, startTransition] = useTransition();
 
 	console.log(`ispending ${isPending}`);
@@ -24,16 +25,19 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 				variant: item.variant.name as VariantEnum,
 				id: item.variant.product.id,
 			});
+			setQuantity(quantity + 1);
 		});
 	};
 
 	const handleDecrement = () => {
 		startTransition(async () => {
+			if (quantity === 1) return;
 			await removeItemFromCart({
 				variant: item.variant.name as VariantEnum,
 				cartId,
 				productId: item.variant.product.id,
 			});
+			setQuantity(quantity - 1);
 		});
 	};
 
@@ -51,7 +55,7 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 				className="h-8 w-8 border bg-white text-center text-xs outline-none"
 				type="text"
 				readOnly
-				value={item.quantity}
+				value={quantity}
 			/>
 			<button
 				disabled={isPending}
