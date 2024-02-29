@@ -198,13 +198,17 @@ export type VariantEnum =
   | 'cd'
   | 'lp';
 
-export type OrderDetailsFragment = { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } };
+export type OrderDetailsFragment = { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } }> | null, user: { id: string } };
 
-export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } };
+export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } };
 
 export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
 
+export type ProductDetailsInVariantFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string } };
+
 export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
+
+export type VariantDetailsFragment = { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null };
 
 export type OrderAddToMutationVariables = Exact<{
   to: Scalars['ID']['input'];
@@ -213,7 +217,7 @@ export type OrderAddToMutationVariables = Exact<{
 }>;
 
 
-export type OrderAddToMutation = { addToOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+export type OrderAddToMutation = { addToOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
 
 export type OrderCreateMutationVariables = Exact<{
   userId: Scalars['ID']['input'];
@@ -236,7 +240,7 @@ export type OrderRemoveFromMutationVariables = Exact<{
 }>;
 
 
-export type OrderRemoveFromMutation = { removeFromOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+export type OrderRemoveFromMutation = { removeFromOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
 
 export type OrderSetStatusMutationVariables = Exact<{
   where: Scalars['ID']['input'];
@@ -280,7 +284,7 @@ export type OrderGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type OrderGetByIdQuery = { order?: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
+export type OrderGetByIdQuery = { order?: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
 
 export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -323,25 +327,59 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const ProductDetailsInVariantFragmentDoc = new TypedDocumentString(`
+    fragment ProductDetailsInVariant on Product {
+  id
+  artist {
+    name
+  }
+  title
+  coverImageUrl
+}
+    `, {"fragmentName":"ProductDetailsInVariant"}) as unknown as TypedDocumentString<ProductDetailsInVariantFragment, unknown>;
+export const VariantDetailsFragmentDoc = new TypedDocumentString(`
+    fragment VariantDetails on Variant {
+  id
+  name
+  price
+  product {
+    ...ProductDetailsInVariant
+  }
+  stock
+}
+    fragment ProductDetailsInVariant on Product {
+  id
+  artist {
+    name
+  }
+  title
+  coverImageUrl
+}`, {"fragmentName":"VariantDetails"}) as unknown as TypedDocumentString<VariantDetailsFragment, unknown>;
 export const OrderItemDetailsFragmentDoc = new TypedDocumentString(`
     fragment OrderItemDetails on OrderItem {
   id
   quantity
   variant {
-    id
-    name
-    price
-    product {
-      id
-      artist {
-        name
-      }
-      title
-    }
-    stock
+    ...VariantDetails
   }
 }
-    `, {"fragmentName":"OrderItemDetails"}) as unknown as TypedDocumentString<OrderItemDetailsFragment, unknown>;
+    fragment ProductDetailsInVariant on Product {
+  id
+  artist {
+    name
+  }
+  title
+  coverImageUrl
+}
+fragment VariantDetails on Variant {
+  id
+  name
+  price
+  product {
+    ...ProductDetailsInVariant
+  }
+  stock
+}`, {"fragmentName":"OrderItemDetails"}) as unknown as TypedDocumentString<OrderItemDetailsFragment, unknown>;
 export const OrderDetailsFragmentDoc = new TypedDocumentString(`
     fragment OrderDetails on Order {
   id
@@ -358,18 +396,25 @@ export const OrderDetailsFragmentDoc = new TypedDocumentString(`
   id
   quantity
   variant {
-    id
-    name
-    price
-    product {
-      id
-      artist {
-        name
-      }
-      title
-    }
-    stock
+    ...VariantDetails
   }
+}
+fragment ProductDetailsInVariant on Product {
+  id
+  artist {
+    name
+  }
+  title
+  coverImageUrl
+}
+fragment VariantDetails on Variant {
+  id
+  name
+  price
+  product {
+    ...ProductDetailsInVariant
+  }
+  stock
 }`, {"fragmentName":"OrderDetails"}) as unknown as TypedDocumentString<OrderDetailsFragment, unknown>;
 export const ProductDetailsFragmentDoc = new TypedDocumentString(`
     fragment ProductDetails on Product {
@@ -434,18 +479,25 @@ fragment OrderItemDetails on OrderItem {
   id
   quantity
   variant {
-    id
-    name
-    price
-    product {
-      id
-      artist {
-        name
-      }
-      title
-    }
-    stock
+    ...VariantDetails
   }
+}
+fragment ProductDetailsInVariant on Product {
+  id
+  artist {
+    name
+  }
+  title
+  coverImageUrl
+}
+fragment VariantDetails on Variant {
+  id
+  name
+  price
+  product {
+    ...ProductDetailsInVariant
+  }
+  stock
 }`) as unknown as TypedDocumentString<OrderAddToMutation, OrderAddToMutationVariables>;
 export const OrderCreateDocument = new TypedDocumentString(`
     mutation OrderCreate($userId: ID!) {
@@ -482,18 +534,25 @@ fragment OrderItemDetails on OrderItem {
   id
   quantity
   variant {
-    id
-    name
-    price
-    product {
-      id
-      artist {
-        name
-      }
-      title
-    }
-    stock
+    ...VariantDetails
   }
+}
+fragment ProductDetailsInVariant on Product {
+  id
+  artist {
+    name
+  }
+  title
+  coverImageUrl
+}
+fragment VariantDetails on Variant {
+  id
+  name
+  price
+  product {
+    ...ProductDetailsInVariant
+  }
+  stock
 }`) as unknown as TypedDocumentString<OrderRemoveFromMutation, OrderRemoveFromMutationVariables>;
 export const OrderSetStatusDocument = new TypedDocumentString(`
     mutation OrderSetStatus($where: ID!, $status: StatusEnum!) {
@@ -586,18 +645,25 @@ fragment OrderItemDetails on OrderItem {
   id
   quantity
   variant {
-    id
-    name
-    price
-    product {
-      id
-      artist {
-        name
-      }
-      title
-    }
-    stock
+    ...VariantDetails
   }
+}
+fragment ProductDetailsInVariant on Product {
+  id
+  artist {
+    name
+  }
+  title
+  coverImageUrl
+}
+fragment VariantDetails on Variant {
+  id
+  name
+  price
+  product {
+    ...ProductDetailsInVariant
+  }
+  stock
 }`) as unknown as TypedDocumentString<OrderGetByIdQuery, OrderGetByIdQueryVariables>;
 export const ProductCountDocument = new TypedDocumentString(`
     query ProductCount {

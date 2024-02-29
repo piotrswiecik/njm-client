@@ -2,16 +2,6 @@ fragment OrderItemDetails on OrderItem {
 	id
 	quantity
 	variant {
-		id
-		name
-		price
-		product {
-			id
-			artist {
-				name
-			}
-			title
-		}
-		stock
+		...VariantDetails
 	}
 }

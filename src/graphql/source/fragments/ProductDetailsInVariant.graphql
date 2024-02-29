@@ -1,0 +1,8 @@
+fragment ProductDetailsInVariant on Product {
+  id
+  artist {
+    name
+  }
+  title
+  coverImageUrl
+}

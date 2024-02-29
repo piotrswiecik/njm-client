@@ -6,6 +6,7 @@ import {
 	type OrderDetailsFragment,
 	OrderGetByIdDocument,
 	type VariantEnum,
+	type DefaultOrderResponse,
 } from "@/graphql/generated/graphql";
 
 /**
@@ -13,7 +14,9 @@ import {
  * @param cartId cart id stored as client side cookie.
  * @returns
  */
-const getCart = async (cartId: string) => {
+export const getCart = async (
+	cartId: string,
+): Promise<OrderDetailsFragment | null> => {
 	"use server";
 	try {
 		const { order } = await queryGraphql(OrderGetByIdDocument, {
@@ -32,7 +35,7 @@ const getCart = async (cartId: string) => {
 /**
  * Create a new cart via graphql mutation.
  */
-const createCart = async () => {
+const createCart = async (): Promise<DefaultOrderResponse> => {
 	"use server";
 	try {
 		// FIXME: no error boundary set for this
@@ -51,7 +54,7 @@ const createCart = async () => {
 /**
  * Get existing cart from backend based on cookie id or create a new cart and set cookie.
  */
-const getOrCreateCart = async () => {
+export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
 	"use server";
 
 	const cartId = cookies().get("cartId")?.value;
@@ -75,6 +78,8 @@ const getOrCreateCart = async () => {
 		orderItems: [],
 		// FIXME: hardcoded for testing
 		user: { id: "dbe0705a-87d0-4c11-9432-f55895360016" },
+		status: "CART",
+		total: 0,
 	};
 };
 

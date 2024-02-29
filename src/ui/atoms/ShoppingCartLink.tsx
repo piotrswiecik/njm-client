@@ -4,7 +4,7 @@ import Link from "next/link";
 const ShoppingCartLink = () => {
 	return (
 		<div className="m-0 hidden flex-row items-baseline p-0 hover:opacity-75 sm:flex transition-opacity duration-300">
-			<Link href="#">
+			<Link href="/cart">
 				<ShoppingCart
 					color="#334155"
 					strokeWidth={2}

@@ -1,0 +1,9 @@
+fragment VariantDetails on Variant {
+  id
+		name
+		price
+		product {
+			...ProductDetailsInVariant
+		}
+		stock
+}

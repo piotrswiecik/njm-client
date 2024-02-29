@@ -18,7 +18,6 @@ export type CartDto = {
 	};
 } | null;
 
-// TODO: refactor into subcomponents & atoms, create reusable server actions
 const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 	return (
 		<>

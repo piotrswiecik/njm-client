@@ -15,9 +15,11 @@ import * as types from './graphql';
  */
 const documents = {
     "fragment OrderDetails on Order {\n  id\n  status\n  orderItems {\n    ...OrderItemDetails\n  }\n  user {\n    id\n  }\n  total\n}": types.OrderDetailsFragmentDoc,
-    "fragment OrderItemDetails on OrderItem {\n  id\n  quantity\n  variant {\n    id\n    name\n    price\n    product {\n      id\n      artist {\n        name\n      }\n      title\n    }\n    stock\n  }\n}": types.OrderItemDetailsFragmentDoc,
+    "fragment OrderItemDetails on OrderItem {\n  id\n  quantity\n  variant {\n    ...VariantDetails\n  }\n}": types.OrderItemDetailsFragmentDoc,
     "fragment ProductDetails on Product {\n  id\n  artist {\n    name\n  }\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    id\n    name\n    price\n    stock\n  }\n  title\n  releaseDate\n  tracks {\n    name\n    number\n  }\n}": types.ProductDetailsFragmentDoc,
+    "fragment ProductDetailsInVariant on Product {\n  id\n  artist {\n    name\n  }\n  title\n  coverImageUrl\n}": types.ProductDetailsInVariantFragmentDoc,
     "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n}": types.ProductOverviewFragmentDoc,
+    "fragment VariantDetails on Variant {\n  id\n  name\n  price\n  product {\n    ...ProductDetailsInVariant\n  }\n  stock\n}": types.VariantDetailsFragmentDoc,
     "mutation OrderAddTo($to: ID!, $product: ID!, $variant: VariantEnum!) {\n  addToOrder(to: $to, product: $product, variant: $variant) {\n    ...OrderDetails\n  }\n}": types.OrderAddToDocument,
     "mutation OrderCreate($userId: ID!) {\n  createOrder(userId: $userId) {\n    id\n  }\n}": types.OrderCreateDocument,
     "mutation OrderDelete($deleteOrderId: ID!) {\n  deleteOrder(id: $deleteOrderId) {\n    id\n  }\n}": types.OrderDeleteDocument,
@@ -41,7 +43,7 @@ export function graphql(source: "fragment OrderDetails on Order {\n  id\n  statu
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment OrderItemDetails on OrderItem {\n  id\n  quantity\n  variant {\n    id\n    name\n    price\n    product {\n      id\n      artist {\n        name\n      }\n      title\n    }\n    stock\n  }\n}"): typeof import('./graphql').OrderItemDetailsFragmentDoc;
+export function graphql(source: "fragment OrderItemDetails on OrderItem {\n  id\n  quantity\n  variant {\n    ...VariantDetails\n  }\n}"): typeof import('./graphql').OrderItemDetailsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -49,7 +51,15 @@ export function graphql(source: "fragment ProductDetails on Product {\n  id\n  a
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function graphql(source: "fragment ProductDetailsInVariant on Product {\n  id\n  artist {\n    name\n  }\n  title\n  coverImageUrl\n}"): typeof import('./graphql').ProductDetailsInVariantFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function graphql(source: "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n}"): typeof import('./graphql').ProductOverviewFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment VariantDetails on Variant {\n  id\n  name\n  price\n  product {\n    ...ProductDetailsInVariant\n  }\n  stock\n}"): typeof import('./graphql').VariantDetailsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
