@@ -11,7 +11,7 @@ import {
 	productAvailable,
 	variantInStock,
 } from "@/utils/utils";
-import { addItemToCart } from "@/api/cart";
+import { addOrIncreaseItem } from "@/api/cart";
 
 const ProductDetailsManager = ({
 	product,
@@ -37,7 +37,9 @@ const ProductDetailsManager = ({
 	return (
 		<>
 			<form
-				action={() => addItemToCart({ variant: activeVariant, id: product.id })}
+				action={() =>
+					addOrIncreaseItem({ variant: activeVariant, id: product.id })
+				}
 			>
 				<div className="my-4">
 					Select format:

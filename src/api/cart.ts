@@ -10,6 +10,7 @@ import {
 	type VariantEnum,
 	type DefaultOrderResponse,
 	OrderRemoveFromDocument,
+	OrderDeleteAllFromDocument,
 } from "@/graphql/generated/graphql";
 
 /**
@@ -87,7 +88,7 @@ export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
  * @param id product id to be added.
  * @param variant variant of the product to be added.
  */
-export const addItemToCart = async ({
+export const addOrIncreaseItem = async ({
 	variant,
 	id,
 }: {
@@ -131,7 +132,7 @@ export const addItemToCart = async ({
  * @param variant
  * @param productId
  */
-export const removeItemFromCart = async ({
+export const decreaseItem = async ({
 	variant,
 	cartId,
 	productId,
@@ -157,4 +158,22 @@ export const removeItemFromCart = async ({
 	} catch (err) {
 		throw new Error("removeItemFromCart failed");
 	}
+};
+
+export const deleteItem = async ({
+	variant,
+	cartId,
+	productId,
+}: {
+	variant: VariantEnum;
+	cartId: string;
+	productId: string;
+}) => {
+	console.log("deleting item from cart");
+	await queryGraphql(OrderDeleteAllFromDocument, {
+		from: cartId,
+		product: productId,
+		variant: variant,
+	});
+	console.log("deleted");
 };

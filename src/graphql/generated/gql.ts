@@ -23,6 +23,7 @@ const documents = {
     "mutation OrderAddTo($to: ID!, $product: ID!, $variant: VariantEnum!) {\n  addToOrder(to: $to, product: $product, variant: $variant) {\n    ...OrderDetails\n  }\n}": types.OrderAddToDocument,
     "mutation OrderCreate($userId: ID!) {\n  createOrder(userId: $userId) {\n    id\n  }\n}": types.OrderCreateDocument,
     "mutation OrderDelete($deleteOrderId: ID!) {\n  deleteOrder(id: $deleteOrderId) {\n    id\n  }\n}": types.OrderDeleteDocument,
+    "mutation OrderDeleteAllFrom($from: ID!, $product: ID!, $variant: VariantEnum!) {\n  removeAllFromOrder(from: $from, product: $product, variant: $variant) {\n    ...OrderDetails\n  }\n}": types.OrderDeleteAllFromDocument,
     "mutation OrderRemoveFrom($from: ID!, $product: ID!, $variant: VariantEnum!) {\n  removeFromOrder(from: $from, product: $product, variant: $variant) {\n    ...OrderDetails\n  }\n}": types.OrderRemoveFromDocument,
     "mutation OrderSetStatus($where: ID!, $status: StatusEnum!) {\n  setOrderStatus(where: $where, status: $status) {\n    id\n  }\n}": types.OrderSetStatusDocument,
     "query CategoryCount($name: String!) {\n  categoryCount(name: $name)\n}": types.CategoryCountDocument,
@@ -72,6 +73,10 @@ export function graphql(source: "mutation OrderCreate($userId: ID!) {\n  createO
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation OrderDelete($deleteOrderId: ID!) {\n  deleteOrder(id: $deleteOrderId) {\n    id\n  }\n}"): typeof import('./graphql').OrderDeleteDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation OrderDeleteAllFrom($from: ID!, $product: ID!, $variant: VariantEnum!) {\n  removeAllFromOrder(from: $from, product: $product, variant: $variant) {\n    ...OrderDetails\n  }\n}"): typeof import('./graphql').OrderDeleteAllFromDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

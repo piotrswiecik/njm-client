@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { addItemToCart, removeItemFromCart } from "@/api/cart";
+import { addOrIncreaseItem, decreaseItem } from "@/api/cart";
 import {
 	type OrderItemDetailsFragment,
 	type VariantEnum,
@@ -17,11 +17,10 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 	const [quantity, setQuantity] = useState(item.quantity);
 	const [isPending, startTransition] = useTransition();
 
-	console.log(`ispending ${isPending}`);
-
 	const handleIncrement = () => {
 		startTransition(async () => {
-			await addItemToCart({
+			// TODO: this might throw, for example if item is out of stock
+			await addOrIncreaseItem({
 				variant: item.variant.name as VariantEnum,
 				id: item.variant.product.id,
 			});
@@ -30,9 +29,10 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 	};
 
 	const handleDecrement = () => {
+		// TODO: when 1 show modal to confirm remove
 		startTransition(async () => {
 			if (quantity === 1) return;
-			await removeItemFromCart({
+			await decreaseItem({
 				variant: item.variant.name as VariantEnum,
 				cartId,
 				productId: item.variant.product.id,

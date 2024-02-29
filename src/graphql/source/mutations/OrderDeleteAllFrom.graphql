@@ -1,0 +1,5 @@
+mutation OrderDeleteAllFrom($from: ID!, $product: ID!, $variant: VariantEnum!) {
+  removeAllFromOrder(from: $from, product: $product, variant: $variant) {
+    ...OrderDetails 
+  }
+}

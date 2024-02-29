@@ -46,6 +46,7 @@ export type Mutation = {
   addToOrder: Order;
   createOrder: DefaultOrderResponse;
   deleteOrder: DefaultOrderResponse;
+  removeAllFromOrder: Order;
   removeFromOrder: Order;
   setOrderStatus: DefaultOrderResponse;
 };
@@ -65,6 +66,13 @@ export type MutationCreateOrderArgs = {
 
 export type MutationDeleteOrderArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationRemoveAllFromOrderArgs = {
+  from: Scalars['ID']['input'];
+  product: Scalars['ID']['input'];
+  variant: VariantEnum;
 };
 
 
@@ -232,6 +240,15 @@ export type OrderDeleteMutationVariables = Exact<{
 
 
 export type OrderDeleteMutation = { deleteOrder: { id: string } };
+
+export type OrderDeleteAllFromMutationVariables = Exact<{
+  from: Scalars['ID']['input'];
+  product: Scalars['ID']['input'];
+  variant: VariantEnum;
+}>;
+
+
+export type OrderDeleteAllFromMutation = { removeAllFromOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } } }> | null, user: { id: string } } };
 
 export type OrderRemoveFromMutationVariables = Exact<{
   from: Scalars['ID']['input'];
@@ -513,6 +530,47 @@ export const OrderDeleteDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<OrderDeleteMutation, OrderDeleteMutationVariables>;
+export const OrderDeleteAllFromDocument = new TypedDocumentString(`
+    mutation OrderDeleteAllFrom($from: ID!, $product: ID!, $variant: VariantEnum!) {
+  removeAllFromOrder(from: $from, product: $product, variant: $variant) {
+    ...OrderDetails
+  }
+}
+    fragment OrderDetails on Order {
+  id
+  status
+  orderItems {
+    ...OrderItemDetails
+  }
+  user {
+    id
+  }
+  total
+}
+fragment OrderItemDetails on OrderItem {
+  id
+  quantity
+  variant {
+    ...VariantDetails
+  }
+}
+fragment ProductDetailsInVariant on Product {
+  id
+  artist {
+    name
+  }
+  title
+  coverImageUrl
+}
+fragment VariantDetails on Variant {
+  id
+  name
+  price
+  product {
+    ...ProductDetailsInVariant
+  }
+  stock
+}`) as unknown as TypedDocumentString<OrderDeleteAllFromMutation, OrderDeleteAllFromMutationVariables>;
 export const OrderRemoveFromDocument = new TypedDocumentString(`
     mutation OrderRemoveFrom($from: ID!, $product: ID!, $variant: VariantEnum!) {
   removeFromOrder(from: $from, product: $product, variant: $variant) {

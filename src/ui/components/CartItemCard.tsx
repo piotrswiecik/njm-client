@@ -2,6 +2,7 @@ import Image from "next/image";
 import { formatPrice } from "@/utils/utils";
 import { type OrderItemDetailsFragment } from "@/graphql/generated/graphql";
 import CartItemControl from "@/ui/atoms/CartItemControl";
+import CartItemRemoveButton from "@/ui/atoms/CartItemRemoveButton";
 
 export type CartItemCardProps = {
 	item: OrderItemDetailsFragment;
@@ -37,20 +38,7 @@ const CartItemCard = ({ item, cartId }: CartItemCardProps) => {
 							<p className="m-0 p-0 text-sm">
 								{formatPrice(item.variant.price * item.quantity)}
 							</p>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth="1.5"
-								stroke="currentColor"
-								className="h-5 w-5 cursor-pointer duration-150 hover:text-red-500"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M6 18L18 6M6 6l12 12"
-								/>
-							</svg>
+							<CartItemRemoveButton item={item} cartId={cartId} />
 						</div>
 					</div>
 				</div>
