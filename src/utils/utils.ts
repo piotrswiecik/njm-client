@@ -1,4 +1,5 @@
 import {
+	type VariantEnum,
 	type ProductDetailsFragment,
 	type ProductOverviewFragment,
 } from "@/graphql/generated/graphql";
@@ -18,8 +19,8 @@ export const getBasicVariantPrice = (
 };
 
 /**
-	 * For given product and variant type, checks if variant is in stock.
-	 */
+ * For given product and variant type, checks if variant is in stock.
+ */
 export const variantInStock = (
 	product: ProductDetailsFragment,
 	type: "cd" | "lp",
@@ -39,8 +40,10 @@ export const productAvailable = (product: ProductDetailsFragment) => {
 /**
  * Set default active variant based on stock availability.
  */
-export const defaultVariant = (product: ProductDetailsFragment) => {
-	if (!productAvailable(product)) return null;
+export const defaultVariant = (
+	product: ProductDetailsFragment,
+): VariantEnum => {
+	if (!productAvailable(product)) throw new Error("Product not available");
 	if (!variantInStock(product, "cd")) return "lp";
 	if (!variantInStock(product, "lp")) return "cd";
 	return "cd";

@@ -82,19 +82,8 @@ const getOrCreateCart = async () => {
  * Main action to add item to cart via graphql mutation.
  * @param data product id and variant name received from React form.
  */
-export const addItemToCart = async (data: FormData) => {
+export const addItemToCart = async (variant: VariantEnum, id: string) => {
 	"use server";
-	const formVariant = data.get("variant") as string | null;
-	if (!formVariant) {
-		// TODO: handle this in ui
-		throw new Error("No variant selected");
-	}
-
-	const formProductId = data.get("productId") as string | null;
-	if (!formProductId) {
-		// TODO: handle this in ui
-		throw new Error("Missing product id");
-	}
 
 	const cart = await getOrCreateCart();
 
@@ -106,16 +95,16 @@ export const addItemToCart = async (data: FormData) => {
 	console.log("ok got cart");
 	console.log(cart);
 
-	console.log(`product to be added: ${formProductId}, variant: ${formVariant}`);
+	console.log(`product to be added: ${id}, variant: ${variant}`);
 
 	// this can be used by app / local storage to reconcile and sync cart state with server
 	try {
 		const { addToOrder }: { addToOrder: OrderDetailsFragment } =
 			await queryGraphql(OrderAddToDocument, {
 				to: cart.id,
-				product: formProductId,
+				product: id,
 				// TODO: maybe some form of validation later on
-				variant: formVariant as VariantEnum,
+				variant: variant,
 			});
 		console.log("ok, added to cart");
 		console.log(addToOrder);
