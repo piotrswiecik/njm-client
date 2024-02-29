@@ -26,6 +26,7 @@ const CartItemCard = ({
 					height={160}
 				/>
 				<div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+          
 					<div className="mt-5 sm:mt-0">
 						<h2 className="text-xl font-bold text-slate-900">
 							{product.title}
@@ -33,9 +34,26 @@ const CartItemCard = ({
 						<p className="mt-1 italic text-slate-600">{product.artist.name}</p>
 						<p className="mt-2">{variant.toUpperCase()}</p>
 					</div>
-					<div className="mt-4 flex justify-between sm:mt-0 sm:block sm:space-x-6 sm:space-y-6">
-						<div className="flex items-center space-x-4">
-							<p className="text-sm">{formatPrice(price)}</p>
+
+					<div className="mt-4 flex justify-between sm:mt-0 sm:mt-0 sm:block sm:space-y-6">
+						<div className="flex items-center border-slate-100">
+							<span className="cursor-pointer rounded-l bg-gray-100 px-3.5 py-1 duration-100 hover:bg-blue-500 hover:text-blue-50">
+								{" "}
+								-{" "}
+							</span>
+							<input
+								className="h-8 w-8 border bg-white text-center text-xs outline-none"
+								type="text"
+								value={quantity}
+							/>
+							<span className="cursor-pointer rounded-r bg-gray-100 px-3 py-1 duration-100 hover:bg-blue-500 hover:text-blue-50">
+								{" "}
+								+{" "}
+							</span>
+						</div>
+
+						<div className="flex items-end space-x-4 sm:justify-end">
+							<p className="m-0 p-0 text-sm">{formatPrice(price * quantity)}</p>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
