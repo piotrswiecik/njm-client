@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { formatPrice } from "@/utils/utils";
 import { type OrderItemDetailsFragment } from "@/graphql/generated/graphql";
-import CartItemQty from "@/ui/atoms/CartItemQty";
+import CartItemControl from "@/ui/atoms/CartItemControl";
 
 export type CartItemCardProps = {
 	item: OrderItemDetailsFragment;
@@ -31,7 +31,7 @@ const CartItemCard = ({ item, cartId }: CartItemCardProps) => {
 					</div>
 
 					<div className="mt-4 flex justify-between sm:mt-0 sm:block sm:space-y-6">
-						<CartItemQty item={item} cartId={cartId} />
+						<CartItemControl item={item} cartId={cartId} />
 
 						<div className="flex items-end space-x-4 sm:justify-end">
 							<p className="m-0 p-0 text-sm">

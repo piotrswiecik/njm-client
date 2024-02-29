@@ -94,6 +94,9 @@ export const addItemToCart = async ({
 	variant: VariantEnum;
 	id: string;
 }) => {
+	// delay for testing
+	await new Promise((resolve) => setTimeout(resolve, 1000));
+
 	const cart = await getOrCreateCart();
 
 	if (!cart) {
@@ -137,6 +140,8 @@ export const removeItemFromCart = async ({
 	cartId: string;
 	productId: string;
 }) => {
+	// delay for testing
+	await new Promise((resolve) => setTimeout(resolve, 1000));
 	try {
 		console.log("removing item from cart");
 		console.log(`fetching cart: ${cartId}	`);
