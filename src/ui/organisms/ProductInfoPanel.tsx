@@ -1,4 +1,3 @@
-import { addItemToCart } from "@/api/cart";
 import {
 	type OrderItemDetailsFragment,
 	type ProductDetailsFragment,
@@ -27,7 +26,7 @@ const ProductInfoPanel = ({ product }: ProductDetailsProps) => {
 			</header>
 			<section className="">
 				<ProductInfoTable product={product} />
-				<ProductDetailsManager product={product} addItemToCartHandler={addItemToCart}/>
+				<ProductDetailsManager product={product} />
 			</section>
 		</>
 	);

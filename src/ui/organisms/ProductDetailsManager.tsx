@@ -11,13 +11,12 @@ import {
 	productAvailable,
 	variantInStock,
 } from "@/utils/utils";
+import { addItemToCart } from "@/api/cart";
 
 const ProductDetailsManager = ({
 	product,
-	addItemToCartHandler,
 }: {
 	product: ProductDetailsFragment;
-	addItemToCartHandler: (variant: VariantEnum, id: string) => Promise<void>;
 }) => {
 	const [activeVariant, setActiveVariant] = useState<VariantEnum>(
 		defaultVariant(product),
@@ -37,7 +36,9 @@ const ProductDetailsManager = ({
 
 	return (
 		<>
-			<form action={() => addItemToCartHandler(activeVariant, product.id)}>
+			<form
+				action={() => addItemToCart({ variant: activeVariant, id: product.id })}
+			>
 				<div className="my-4">
 					Select format:
 					<div className="pb-4">
@@ -93,7 +94,9 @@ const ProductDetailsManager = ({
 						</ul>
 					</div>
 					<div className="m-0 flex flex-row items-center">
-						<div className="m-0 p-0 text-xl w-24">{formatPrice(getPrice()!)}</div>
+						<div className="m-0 w-24 p-0 text-xl">
+							{formatPrice(getPrice()!)}
+						</div>
 						<button
 							type="submit"
 							disabled={!productAvailable(product)}

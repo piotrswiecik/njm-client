@@ -87,7 +87,13 @@ export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
  * @param id product id to be added.
  * @param variant variant of the product to be added.
  */
-export const addItemToCart = async (variant: VariantEnum, id: string) => {
+export const addItemToCart = async ({
+	variant,
+	id,
+}: {
+	variant: VariantEnum;
+	id: string;
+}) => {
 	const cart = await getOrCreateCart();
 
 	if (!cart) {
@@ -122,11 +128,15 @@ export const addItemToCart = async (variant: VariantEnum, id: string) => {
  * @param variant
  * @param productId
  */
-export const removeItemFromCart = async (
-	variant: VariantEnum,
-	cartId: string,
-	productId: string,
-) => {
+export const removeItemFromCart = async ({
+	variant,
+	cartId,
+	productId,
+}: {
+	variant: VariantEnum;
+	cartId: string;
+	productId: string;
+}) => {
 	try {
 		console.log("removing item from cart");
 		console.log(`fetching cart: ${cartId}	`);

@@ -17,11 +17,11 @@ const CartItemQty = ({ item, cartId }: CartItemQtyProps) => {
 			<button
 				className="cursor-pointer rounded-l bg-gray-100 px-3.5 py-1 duration-100 hover:bg-blue-500 hover:text-blue-50"
 				onClick={() =>
-					removeItemFromCart(
-						item.variant.name as VariantEnum,
-						item.variant.product.id,
+					removeItemFromCart({
+						variant: item.variant.name as VariantEnum,
 						cartId,
-					)
+						productId: item.variant.product.id,
+					})
 				}
 			>
 				{" "}
@@ -36,10 +36,10 @@ const CartItemQty = ({ item, cartId }: CartItemQtyProps) => {
 			<button
 				className="cursor-pointer rounded-r bg-gray-100 px-3 py-1 duration-100 hover:bg-blue-500 hover:text-blue-50"
 				onClick={() =>
-					addItemToCart(
-						item.variant.name as VariantEnum,
-						item.variant.product.id,
-					)
+					addItemToCart({
+						variant: item.variant.name as VariantEnum,
+						id: item.variant.product.id,
+					})
 				}
 			>
 				{" "}
