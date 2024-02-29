@@ -19,7 +19,7 @@ const CartItemQty = ({ item, cartId }: CartItemQtyProps) => {
 				onClick={() =>
 					removeItemFromCart(
 						item.variant.name as VariantEnum,
-						item.variant.product!.id,
+						item.variant.product.id,
 						cartId,
 					)
 				}
@@ -38,7 +38,7 @@ const CartItemQty = ({ item, cartId }: CartItemQtyProps) => {
 				onClick={() =>
 					addItemToCart(
 						item.variant.name as VariantEnum,
-						item.variant.product!.id,
+						item.variant.product.id,
 					)
 				}
 			>

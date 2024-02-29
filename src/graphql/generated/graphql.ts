@@ -190,7 +190,7 @@ export type Variant = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   price: Scalars['Int']['output'];
-  product?: Maybe<Product>;
+  product: Product;
   stock: Scalars['Int']['output'];
 };
 
@@ -198,9 +198,9 @@ export type VariantEnum =
   | 'cd'
   | 'lp';
 
-export type OrderDetailsFragment = { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } }> | null, user: { id: string } };
+export type OrderDetailsFragment = { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } } }> | null, user: { id: string } };
 
-export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } };
+export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } } };
 
 export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
 
@@ -208,7 +208,7 @@ export type ProductDetailsInVariantFragment = { id: string, title: string, cover
 
 export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
 
-export type VariantDetailsFragment = { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null };
+export type VariantDetailsFragment = { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } };
 
 export type OrderAddToMutationVariables = Exact<{
   to: Scalars['ID']['input'];
@@ -217,7 +217,7 @@ export type OrderAddToMutationVariables = Exact<{
 }>;
 
 
-export type OrderAddToMutation = { addToOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+export type OrderAddToMutation = { addToOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } } }> | null, user: { id: string } } };
 
 export type OrderCreateMutationVariables = Exact<{
   userId: Scalars['ID']['input'];
@@ -240,7 +240,7 @@ export type OrderRemoveFromMutationVariables = Exact<{
 }>;
 
 
-export type OrderRemoveFromMutation = { removeFromOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } }> | null, user: { id: string } } };
+export type OrderRemoveFromMutation = { removeFromOrder: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } } }> | null, user: { id: string } } };
 
 export type OrderSetStatusMutationVariables = Exact<{
   where: Scalars['ID']['input'];
@@ -284,7 +284,7 @@ export type OrderGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type OrderGetByIdQuery = { order?: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product?: { id: string, title: string, coverImageUrl: string, artist: { name: string } } | null } }> | null, user: { id: string } } | null };
+export type OrderGetByIdQuery = { order?: { id: string, status: StatusEnum, total: number, orderItems?: Array<{ id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } } }> | null, user: { id: string } } | null };
 
 export type ProductCountQueryVariables = Exact<{ [key: string]: never; }>;
 

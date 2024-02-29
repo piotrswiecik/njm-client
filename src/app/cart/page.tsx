@@ -1,5 +1,4 @@
 import { getOrCreateCart } from "@/api/cart";
-import { type OrderItemDetailsFragment } from "@/graphql/generated/graphql";
 import CartItemCard from "@/ui/components/CartItemCard";
 
 const CartPage = async () => {
@@ -13,11 +12,9 @@ const CartPage = async () => {
 		return <>empty cart page</>;
 	}
 
-	const orderItems = cart.orderItems as OrderItemDetailsFragment[];
-
 	return (
 		<>
-			{orderItems.map((item) => {
+			{cart.orderItems.map((item) => {
 				if (!item.variant.product) return null;
 				return <CartItemCard key={item.id} item={item} cartId={cart.id} />;
 			})}

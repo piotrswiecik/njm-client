@@ -13,7 +13,7 @@ const CartItemCard = ({ item, cartId }: CartItemCardProps) => {
 		<>
 			<div className="mb-6 justify-between rounded-lg bg-slate-50 p-6 shadow-md sm:flex sm:justify-start">
 				<Image
-					src={item.variant.product?.coverImageUrl || ""}
+					src={item.variant.product.coverImageUrl}
 					alt={`order-item-${item.id}-cover-image`}
 					className="w-full rounded-lg sm:w-40"
 					width={160}
@@ -22,10 +22,10 @@ const CartItemCard = ({ item, cartId }: CartItemCardProps) => {
 				<div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
 					<div className="mt-5 sm:mt-0">
 						<h2 className="text-xl font-bold text-slate-900">
-							{item.variant.product?.title}
+							{item.variant.product.title}
 						</h2>
 						<p className="mt-1 italic text-slate-600">
-							{item.variant.product?.artist.name}
+							{item.variant.product.artist.name}
 						</p>
 						<p className="mt-2">{item.variant.name.toUpperCase()}</p>
 					</div>
