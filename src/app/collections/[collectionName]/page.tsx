@@ -1,5 +1,5 @@
 import { type Metadata } from "next";
-import { getProductsByCollection } from "@/api/getProductsByCollection";
+import { getProductsByCollection } from "@/api/queries/getProductsByCollection";
 import ProductDashboard from "@/ui/components/ProductDashboard";
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ const CollectionsPage = async ({
 
 	return (
 		<>
-			<h2 className="p-6 sm:px-12 text-xl font-bold">
+			<h2 className="p-6 text-xl font-bold sm:px-12">
 				{
 					namesMapping.find((item) => item.name === params.collectionName)
 						?.description

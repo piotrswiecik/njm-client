@@ -194,10 +194,16 @@ export const deleteItem = async ({
 	productId: string;
 }) => {
 	console.log("deleting item from cart");
-	await queryGraphql(OrderDeleteAllFromDocument, {
-		from: cartId,
-		product: productId,
-		variant: variant,
+	await queryGraphql({
+		query: OrderDeleteAllFromDocument,
+		variables: {
+			from: cartId,
+			product: productId,
+			variant: variant,
+		},
+		next: {
+			tags: ["cart", "order"],
+		},
 	});
 	console.log("deleted");
 };

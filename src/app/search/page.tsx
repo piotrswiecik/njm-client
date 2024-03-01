@@ -1,6 +1,5 @@
-import { getSearchResults } from "@/api/getSearchResults";
+import { getSearchResults } from "@/api/queries/getSearchResults";
 import ProductDashboard from "@/ui/components/ProductDashboard";
-
 
 type SearchPageProps = {
 	params: { pageNum: string };
@@ -12,11 +11,10 @@ const SearchPage = async ({ searchParams }: SearchPageProps) => {
 
 	const searchResults = await getSearchResults(searchParams.query);
 	console.log(searchResults);
-	
+
 	return (
 		<div className="px-6 sm:px-12">
 			<ProductDashboard products={searchResults} />
-			
 		</div>
 	);
 };

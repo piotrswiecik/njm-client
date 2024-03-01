@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getRecommendation } from "@/api/getRecommendation";
+import { getRecommendation } from "@/api/queries/getRecommendation";
 import RecommenderItem from "@/ui/atoms/RecommenderItem";
 import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 

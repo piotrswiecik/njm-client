@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getProductsByCollection } from "@/api/getProductsByCollection";
+import { getProductsByCollection } from "@/api/queries/getProductsByCollection";
 
 type CollectionCardProps = {
 	name: string;

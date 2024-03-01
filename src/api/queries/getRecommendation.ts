@@ -1,4 +1,4 @@
-import { getProductsByCategory } from "@/api/getProductsByCategory";
+import { getProductsByCategory } from "@/api/queries/getProductsByCategory";
 import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 
 type Criteria = {

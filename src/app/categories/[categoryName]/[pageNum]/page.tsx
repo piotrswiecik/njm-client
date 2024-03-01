@@ -1,8 +1,8 @@
 import { type Metadata } from "next";
 import ProductDashboard from "@/ui/components/ProductDashboard";
 import Pagination from "@/ui/organisms/Pagination";
-import { getProductsByCategory } from "@/api/getProductsByCategory";
-import { getCategoryCount } from "@/api/getCategoryCount";
+import { getProductsByCategory } from "@/api/queries/getProductsByCategory";
+import { getCategoryCount } from "@/api/queries/getCategoryCount";
 
 type PageProps = {
 	params: {

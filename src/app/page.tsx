@@ -1,5 +1,5 @@
 import { type Metadata } from "next";
-import { getCollections } from "@/api/getCollections";
+import { getCollections } from "@/api/queries/getCollections";
 import CollectionCard from "@/ui/organisms/CollectionCard";
 import RecommenderComponent from "@/ui/components/Recommender";
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ const HomePage = async () => {
 				</div>
 			</article>
 			<aside>
-				<RecommenderComponent categoryName="jazz" leadText="Recommended"/>
+				<RecommenderComponent categoryName="jazz" leadText="Recommended" />
 			</aside>
 		</div>
 	);

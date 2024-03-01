@@ -1,8 +1,8 @@
 import { type Metadata } from "next";
 import ProductDashboard from "@/ui/components/ProductDashboard";
 import Pagination from "@/ui/organisms/Pagination";
-import { getProductCount } from "@/api/getProductCount";
-import { getProducts } from "@/api/getProducts";
+import { getProductCount } from "@/api/queries/getProductCount";
+import { getProducts } from "@/api/queries/getProducts";
 
 export const metadata: Metadata = {
 	title: "NJM Record Store - Products",
