@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import ActiveLink from "@/ui/atoms/ActiveLink";
-import ShoppingCartLink from "@/ui/atoms/ShoppingCartLink";
 import SearchBar from "@/ui/components/SearchBar";
+import ShoppingCartLinkWrap from "@/ui/atoms/ShoppingCartLinkWrap";
 
 type HeaderNavDesktopProps = {
 	categories: string[];
@@ -77,7 +77,7 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</div>
 			</div>
 			<div className="grow" />
-			<ShoppingCartLink />
+			<ShoppingCartLinkWrap />
 		</div>
 	);
 };
