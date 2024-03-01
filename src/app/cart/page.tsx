@@ -14,10 +14,16 @@ const CartPage = async () => {
 
 	return (
 		<>
-			{cart.orderItems.map((item) => {
-				if (!item.variant.product) return null;
-				return <CartItemCard key={item.id} item={item} cartId={cart.id} />;
-			})}
+			{cart.orderItems
+				.sort(
+					(a, b) => b.quantity * b.variant.price - a.quantity * a.variant.price,
+				)
+				.map((item) => {
+					if (!item.variant.product) return null;
+					return (
+						<CartItemCard key={item.variant.id} item={item} cartId={cart.id} />
+					);
+				})}
 		</>
 	);
 };

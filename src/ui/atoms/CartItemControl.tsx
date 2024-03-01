@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { addOrIncreaseItem, decreaseItem } from "@/api/cart";
 import {
 	type OrderItemDetailsFragment,
@@ -14,8 +15,8 @@ type CartItemQtyProps = {
 
 const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 	// useTransition required to call server action outside of form
-	const [quantity, setQuantity] = useState(item.quantity);
 	const [isPending, startTransition] = useTransition();
+	const router = useRouter();
 
 	const handleIncrement = () => {
 		startTransition(async () => {
@@ -24,23 +25,24 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 				variant: item.variant.name as VariantEnum,
 				id: item.variant.product.id,
 			});
-			setQuantity(quantity + 1);
+			router.refresh();
 		});
 	};
 
 	const handleDecrement = () => {
 		// TODO: when 1 show modal to confirm remove
 		startTransition(async () => {
-			if (quantity === 1) return;
+			if (item.quantity === 1) return;
 			await decreaseItem({
 				variant: item.variant.name as VariantEnum,
 				cartId,
 				productId: item.variant.product.id,
 			});
-			setQuantity(quantity - 1);
+			router.refresh();
 		});
 	};
 
+	console.log(`will render cart item with quantity: ${item.quantity}`);
 	return (
 		<div className="flex items-center border-slate-100">
 			<button
@@ -55,7 +57,7 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 				className="h-8 w-8 border bg-white text-center text-xs outline-none"
 				type="text"
 				readOnly
-				value={quantity}
+				value={item.quantity}
 			/>
 			<button
 				disabled={isPending}

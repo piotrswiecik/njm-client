@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { useRouter } from "next/navigation";
 import {
 	type VariantEnum,
 	type OrderItemDetailsFragment,
@@ -14,6 +15,7 @@ type CartItemRemoveButtonProps = {
 
 const CartItemRemoveButton = ({ item, cartId }: CartItemRemoveButtonProps) => {
 	const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
 	const handleClick = () => {
 		startTransition(async () => {
@@ -22,12 +24,13 @@ const CartItemRemoveButton = ({ item, cartId }: CartItemRemoveButtonProps) => {
 				cartId,
 				productId: item.variant.product.id,
 			});
+      router.refresh();
 		});
 		console.log("deleted");
 	};
 
 	return (
-		<button onClick={handleClick}>
+		<button onClick={handleClick} disabled={isPending}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
