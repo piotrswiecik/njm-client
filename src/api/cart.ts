@@ -27,6 +27,9 @@ export const getCart = async (
 			variables: {
 				orderId: cartId,
 			},
+			next: {
+				tags: ["cart", "order"],
+			},
 		});
 		if (!order) {
 			return null;
@@ -49,6 +52,9 @@ const createCart = async (): Promise<DefaultOrderResponse> => {
 			variables: {
 				// FIXME: hardcoded for testing
 				userId: "dbe0705a-87d0-4c11-9432-f55895360016",
+			},
+			next: {
+				tags: ["cart", "order"],
 			},
 		});
 		return {
@@ -119,10 +125,16 @@ export const addOrIncreaseItem = async ({
 	// this can be used by app / local storage to reconcile and sync cart state with server
 	try {
 		const { addToOrder }: { addToOrder: OrderDetailsFragment } =
-			await queryGraphql(OrderAddToDocument, {
-				to: cart.id,
-				product: id,
-				variant: variant,
+			await queryGraphql({
+				query: OrderAddToDocument,
+				variables: {
+					to: cart.id,
+					product: id,
+					variant: variant,
+				},
+				next: {
+					tags: ["cart", "order"],
+				},
 			});
 		console.log("ok, added to cart");
 		console.log(addToOrder);
@@ -156,10 +168,16 @@ export const decreaseItem = async ({
 		console.log("cart fetch result");
 		console.log(cart);
 		if (!cart) return;
-		await queryGraphql(OrderRemoveFromDocument, {
-			from: cart.id,
-			product: productId,
-			variant: variant,
+		await queryGraphql({
+			query: OrderRemoveFromDocument,
+			variables: {
+				from: cart.id,
+				product: productId,
+				variant: variant,
+			},
+			next: {
+				tags: ["cart", "order"],
+			},
 		});
 	} catch (err) {
 		throw new Error("removeItemFromCart failed");
