@@ -22,8 +22,11 @@ export const getCart = async (
 	cartId: string,
 ): Promise<OrderDetailsFragment | null> => {
 	try {
-		const { order } = await queryGraphql(OrderGetByIdDocument, {
-			orderId: cartId,
+		const { order } = await queryGraphql({
+			query: OrderGetByIdDocument,
+			variables: {
+				orderId: cartId,
+			},
 		});
 		if (!order) {
 			return null;
@@ -41,9 +44,12 @@ export const getCart = async (
 const createCart = async (): Promise<DefaultOrderResponse> => {
 	try {
 		// FIXME: no error boundary set for this
-		const { createOrder } = await queryGraphql(OrderCreateDocument, {
-			// FIXME: hardcoded for testing
-			userId: "dbe0705a-87d0-4c11-9432-f55895360016",
+		const { createOrder } = await queryGraphql({
+			query: OrderCreateDocument,
+			variables: {
+				// FIXME: hardcoded for testing
+				userId: "dbe0705a-87d0-4c11-9432-f55895360016",
+			},
 		});
 		return {
 			id: createOrder.id,

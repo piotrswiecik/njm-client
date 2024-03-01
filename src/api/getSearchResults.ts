@@ -8,8 +8,11 @@ export const getSearchResults = async (
 	query: string,
 ): Promise<ProductOverviewFragment[]> => {
 	try {
-		const { productSearch } = await queryGraphql(ProductsSearchDocument, {
-			query,
+		const { productSearch } = await queryGraphql({
+			query: ProductsSearchDocument,
+			variables: {
+				query,
+			},
 		});
 		if (!productSearch) {
 			return [];

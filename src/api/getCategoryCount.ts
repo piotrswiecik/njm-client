@@ -3,8 +3,11 @@ import { CategoryCountDocument } from "@/graphql/generated/graphql";
 
 export const getCategoryCount = async (name: string) => {
 	try {
-		const { categoryCount } = await queryGraphql(CategoryCountDocument, {
-			name: name,
+		const { categoryCount } = await queryGraphql({
+			query: CategoryCountDocument,
+			variables: {
+				name: name,
+			},
 		});
 		return categoryCount;
 	} catch (err) {

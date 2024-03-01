@@ -7,12 +7,12 @@ import {
 export const getProductsByCollection = async (
 	name: string,
 ): Promise<ProductOverviewFragment[]> => {
-	const { collection } = await queryGraphql(
-		CollectionFindByNameWithAllProductsDocument,
-		{
+	const { collection } = await queryGraphql({
+		query: CollectionFindByNameWithAllProductsDocument,
+		variables: {
 			name,
 		},
-	);
+	});
 	if (!collection) return [];
 	return collection.products;
 };

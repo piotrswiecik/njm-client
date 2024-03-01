@@ -3,7 +3,10 @@ import { ProductCountDocument } from "@/graphql/generated/graphql";
 
 export const getProductCount = async (): Promise<number> => {
 	try {
-		const { productCount } = await queryGraphql(ProductCountDocument, {});
+		const { productCount } = await queryGraphql({
+			query: ProductCountDocument,
+			variables: {},
+		});
 		return productCount;
 	} catch (err) {
 		console.error("Product API error", err);

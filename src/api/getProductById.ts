@@ -8,8 +8,11 @@ export const getProductById = async (
 	productId: string,
 ): Promise<ProductDetailsFragment> => {
 	try {
-		const { product } = await queryGraphql(ProductFindByIdDocument, {
-			productId: productId,
+		const { product } = await queryGraphql({
+			query: ProductFindByIdDocument,
+			variables: {
+				productId: productId,
+			},
 		});
 		if (!product) {
 			throw new Error("Product not found");

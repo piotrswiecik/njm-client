@@ -3,7 +3,10 @@ import { CollectionFindAllDocument } from "@/graphql/generated/graphql";
 
 export const getCollections = async () => {
 	try {
-		const { collections } = await queryGraphql(CollectionFindAllDocument, {});
+		const { collections } = await queryGraphql({
+			query: CollectionFindAllDocument,
+			variables: {},
+		});
 		return collections;
 	} catch (err) {
 		console.error("Collections API error", err);

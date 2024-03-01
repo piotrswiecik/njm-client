@@ -8,9 +8,12 @@ export const getProducts = async (
 	take: number,
 	skip?: number,
 ): Promise<ProductOverviewFragment[]> => {
-	const { products } = await queryGraphql(ProductFindAllDocument, {
-		take,
-		skip: skip || 0,
+	const { products } = await queryGraphql({
+		query: ProductFindAllDocument,
+		variables: {
+			take,
+			skip: skip || 0,
+		},
 	});
 
 	return products.map((product) => ({
