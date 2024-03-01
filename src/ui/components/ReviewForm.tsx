@@ -13,6 +13,7 @@ type ReviewFormProps = {
 const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 	const [headline, setHeadline] = useState("");
 	const [content, setContent] = useState("");
+  const [rating, setRating] = useState(0);
 
 	const isValid = () => {
 		if (!headline || !content) {
@@ -21,10 +22,15 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 		return true;
 	};
 
+  const ratingHandler = (rating: number) => {
+    setRating(rating > 4 ? 4 : rating);
+  };
+
 	return (
 		<form action={handler} className="border">
 			<input type="hidden" name="userId" value={user.id} />
 			<input type="hidden" name="productId" value={productId} />
+      <input type="hidden" name="rating" value={rating} />
 			<div className="">
 				<label htmlFor="headline" className="block">
 					Headline
@@ -60,7 +66,7 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 					Rating
 				</label>
         <div id="rating">
-          <RatingStars />
+          <RatingStars handler={ratingHandler}/>
         </div>
 			</div>
 			<div className="flex flex-row items-center">

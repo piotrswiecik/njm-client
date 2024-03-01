@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-export const RatingStars = () => {
+export const RatingStars = ({
+	handler,
+}: {
+	handler: (rating: number) => void;
+}) => {
 	const [enabled, setEnabled] = useState(true);
 	const [selected, setSelected] = useState(0);
 
@@ -21,10 +25,16 @@ export const RatingStars = () => {
 					fill="currentColor"
 					viewBox="0 0 22 20"
 					onMouseOver={() => {
-						if (enabled) setSelected(i);
+						if (enabled) {
+							setSelected(i);
+							handler(i);
+						}
 					}}
 					onMouseOut={() => {
-						if (enabled) setSelected(-1);
+						if (enabled) {
+							setSelected(-1);
+							handler(i);
+						}
 					}}
 					onClick={() => setEnabled(!enabled)}
 				>
