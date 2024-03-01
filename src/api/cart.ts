@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { revalidateTag } from "next/cache";
 import { queryGraphql } from "@/api/queryGraphql";
 import {
 	OrderAddToDocument,
@@ -97,6 +98,7 @@ export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
 
 /**
  * Main action to add item to cart via graphql mutation.
+ * Revalidate cart cache after successful add operation.
  * @param id product id to be added.
  * @param variant variant of the product to be added.
  */
@@ -138,6 +140,7 @@ export const addOrIncreaseItem = async ({
 			});
 		console.log("ok, added to cart");
 		console.log(addToOrder);
+		revalidateTag("cart");
 	} catch (err) {
 		// TODO: set error boundary
 		throw new Error("Failed to add item to cart");
@@ -179,6 +182,7 @@ export const decreaseItem = async ({
 				tags: ["cart", "order"],
 			},
 		});
+		revalidateTag("cart");
 	} catch (err) {
 		throw new Error("removeItemFromCart failed");
 	}
@@ -205,5 +209,6 @@ export const deleteItem = async ({
 			tags: ["cart", "order"],
 		},
 	});
+	revalidateTag("cart");
 	console.log("deleted");
 };
