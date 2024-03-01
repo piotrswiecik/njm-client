@@ -3,7 +3,7 @@ import {
 	type ProductDetailsFragment,
 } from "@/graphql/generated/graphql";
 import ProductInfoTable from "@/ui/atoms/ProductInfoTable";
-import ProductDetailsManager from "@/ui/organisms/ProductDetailsManager";
+import ProductDetailsManager from "@/ui/components/ProductDetailsManager";
 
 type ProductDetailsProps = {
 	product: ProductDetailsFragment;
