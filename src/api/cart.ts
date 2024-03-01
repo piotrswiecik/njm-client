@@ -9,7 +9,7 @@ import {
 	type OrderDetailsFragment,
 	OrderGetByIdDocument,
 	type VariantEnum,
-	type DefaultOrderResponse,
+	type DefaultIdResponse,
 	OrderRemoveFromDocument,
 	OrderDeleteAllFromDocument,
 } from "@/graphql/generated/graphql";
@@ -45,7 +45,7 @@ export const getCart = async (
 /**
  * Create a new cart via graphql mutation.
  */
-const createCart = async (): Promise<DefaultOrderResponse> => {
+const createCart = async (): Promise<DefaultIdResponse> => {
 	try {
 		// FIXME: no error boundary set for this
 		const { createOrder } = await queryGraphql({

@@ -38,17 +38,19 @@ export type Collection = {
   products: Array<Product>;
 };
 
-export type DefaultOrderResponse = {
+export type DefaultIdResponse = {
   id: Scalars['ID']['output'];
 };
 
 export type Mutation = {
   addToOrder: Order;
-  createOrder: DefaultOrderResponse;
-  deleteOrder: DefaultOrderResponse;
+  createOrder: DefaultIdResponse;
+  createReview: Review;
+  deleteOrder: DefaultIdResponse;
+  deleteReview: DefaultIdResponse;
   removeAllFromOrder: Order;
   removeFromOrder: Order;
-  setOrderStatus: DefaultOrderResponse;
+  setOrderStatus: DefaultIdResponse;
 };
 
 
@@ -64,7 +66,21 @@ export type MutationCreateOrderArgs = {
 };
 
 
+export type MutationCreateReviewArgs = {
+  content: Scalars['String']['input'];
+  headline: Scalars['String']['input'];
+  productId: Scalars['ID']['input'];
+  rating: Scalars['Int']['input'];
+  userId: Scalars['ID']['input'];
+};
+
+
 export type MutationDeleteOrderArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteReviewArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -127,6 +143,7 @@ export type Query = {
   orders: Array<Order>;
   product?: Maybe<Product>;
   productCount: Scalars['Int']['output'];
+  productReviews?: Maybe<Array<Review>>;
   productSearch?: Maybe<Array<Product>>;
   products: Array<Product>;
   user?: Maybe<User>;
@@ -160,6 +177,11 @@ export type QueryProductArgs = {
 };
 
 
+export type QueryProductReviewsArgs = {
+  productId: Scalars['ID']['input'];
+};
+
+
 export type QueryProductSearchArgs = {
   query: Scalars['String']['input'];
 };
@@ -173,6 +195,15 @@ export type QueryProductsArgs = {
 
 export type QueryUserArgs = {
   id: Scalars['ID']['input'];
+};
+
+export type Review = {
+  content: Scalars['String']['output'];
+  headline: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  product: Product;
+  rating: Scalars['Int']['output'];
+  user: User;
 };
 
 export type StatusEnum =
