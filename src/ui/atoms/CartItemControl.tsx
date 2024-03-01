@@ -42,7 +42,6 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 		});
 	};
 
-	console.log(`will render cart item with quantity: ${item.quantity}`);
 	return (
 		<div className="flex items-center border-slate-100">
 			<button

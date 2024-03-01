@@ -223,6 +223,7 @@ export type User = {
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   isActive: Scalars['Boolean']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type Variant = {
@@ -246,6 +247,8 @@ export type ProductDetailsFragment = { id: string, coverImageUrl: string, title:
 export type ProductDetailsInVariantFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string } };
 
 export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
+
+export type UserDetailsFragment = { id: string, name: string, isActive: boolean, email: string };
 
 export type VariantDetailsFragment = { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } };
 
@@ -360,6 +363,13 @@ export type ProductsSearchQueryVariables = Exact<{
 
 
 export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> | null };
+
+export type UserQueryVariables = Exact<{
+  userId: Scalars['ID']['input'];
+}>;
+
+
+export type UserQuery = { user?: { id: string, name: string, isActive: boolean, email: string } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -506,6 +516,14 @@ export const ProductOverviewFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductOverview"}) as unknown as TypedDocumentString<ProductOverviewFragment, unknown>;
+export const UserDetailsFragmentDoc = new TypedDocumentString(`
+    fragment UserDetails on User {
+  id
+  name
+  isActive
+  email
+}
+    `, {"fragmentName":"UserDetails"}) as unknown as TypedDocumentString<UserDetailsFragment, unknown>;
 export const OrderAddToDocument = new TypedDocumentString(`
     mutation OrderAddTo($to: ID!, $product: ID!, $variant: VariantEnum!) {
   addToOrder(to: $to, product: $product, variant: $variant) {
@@ -831,3 +849,15 @@ export const ProductsSearchDocument = new TypedDocumentString(`
     name
   }
 }`) as unknown as TypedDocumentString<ProductsSearchQuery, ProductsSearchQueryVariables>;
+export const UserDocument = new TypedDocumentString(`
+    query User($userId: ID!) {
+  user(id: $userId) {
+    ...UserDetails
+  }
+}
+    fragment UserDetails on User {
+  id
+  name
+  isActive
+  email
+}`) as unknown as TypedDocumentString<UserQuery, UserQueryVariables>;

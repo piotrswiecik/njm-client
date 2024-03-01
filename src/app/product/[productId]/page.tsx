@@ -4,6 +4,7 @@ import RecommenderComponent from "@/ui/components/Recommender";
 import ReviewsComponent from "@/ui/components/Reviews";
 import { getProductById } from "@/api/queries/getProductById";
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
+import ReviewFormContainer from "@/ui/components/ReviewFormContainer";
 
 export async function generateMetadata({
 	params,
@@ -49,9 +50,13 @@ const ProductDetailsPage = async ({
 				</article>
 				<aside className="sm:mt-8">
 					<RecommenderComponent categoryName={product.category.name} />
-					<div className="flex flex-row">
-						{/* add review component displayed if user logged in & maybe if purchased this product? */}
-						<ReviewsComponent />
+					<div className="mt-4 flex flex-col sm:max-w-xl sm:flex-row sm:justify-between lg:max-w-5xl">
+						<div className="w-5/12">
+							<ReviewFormContainer />
+						</div>
+						<div className="w-5/12">
+							<ReviewsComponent />
+						</div>
 					</div>
 				</aside>
 			</div>
