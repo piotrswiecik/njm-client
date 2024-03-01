@@ -101,6 +101,7 @@ const ProductDetailsManager = ({
 						</div>
 						<button
 							type="submit"
+							data-testid="add-to-cart-button"
 							disabled={!productAvailable(product)}
 							className={`${
 								productAvailable(product)

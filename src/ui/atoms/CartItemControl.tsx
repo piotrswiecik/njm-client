@@ -49,6 +49,7 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 				disabled={isPending}
 				className={`${!isPending ? "cursor-pointer" : "cursor-progress bg-slate-200 text-slate-50 hover:bg-slate-200 hover:text-slate-50"} rounded-l bg-slate-200 px-3.5 py-1 duration-100 hover:bg-slate-400 hover:text-slate-50`}
 				onClick={handleDecrement}
+				data-testid="decrement"
 			>
 				{" "}
 				-{" "}
@@ -63,6 +64,7 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 				disabled={isPending}
 				className={` ${!isPending ? "cursor-pointer " : "cursor-progress bg-slate-200 text-slate-50 hover:bg-slate-200 hover:text-slate-50"} cursor-pointer rounded-r bg-slate-200 px-3 py-1 duration-100 hover:bg-slate-400 hover:text-slate-50`}
 				onClick={() => handleIncrement()}
+				data-testid="increment"
 			>
 				{" "}
 				+{" "}
