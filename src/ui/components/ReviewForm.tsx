@@ -13,7 +13,11 @@ type ReviewFormProps = {
 const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 	const [headline, setHeadline] = useState("");
 	const [content, setContent] = useState("");
-  const [rating, setRating] = useState(0);
+	const [rating, setRating] = useState(0);
+
+	// TODO: make this reusable in global styles
+	const activeClassName = `mb-2 me-2 rounded-lg border border-gray-800 px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-800`;
+	const disabledClassName = `cursor-not-allowed mb-2 me-2 cursor-default rounded-lg border border-gray-400 px-5 py-2.5 text-center text-sm font-medium text-gray-400 dark:border-gray-600 dark:text-gray-400`;
 
 	const isValid = () => {
 		if (!headline || !content) {
@@ -22,15 +26,15 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 		return true;
 	};
 
-  const ratingHandler = (rating: number) => {
-    setRating(rating > 4 ? 4 : rating);
-  };
+	const ratingHandler = (rating: number) => {
+		setRating(rating > 4 ? 4 : rating);
+	};
 
 	return (
 		<form action={handler} className="border">
 			<input type="hidden" name="userId" value={user.id} />
 			<input type="hidden" name="productId" value={productId} />
-      <input type="hidden" name="rating" value={rating} />
+			<input type="hidden" name="rating" value={rating} />
 			<div className="">
 				<label htmlFor="headline" className="block">
 					Headline
@@ -65,9 +69,9 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 				<label htmlFor="rating" className="block">
 					Rating
 				</label>
-        <div id="rating">
-          <RatingStars handler={ratingHandler}/>
-        </div>
+				<div id="rating">
+					<RatingStars handler={ratingHandler} />
+				</div>
 			</div>
 			<div className="flex flex-row items-center">
 				<div className="">
@@ -94,15 +98,15 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 						value={user.email}
 					/>
 				</div>
-				<div>
-					<button
-						type="submit"
-						disabled={!isValid()}
-						className={`${isValid() ? null : "cursor-not-allowed "}`}
-					>
-						Submit
-					</button>
-				</div>
+			</div>
+			<div>
+				<button
+					type="submit"
+					disabled={!isValid()}
+					className={`${isValid() ? activeClassName : disabledClassName}`}
+				>
+					Submit
+				</button>
 			</div>
 		</form>
 	);
