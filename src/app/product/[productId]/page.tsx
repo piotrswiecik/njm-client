@@ -52,7 +52,7 @@ const ProductDetailsPage = async ({
 					<RecommenderComponent categoryName={product.category.name} />
 					<div className="mt-4 flex flex-col sm:max-w-xl sm:flex-row sm:justify-between lg:max-w-5xl">
 						<div className="w-5/12">
-							<ReviewFormContainer />
+							<ReviewFormContainer productId={params.productId} />
 						</div>
 						<div className="w-5/12">
 							<ReviewsComponent />

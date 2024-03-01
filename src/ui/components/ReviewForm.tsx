@@ -1,15 +1,30 @@
 "use client";
 
+import { useState } from "react";
 import { type UserDetailsFragment } from "@/graphql/generated/graphql";
+import { RatingStars } from "@/ui/atoms/RatingStars";
 
 type ReviewFormProps = {
-	handler: () => void;
+	handler: (data: FormData) => Promise<void>;
 	user: UserDetailsFragment;
+	productId: string;
 };
 
-const ReviewForm = ({ handler, user }: ReviewFormProps) => {
+const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
+	const [headline, setHeadline] = useState("");
+	const [content, setContent] = useState("");
+
+	const isValid = () => {
+		if (!headline || !content) {
+			return false;
+		}
+		return true;
+	};
+
 	return (
 		<form action={handler} className="border">
+			<input type="hidden" name="userId" value={user.id} />
+			<input type="hidden" name="productId" value={productId} />
 			<div className="">
 				<label htmlFor="headline" className="block">
 					Headline
@@ -18,6 +33,9 @@ const ReviewForm = ({ handler, user }: ReviewFormProps) => {
 					type="text"
 					id="headline"
 					name="headline"
+					value={headline}
+					onChange={(e) => setHeadline(e.target.value)}
+					placeholder="Enter review headline"
 					className="w-full appearance-none rounded border"
 				/>
 			</div>
@@ -28,6 +46,9 @@ const ReviewForm = ({ handler, user }: ReviewFormProps) => {
 				<textarea
 					id="content"
 					name="content"
+					value={content}
+					onChange={(e) => setContent(e.target.value)}
+					placeholder="Tell us what you think!"
 					autoComplete="false"
 					autoCorrect="false"
 					rows={5}
@@ -38,6 +59,9 @@ const ReviewForm = ({ handler, user }: ReviewFormProps) => {
 				<label htmlFor="rating" className="block">
 					Rating
 				</label>
+        <div id="rating">
+          <RatingStars />
+        </div>
 			</div>
 			<div className="flex flex-row items-center">
 				<div className="">
@@ -63,6 +87,15 @@ const ReviewForm = ({ handler, user }: ReviewFormProps) => {
 						readOnly
 						value={user.email}
 					/>
+				</div>
+				<div>
+					<button
+						type="submit"
+						disabled={!isValid()}
+						className={`${isValid() ? null : "cursor-not-allowed "}`}
+					>
+						Submit
+					</button>
 				</div>
 			</div>
 		</form>
