@@ -245,11 +245,11 @@ export type OrderDetailsFragment = { id: string, status: StatusEnum, total: numb
 
 export type OrderItemDetailsFragment = { id: string, quantity: number, variant: { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } } };
 
-export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
+export type ProductDetailsFragment = { id: string, coverImageUrl: string, title: string, releaseDate: string, numRatings: number, rating?: number | null, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> };
 
 export type ProductDetailsInVariantFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string } };
 
-export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
+export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, rating?: number | null, numRatings: number, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
 
 export type ReviewDetailsFragment = { id: string, headline: string, content: string, dateCreated: string, rating: number, user: { name: string, email: string }, product: { id: string, title: string } };
 
@@ -331,7 +331,7 @@ export type CategoryFindByNameWithPaginatedProductsQueryVariables = Exact<{
 }>;
 
 
-export type CategoryFindByNameWithPaginatedProductsQuery = { category?: { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> } | null };
+export type CategoryFindByNameWithPaginatedProductsQuery = { category?: { products: Array<{ id: string, title: string, coverImageUrl: string, rating?: number | null, numRatings: number, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> } | null };
 
 export type CollectionFindAllQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -343,7 +343,7 @@ export type CollectionFindByNameWithAllProductsQueryVariables = Exact<{
 }>;
 
 
-export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> } | null };
+export type CollectionFindByNameWithAllProductsQuery = { collection?: { id: string, name: string, products: Array<{ id: string, title: string, coverImageUrl: string, rating?: number | null, numRatings: number, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> } | null };
 
 export type OrderGetByIdQueryVariables = Exact<{
   orderId: Scalars['ID']['input'];
@@ -364,21 +364,21 @@ export type ProductFindAllQueryVariables = Exact<{
 }>;
 
 
-export type ProductFindAllQuery = { products: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> };
+export type ProductFindAllQuery = { products: Array<{ id: string, title: string, coverImageUrl: string, rating?: number | null, numRatings: number, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> };
 
 export type ProductFindByIdQueryVariables = Exact<{
   productId: Scalars['ID']['input'];
 }>;
 
 
-export type ProductFindByIdQuery = { product?: { id: string, coverImageUrl: string, title: string, releaseDate: string, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> } | null };
+export type ProductFindByIdQuery = { product?: { id: string, coverImageUrl: string, title: string, releaseDate: string, numRatings: number, rating?: number | null, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> } | null };
 
 export type ProductsSearchQueryVariables = Exact<{
   query: Scalars['String']['input'];
 }>;
 
 
-export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> | null };
+export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, rating?: number | null, numRatings: number, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> | null };
 
 export type ReviewsGetByProductQueryVariables = Exact<{
   productId: Scalars['ID']['input'];
@@ -519,6 +519,8 @@ export const ProductDetailsFragmentDoc = new TypedDocumentString(`
     name
     number
   }
+  numRatings
+  rating
 }
     `, {"fragmentName":"ProductDetails"}) as unknown as TypedDocumentString<ProductDetailsFragment, unknown>;
 export const ProductOverviewFragmentDoc = new TypedDocumentString(`
@@ -537,6 +539,8 @@ export const ProductOverviewFragmentDoc = new TypedDocumentString(`
     stock
     name
   }
+  rating
+  numRatings
 }
     `, {"fragmentName":"ProductOverview"}) as unknown as TypedDocumentString<ProductOverviewFragment, unknown>;
 export const ReviewDetailsFragmentDoc = new TypedDocumentString(`
@@ -749,6 +753,8 @@ export const CategoryFindByNameWithPaginatedProductsDocument = new TypedDocument
     stock
     name
   }
+  rating
+  numRatings
 }`) as unknown as TypedDocumentString<CategoryFindByNameWithPaginatedProductsQuery, CategoryFindByNameWithPaginatedProductsQueryVariables>;
 export const CollectionFindAllDocument = new TypedDocumentString(`
     query CollectionFindAll {
@@ -783,6 +789,8 @@ export const CollectionFindByNameWithAllProductsDocument = new TypedDocumentStri
     stock
     name
   }
+  rating
+  numRatings
 }`) as unknown as TypedDocumentString<CollectionFindByNameWithAllProductsQuery, CollectionFindByNameWithAllProductsQueryVariables>;
 export const OrderGetByIdDocument = new TypedDocumentString(`
     query OrderGetById($orderId: ID!, $status: StatusEnum) {
@@ -851,6 +859,8 @@ export const ProductFindAllDocument = new TypedDocumentString(`
     stock
     name
   }
+  rating
+  numRatings
 }`) as unknown as TypedDocumentString<ProductFindAllQuery, ProductFindAllQueryVariables>;
 export const ProductFindByIdDocument = new TypedDocumentString(`
     query ProductFindById($productId: ID!) {
@@ -879,6 +889,8 @@ export const ProductFindByIdDocument = new TypedDocumentString(`
     name
     number
   }
+  numRatings
+  rating
 }`) as unknown as TypedDocumentString<ProductFindByIdQuery, ProductFindByIdQueryVariables>;
 export const ProductsSearchDocument = new TypedDocumentString(`
     query ProductsSearch($query: String!) {
@@ -901,6 +913,8 @@ export const ProductsSearchDocument = new TypedDocumentString(`
     stock
     name
   }
+  rating
+  numRatings
 }`) as unknown as TypedDocumentString<ProductsSearchQuery, ProductsSearchQueryVariables>;
 export const ReviewsGetByProductDocument = new TypedDocumentString(`
     query ReviewsGetByProduct($productId: ID!) {

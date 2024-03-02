@@ -19,4 +19,6 @@ fragment ProductDetails on Product {
       name
       number
     }
+    numRatings
+    rating
 }

@@ -10,7 +10,7 @@ import {
 	formatPrice,
 	productAvailable,
 	variantInStock,
-} from "@/utils/utils";
+} from "@/lib/utils";
 import { addOrIncreaseItem } from "@/api/cart";
 
 const ProductDetailsManager = ({

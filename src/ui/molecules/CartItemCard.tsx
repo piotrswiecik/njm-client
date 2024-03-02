@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { formatPrice } from "@/utils/utils";
+import { formatPrice } from "@/lib/utils";
 import { type OrderItemDetailsFragment } from "@/graphql/generated/graphql";
 import CartItemControl from "@/ui/atoms/CartItemControl";
 import CartItemRemoveButton from "@/ui/atoms/CartItemRemoveButton";

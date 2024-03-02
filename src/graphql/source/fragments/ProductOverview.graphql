@@ -13,4 +13,6 @@ fragment ProductOverview on Product {
     stock
     name
   }
+  rating
+  numRatings
 }

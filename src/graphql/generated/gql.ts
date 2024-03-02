@@ -16,9 +16,9 @@ import * as types from './graphql';
 const documents = {
     "fragment OrderDetails on Order {\n  id\n  status\n  orderItems {\n    ...OrderItemDetails\n  }\n  user {\n    id\n  }\n  total\n}": types.OrderDetailsFragmentDoc,
     "fragment OrderItemDetails on OrderItem {\n  id\n  quantity\n  variant {\n    ...VariantDetails\n  }\n}": types.OrderItemDetailsFragmentDoc,
-    "fragment ProductDetails on Product {\n  id\n  artist {\n    name\n  }\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    id\n    name\n    price\n    stock\n  }\n  title\n  releaseDate\n  tracks {\n    name\n    number\n  }\n}": types.ProductDetailsFragmentDoc,
+    "fragment ProductDetails on Product {\n  id\n  artist {\n    name\n  }\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    id\n    name\n    price\n    stock\n  }\n  title\n  releaseDate\n  tracks {\n    name\n    number\n  }\n  numRatings\n  rating\n}": types.ProductDetailsFragmentDoc,
     "fragment ProductDetailsInVariant on Product {\n  id\n  artist {\n    name\n  }\n  title\n  coverImageUrl\n}": types.ProductDetailsInVariantFragmentDoc,
-    "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n}": types.ProductOverviewFragmentDoc,
+    "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n  rating\n  numRatings\n}": types.ProductOverviewFragmentDoc,
     "fragment ReviewDetails on Review {\n  id\n  headline\n  content\n  dateCreated\n  rating\n  user {\n    name\n    email\n  }\n  product {\n    id\n    title\n  }\n}": types.ReviewDetailsFragmentDoc,
     "fragment UserDetails on User {\n  id\n  name\n  isActive\n  email\n}": types.UserDetailsFragmentDoc,
     "fragment VariantDetails on Variant {\n  id\n  name\n  price\n  product {\n    ...ProductDetailsInVariant\n  }\n  stock\n}": types.VariantDetailsFragmentDoc,
@@ -53,7 +53,7 @@ export function graphql(source: "fragment OrderItemDetails on OrderItem {\n  id\
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment ProductDetails on Product {\n  id\n  artist {\n    name\n  }\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    id\n    name\n    price\n    stock\n  }\n  title\n  releaseDate\n  tracks {\n    name\n    number\n  }\n}"): typeof import('./graphql').ProductDetailsFragmentDoc;
+export function graphql(source: "fragment ProductDetails on Product {\n  id\n  artist {\n    name\n  }\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    id\n    name\n    price\n    stock\n  }\n  title\n  releaseDate\n  tracks {\n    name\n    number\n  }\n  numRatings\n  rating\n}"): typeof import('./graphql').ProductDetailsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -61,7 +61,7 @@ export function graphql(source: "fragment ProductDetailsInVariant on Product {\n
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n}"): typeof import('./graphql').ProductOverviewFragmentDoc;
+export function graphql(source: "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n  rating\n  numRatings\n}"): typeof import('./graphql').ProductOverviewFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
