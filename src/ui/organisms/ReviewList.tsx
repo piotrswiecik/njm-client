@@ -1,10 +1,11 @@
-import { getReviewsByProduct } from "@/api/queries/getReviewsByProduct";
-import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
+import { type ReviewDetailsFragment } from "@/graphql/generated/graphql";
 import ReviewItem from "@/ui/molecules/ReviewItem";
 
-const ReviewList = async ({ product }: { product: ProductDetailsFragment }) => {
-	const reviews = await getReviewsByProduct(product.id);
-
+const ReviewList = async ({
+	reviews,
+}: {
+	reviews: ReviewDetailsFragment[];
+}) => {
 	if (reviews.length === 0) {
 		return (
 			<section>

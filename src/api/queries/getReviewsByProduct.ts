@@ -7,13 +7,18 @@ import {
 export const getReviewsByProduct = async (
 	productId: string,
 ): Promise<ReviewDetailsFragment[]> => {
+	console.log(productId);
 	try {
 		const { productReviews } = await queryGraphql({
 			query: ReviewsGetByProductDocument,
 			variables: {
 				productId: productId,
 			},
+			next: {
+				tags: ["review"],
+			}
 		});
+		console.log(productReviews);
 		if (!productReviews) {
 			return [];
 		}
