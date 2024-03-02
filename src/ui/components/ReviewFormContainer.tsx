@@ -5,15 +5,31 @@ import ReviewForm, { type ReviewFormData } from "@/ui/components/ReviewForm";
 
 const handlePostReviewAction = async (data: ReviewFormData) => {
 	"use server";
+
+	// TODO: optimistic update
 	console.log("post review action");
 	console.log(data);
-	// const result = await queryGraphql(ReviewCreateDocument, {
-	// 	userId: data.get("userId"),
-	// 	productId: data.get("productId"),
-	// 	headline: data.get("headline"),
-	// 	content: data.get("content"),
-	// 	rating: parseInt(data.get("rating") as string),
-	// });
+	try {
+
+		const { createReview } = await queryGraphql({
+			query: ReviewCreateDocument,
+			variables: {
+				userId: data.userId,
+				productId: data.productId,
+				headline: data.headline,
+				content: data.content,
+				rating: data.rating,
+			},
+		});
+		if (!createReview || !createReview.id) {
+			throw new Error("Review not created");
+		}
+	} catch (err) {
+		// TODO: error boundary
+		console.log(err);
+		throw new Error("Review not created");
+	}
+	
 };
 
 const ReviewFormContainer = async ({ productId }: { productId: string }) => {

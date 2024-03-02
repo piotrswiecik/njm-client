@@ -40,12 +40,10 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 	const ratingHandler = (selected: number) => {
 		if (selected < 0) {
 			setRating(0);
-      console.log("rating reset");
 			return;
 		}
-    const rating = selected > 4 ? 5 : selected + 1
+		const rating = selected > 4 ? 5 : selected + 1;
 		setRating(rating);
-    console.log(rating);
 	};
 
 	return (
