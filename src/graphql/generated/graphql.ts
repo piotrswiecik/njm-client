@@ -249,7 +249,7 @@ export type ProductDetailsInVariantFragment = { id: string, title: string, cover
 
 export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
 
-export type ReviewDetailsFragment = { id: string, headline: string, content: string, rating: number, user: { email: string }, product: { id: string, title: string } };
+export type ReviewDetailsFragment = { id: string, headline: string, content: string, rating: number, user: { name: string, email: string }, product: { id: string, title: string } };
 
 export type UserDetailsFragment = { id: string, name: string, isActive: boolean, email: string };
 
@@ -383,7 +383,7 @@ export type ReviewsGetByProductQueryVariables = Exact<{
 }>;
 
 
-export type ReviewsGetByProductQuery = { productReviews: Array<{ id: string, headline: string, content: string, rating: number, user: { email: string }, product: { id: string, title: string } }> };
+export type ReviewsGetByProductQuery = { productReviews: Array<{ id: string, headline: string, content: string, rating: number, user: { name: string, email: string }, product: { id: string, title: string } }> };
 
 export type UserQueryVariables = Exact<{
   userId: Scalars['ID']['input'];
@@ -544,6 +544,7 @@ export const ReviewDetailsFragmentDoc = new TypedDocumentString(`
   content
   rating
   user {
+    name
     email
   }
   product {
@@ -910,6 +911,7 @@ export const ReviewsGetByProductDocument = new TypedDocumentString(`
   content
   rating
   user {
+    name
     email
   }
   product {

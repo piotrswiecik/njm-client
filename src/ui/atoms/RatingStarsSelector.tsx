@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export const RatingStars = ({
+const RatingStarsSelector = ({
 	handler,
 }: {
 	handler: (selected: number) => void;
@@ -49,5 +49,5 @@ export const RatingStars = ({
 		</div>
 	);
 };
-{
-}
+
+export default RatingStarsSelector;

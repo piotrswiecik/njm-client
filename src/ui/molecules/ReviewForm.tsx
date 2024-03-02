@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { type UserDetailsFragment } from "@/graphql/generated/graphql";
-import { RatingStars } from "@/ui/atoms/RatingStars";
+import RatingStarsSelector from "@/ui/atoms/RatingStarsSelector";
 
 type ReviewFormProps = {
 	handler: (data: ReviewFormData) => Promise<void>;
@@ -58,7 +58,7 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 				})
 			}
 			className="border"
-      data-testid="add-review-form"
+			data-testid="add-review-form"
 		>
 			<input type="hidden" name="userId" value={user.id} />
 			<input type="hidden" name="productId" value={productId} />
@@ -98,7 +98,7 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 					Rating
 				</label>
 				<div id="rating">
-					<RatingStars handler={ratingHandler} />
+					<RatingStarsSelector handler={ratingHandler} />
 				</div>
 			</div>
 			<div className="flex flex-row items-center">

@@ -9,7 +9,7 @@ const ReviewComponent = async ({ productId }: { productId: string }) => {
 				<div className="w-5/12">
 					<ReviewFormContainer productId={productId} />
 				</div>
-				<div className="w-5/12">
+				<div className="w-6/12">
 					<ReviewsList productId={productId} />
 				</div>
 			</div>

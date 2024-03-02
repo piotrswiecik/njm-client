@@ -4,6 +4,7 @@ fragment ReviewDetails on Review {
 	content
 	rating
 	user {
+		name
 		email
 	}
 	product {
