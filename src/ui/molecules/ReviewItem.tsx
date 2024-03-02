@@ -1,7 +1,9 @@
+"use client";
+
 import { type ReviewDetailsFragment } from "@/graphql/generated/graphql";
 import RatingStarsDisplay from "@/ui/atoms/RatingStarsDisplay";
 
-const ReviewItem = async ({ review }: { review: ReviewDetailsFragment }) => {
+const ReviewItem = ({ review }: { review: ReviewDetailsFragment }) => {
 	return (
 		<div className="flex flex-col border">
 			<div>

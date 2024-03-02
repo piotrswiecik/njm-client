@@ -6,15 +6,21 @@ import {
 	type UserDetailsFragment,
 } from "@/graphql/generated/graphql";
 import RatingStarsSelector from "@/ui/atoms/RatingStarsSelector";
-import { type ReviewFormData } from "@/lib/types";
+import { type SubmitReviewInput, type SubmitReviewAction } from "@/lib/types";
 
 type ReviewFormProps = {
-	handler: (data: ReviewFormData) => Promise<void>;
+	submitHandler: (input: SubmitReviewInput) => void;
+	submitAction: SubmitReviewAction;
 	user: UserDetailsFragment;
 	product: ProductDetailsFragment;
 };
 
-const ReviewForm = ({ handler, user, product }: ReviewFormProps) => {
+const ReviewForm = ({
+	submitAction,
+	submitHandler,
+	user,
+	product,
+}: ReviewFormProps) => {
 	const [headline, setHeadline] = useState("");
 	const [content, setContent] = useState("");
 	const [rating, setRating] = useState(0);
@@ -45,19 +51,24 @@ const ReviewForm = ({ handler, user, product }: ReviewFormProps) => {
 	return (
 		<form
 			action={() =>
-				handler({
-					userId: user.id,
-					productId: product.id,
+				submitAction({
+					user,
+					product,
 					headline: headline,
 					content: content,
 					rating: rating,
 				})
 			}
+			onSubmit={() => submitHandler({
+				user,
+				product,
+				headline: headline,
+				content: content,
+				rating: rating,
+			})}
 			className="border"
 			data-testid="add-review-form"
 		>
-			<input type="hidden" name="userId" value={user.id} />
-			<input type="hidden" name="productId" value={product.id} />
 			<input type="hidden" name="rating" value={rating} />
 			<div className="">
 				<label htmlFor="headline" className="block">

@@ -1,6 +1,7 @@
 import { revalidateTag } from "next/cache";
 import { queryGraphql } from "@/api/queryGraphql";
 import { ReviewCreateDocument } from "@/graphql/generated/graphql";
+import { type SubmitReviewInput } from "@/lib/types";
 
 export type ReviewInput = {
 	userId: string;
@@ -10,16 +11,25 @@ export type ReviewInput = {
 	rating: number;
 };
 
-export const createReview = async (review: ReviewInput) => {
+export const createReview = async ({
+	product,
+	user,
+	headline,
+	content,
+	rating,
+}: SubmitReviewInput) => {
 	try {
 		// FIXME: delay for testing
-		await new Promise((resolve) => setTimeout(resolve, 3000));
+		// await new Promise((resolve) => setTimeout(resolve, 3000));
 
-		// TODO: maybe export to api
 		const { createReview } = await queryGraphql({
 			query: ReviewCreateDocument,
 			variables: {
-				...review,
+				productId: product.id,
+				userId: user.id,
+				headline,
+				content,
+				rating,
 			},
 			next: {
 				tags: ["review"],

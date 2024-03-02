@@ -1,13 +1,16 @@
 "use server";
 
 import { createReview } from "@/api/queries/createReview";
-import { type ReviewFormData } from "@/lib/types";
+import {} from "@/graphql/generated/graphql";
+import { type SubmitReviewInput } from "@/lib/types";
 
-export const handlePostReviewAction = async (data: ReviewFormData) => {
+export const handleSubmitReviewAction = async ({
+	user,
+	product,
+	headline,
+	content,
+	rating,
+}: SubmitReviewInput) => {
 	"use server";
-	// TODO: optimistic update, error handling
-	console.log("post review action");
-	console.log(data);
-	await createReview({ ...data });
-	throw new Error("Review not created");
+	await createReview({ user, product, headline, content, rating });
 };
