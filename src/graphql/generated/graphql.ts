@@ -143,7 +143,7 @@ export type Query = {
   orders: Array<Order>;
   product?: Maybe<Product>;
   productCount: Scalars['Int']['output'];
-  productReviews?: Maybe<Array<Review>>;
+  productReviews: Array<Review>;
   productSearch?: Maybe<Array<Product>>;
   products: Array<Product>;
   user?: Maybe<User>;
@@ -199,6 +199,7 @@ export type QueryUserArgs = {
 
 export type Review = {
   content: Scalars['String']['output'];
+  dateCreated: Scalars['String']['output'];
   headline: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   product: Product;
@@ -374,6 +375,13 @@ export type ProductsSearchQueryVariables = Exact<{
 
 
 export type ProductsSearchQuery = { productSearch?: Array<{ id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> }> | null };
+
+export type ReviewsGetByProductQueryVariables = Exact<{
+  productId: Scalars['ID']['input'];
+}>;
+
+
+export type ReviewsGetByProductQuery = { productReviews: Array<{ id: string, headline: string, content: string, rating: number, user: { email: string }, product: { id: string, title: string } }> };
 
 export type UserQueryVariables = Exact<{
   userId: Scalars['ID']['input'];
@@ -873,6 +881,23 @@ export const ProductsSearchDocument = new TypedDocumentString(`
     name
   }
 }`) as unknown as TypedDocumentString<ProductsSearchQuery, ProductsSearchQueryVariables>;
+export const ReviewsGetByProductDocument = new TypedDocumentString(`
+    query ReviewsGetByProduct($productId: ID!) {
+  productReviews(productId: $productId) {
+    id
+    headline
+    content
+    rating
+    user {
+      email
+    }
+    product {
+      id
+      title
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewsGetByProductQuery, ReviewsGetByProductQueryVariables>;
 export const UserDocument = new TypedDocumentString(`
     query User($userId: ID!) {
   user(id: $userId) {

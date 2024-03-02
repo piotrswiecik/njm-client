@@ -1,5 +1,5 @@
 import ReviewFormContainer from "@/ui/components/ReviewFormContainer";
-import ReviewsComponent from "@/ui/components/Reviews";
+import ReviewsList from "@/ui/components/ReviewList";
 
 const ReviewComponent = async ({ productId }: { productId: string }) => {
 	return (
@@ -10,7 +10,7 @@ const ReviewComponent = async ({ productId }: { productId: string }) => {
 					<ReviewFormContainer productId={productId} />
 				</div>
 				<div className="w-5/12">
-					<ReviewsComponent />
+					<ReviewsList productId={productId} />
 				</div>
 			</div>
 		</div>

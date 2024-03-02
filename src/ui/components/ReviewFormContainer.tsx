@@ -11,6 +11,9 @@ const handlePostReviewAction = async (data: ReviewFormData) => {
 	console.log(data);
 	try {
 
+		// FIXME: delay for testing
+		await new Promise((resolve) => setTimeout(resolve, 3000));
+
 		const { createReview } = await queryGraphql({
 			query: ReviewCreateDocument,
 			variables: {

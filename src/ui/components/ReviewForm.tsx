@@ -58,6 +58,7 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 				})
 			}
 			className="border"
+      data-testid="add-review-form"
 		>
 			<input type="hidden" name="userId" value={user.id} />
 			<input type="hidden" name="productId" value={productId} />
