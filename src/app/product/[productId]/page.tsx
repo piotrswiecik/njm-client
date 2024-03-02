@@ -4,6 +4,8 @@ import RecommenderComponent from "@/ui/organisms/Recommender";
 import { getProductById } from "@/api/queries/getProductById";
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 import ReviewContainer from "@/ui/organisms/ReviewContainer";
+import { getUserById } from "@/api/queries/getUserById";
+import { getReviewsByProduct } from "@/api/queries/getReviewsByProduct";
 
 export async function generateMetadata({
 	params,
@@ -33,7 +35,7 @@ const ProductDetailsPage = async ({
 }: {
 	params: { productId: string };
 }) => {
-	// TODO unhandled err thrown by service layer
+	// TODO: unhandled err thrown by service layer
 	try {
 		const product: ProductDetailsFragment = await getProductById(
 			params.productId,
@@ -42,6 +44,13 @@ const ProductDetailsPage = async ({
 		if (!product) {
 			return null; // TODO 404 later
 		}
+
+		// FIXME: dehardcode user id
+		// TODO: maybe better to keep user data in global state?
+		const user = await getUserById("dbe0705a-87d0-4c11-9432-f55895360016");
+
+		const reviews = await getReviewsByProduct(product.id);
+
 		return (
 			<div className="mx-auto max-w-7xl px-6 sm:px-12">
 				<article>
@@ -49,7 +58,7 @@ const ProductDetailsPage = async ({
 				</article>
 				<aside className="sm:mt-8">
 					<RecommenderComponent categoryName={product.category.name} />
-					<ReviewContainer product={product} />
+					<ReviewContainer product={product} user={user} reviews={reviews} />
 				</aside>
 			</div>
 		);
