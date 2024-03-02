@@ -16,7 +16,7 @@ const ReviewItem = ({ review }: { review: ReviewDetailsFragment }) => {
 				</span> */}
 				</div>
 				<div className="p-0">
-					<RatingStarsDisplay rating={3} />
+					<RatingStarsDisplay rating={review.rating} />
 				</div>
 			</div>
 
