@@ -128,6 +128,8 @@ export type Product = {
   category: Category;
   coverImageUrl: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  numRatings: Scalars['Int']['output'];
+  rating?: Maybe<Scalars['Float']['output']>;
   releaseDate: Scalars['String']['output'];
   title: Scalars['String']['output'];
   tracks: Array<Track>;

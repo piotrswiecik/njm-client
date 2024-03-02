@@ -28,8 +28,11 @@ const ReviewContainer = ({
 
 	const submitHandler = (input: SubmitReviewInput) => {
 		startTransition(() => {
-			setOptimisticReviews([...reviews, { ...input, id: "temp-id" }]);
-		})
+			setOptimisticReviews([
+				...reviews,
+				{ ...input, id: "temp-id", dateCreated: new Date().toISOString() },
+			]);
+		});
 	};
 
 	return (
