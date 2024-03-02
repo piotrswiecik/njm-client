@@ -3,6 +3,7 @@ import ProductDashboard from "@/ui/organisms/ProductDashboard";
 import Pagination from "@/ui/molecules/Pagination";
 import { getProductCount } from "@/api/queries/getProductCount";
 import { getProducts } from "@/api/queries/getProducts";
+import SortSelectorBar from "@/ui/molecules/SortSelectorBar";
 
 export const metadata: Metadata = {
 	title: "NJM Record Store - Products",
@@ -38,6 +39,7 @@ const ProductsPage = async ({ params }: { params: { pageNum: string } }) => {
 
 	return (
 		<div className="px-6 sm:px-12">
+			<SortSelectorBar />
 			<ProductDashboard products={products} />
 			<div className="mt-12 flex justify-center">
 				<Pagination

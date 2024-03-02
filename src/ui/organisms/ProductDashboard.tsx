@@ -1,11 +1,11 @@
 import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
 import ProductListItemCard from "@/ui/molecules/ProductListItemCard";
 
-type ProductDashboardProps = {
+const ProductDashboard = async ({
+	products,
+}: {
 	products: ProductOverviewFragment[];
-};
-
-const ProductDashboard = async ({ products }: ProductDashboardProps) => {
+}) => {
 	return (
 		<ul
 			data-testid="products-list"
