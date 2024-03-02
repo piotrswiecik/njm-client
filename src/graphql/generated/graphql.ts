@@ -249,6 +249,8 @@ export type ProductDetailsInVariantFragment = { id: string, title: string, cover
 
 export type ProductOverviewFragment = { id: string, title: string, coverImageUrl: string, artist: { name: string }, category: { name: string }, variants: Array<{ price: number, stock: number, name: string }> };
 
+export type ReviewDetailsFragment = { id: string, headline: string, content: string, rating: number, user: { email: string }, product: { id: string, title: string } };
+
 export type UserDetailsFragment = { id: string, name: string, isActive: boolean, email: string };
 
 export type VariantDetailsFragment = { id: string, name: string, price: number, stock: number, product: { id: string, title: string, coverImageUrl: string, artist: { name: string } } };
@@ -535,6 +537,21 @@ export const ProductOverviewFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"ProductOverview"}) as unknown as TypedDocumentString<ProductOverviewFragment, unknown>;
+export const ReviewDetailsFragmentDoc = new TypedDocumentString(`
+    fragment ReviewDetails on Review {
+  id
+  headline
+  content
+  rating
+  user {
+    email
+  }
+  product {
+    id
+    title
+  }
+}
+    `, {"fragmentName":"ReviewDetails"}) as unknown as TypedDocumentString<ReviewDetailsFragment, unknown>;
 export const UserDetailsFragmentDoc = new TypedDocumentString(`
     fragment UserDetails on User {
   id
@@ -884,20 +901,22 @@ export const ProductsSearchDocument = new TypedDocumentString(`
 export const ReviewsGetByProductDocument = new TypedDocumentString(`
     query ReviewsGetByProduct($productId: ID!) {
   productReviews(productId: $productId) {
-    id
-    headline
-    content
-    rating
-    user {
-      email
-    }
-    product {
-      id
-      title
-    }
+    ...ReviewDetails
   }
 }
-    `) as unknown as TypedDocumentString<ReviewsGetByProductQuery, ReviewsGetByProductQueryVariables>;
+    fragment ReviewDetails on Review {
+  id
+  headline
+  content
+  rating
+  user {
+    email
+  }
+  product {
+    id
+    title
+  }
+}`) as unknown as TypedDocumentString<ReviewsGetByProductQuery, ReviewsGetByProductQueryVariables>;
 export const UserDocument = new TypedDocumentString(`
     query User($userId: ID!) {
   user(id: $userId) {

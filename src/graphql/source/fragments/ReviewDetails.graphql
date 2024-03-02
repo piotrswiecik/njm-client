@@ -1,0 +1,13 @@
+fragment ReviewDetails on Review {
+	id
+	headline
+	content
+	rating
+	user {
+		email
+	}
+	product {
+		id
+		title
+	}
+}

@@ -19,6 +19,7 @@ const documents = {
     "fragment ProductDetails on Product {\n  id\n  artist {\n    name\n  }\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    id\n    name\n    price\n    stock\n  }\n  title\n  releaseDate\n  tracks {\n    name\n    number\n  }\n}": types.ProductDetailsFragmentDoc,
     "fragment ProductDetailsInVariant on Product {\n  id\n  artist {\n    name\n  }\n  title\n  coverImageUrl\n}": types.ProductDetailsInVariantFragmentDoc,
     "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n}": types.ProductOverviewFragmentDoc,
+    "fragment ReviewDetails on Review {\n  id\n  headline\n  content\n  rating\n  user {\n    email\n  }\n  product {\n    id\n    title\n  }\n}": types.ReviewDetailsFragmentDoc,
     "fragment UserDetails on User {\n  id\n  name\n  isActive\n  email\n}": types.UserDetailsFragmentDoc,
     "fragment VariantDetails on Variant {\n  id\n  name\n  price\n  product {\n    ...ProductDetailsInVariant\n  }\n  stock\n}": types.VariantDetailsFragmentDoc,
     "mutation OrderAddTo($to: ID!, $product: ID!, $variant: VariantEnum!) {\n  addToOrder(to: $to, product: $product, variant: $variant) {\n    ...OrderDetails\n  }\n}": types.OrderAddToDocument,
@@ -37,7 +38,7 @@ const documents = {
     "query ProductFindAll($skip: Int, $take: Int) {\n  products(skip: $skip, take: $take) {\n    ...ProductOverview\n  }\n}": types.ProductFindAllDocument,
     "query ProductFindById($productId: ID!) {\n  product(id: $productId) {\n    ...ProductDetails\n  }\n}": types.ProductFindByIdDocument,
     "query ProductsSearch($query: String!) {\n  productSearch(query: $query) {\n    ...ProductOverview\n  }\n}": types.ProductsSearchDocument,
-    "query ReviewsGetByProduct($productId: ID!) {\n  productReviews(productId: $productId) {\n    id\n    headline\n    content\n    rating\n    user {\n      email\n    }\n    product {\n      id\n      title\n    }\n  }\n}": types.ReviewsGetByProductDocument,
+    "query ReviewsGetByProduct($productId: ID!) {\n  productReviews(productId: $productId) {\n    ...ReviewDetails\n  }\n}": types.ReviewsGetByProductDocument,
     "query User($userId: ID!) {\n  user(id: $userId) {\n    ...UserDetails\n  }\n}": types.UserDocument,
 };
 
@@ -61,6 +62,10 @@ export function graphql(source: "fragment ProductDetailsInVariant on Product {\n
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "fragment ProductOverview on Product {\n  id\n  artist {\n    name\n  }\n  title\n  category {\n    name\n  }\n  coverImageUrl\n  variants {\n    price\n    stock\n    name\n  }\n}"): typeof import('./graphql').ProductOverviewFragmentDoc;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "fragment ReviewDetails on Review {\n  id\n  headline\n  content\n  rating\n  user {\n    email\n  }\n  product {\n    id\n    title\n  }\n}"): typeof import('./graphql').ReviewDetailsFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -136,7 +141,7 @@ export function graphql(source: "query ProductsSearch($query: String!) {\n  prod
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ReviewsGetByProduct($productId: ID!) {\n  productReviews(productId: $productId) {\n    id\n    headline\n    content\n    rating\n    user {\n      email\n    }\n    product {\n      id\n      title\n    }\n  }\n}"): typeof import('./graphql').ReviewsGetByProductDocument;
+export function graphql(source: "query ReviewsGetByProduct($productId: ID!) {\n  productReviews(productId: $productId) {\n    ...ReviewDetails\n  }\n}"): typeof import('./graphql').ReviewsGetByProductDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
