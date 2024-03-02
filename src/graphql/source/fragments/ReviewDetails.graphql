@@ -2,6 +2,7 @@ fragment ReviewDetails on Review {
 	id
 	headline
 	content
+	dateCreated
 	rating
 	user {
 		name

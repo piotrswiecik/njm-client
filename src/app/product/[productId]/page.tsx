@@ -58,7 +58,13 @@ const ProductDetailsPage = async ({
 				</article>
 				<aside className="sm:mt-8">
 					<RecommenderComponent categoryName={product.category.name} />
-					<ReviewContainer product={product} user={user} reviews={reviews} />
+					<ReviewContainer
+						product={product}
+						user={user}
+						reviews={reviews.sort((i, j) =>
+							j.dateCreated.localeCompare(i.dateCreated),
+						)}
+					/>
 				</aside>
 			</div>
 		);
