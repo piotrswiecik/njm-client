@@ -33,7 +33,7 @@ const ReviewContainer = ({
 	};
 
 	return (
-		<div className="mt-4">
+		<div className="mt-12">
 			<h2 className="mb-2 font-bold sm:text-xl">Customer reviews</h2>
 			<div className="mt-4 flex flex-col sm:max-w-xl sm:flex-row sm:justify-between lg:max-w-5xl">
 				<div className="w-5/12">

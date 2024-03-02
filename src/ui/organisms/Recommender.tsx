@@ -19,7 +19,7 @@ const RecommenderComponent = async ({
 	return (
 		<section
 			data-testid="related-products"
-			className="sm:max-w-xl lg:max-w-5xl"
+			className="sm:max-w-xl lg:max-w-5xl mt-12"
 		>
 			<h2 className="mb-2 font-bold sm:text-xl">
 				{leadText ? leadText : "You might also like:"}
