@@ -1,10 +1,10 @@
-import { getOrCreateCart } from "@/api/cart";
+import { getCart } from "@/api/cart";
 import CartItemCard from "@/ui/molecules/CartItemCard";
 
 const CartPage = async () => {
-	const cart = await getOrCreateCart();
+	const cart = await getCart();
 	if (!cart) {
-		throw new Error("Failed to get or create cart");
+		return <>empty cart page</>;
 	}
 	console.log(cart);
 

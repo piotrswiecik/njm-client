@@ -1,9 +1,9 @@
-import { getOrCreateCart } from "@/api/cart";
+import { getCart } from "@/api/cart";
 import ShoppingCartLink from "@/ui/atoms/ShoppingCartLink";
 
 const ShoppingCartLinkWrap = async () => {
-	const cart = await getOrCreateCart();
-	const itemsTotal = cart.orderItems?.reduce(
+	const cart = await getCart();
+	const itemsTotal = cart?.orderItems?.reduce(
 		(acc, item) => acc + item.quantity,
 		0,
 	) || 0;

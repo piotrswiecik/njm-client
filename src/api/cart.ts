@@ -19,10 +19,12 @@ import {
  * @param cartId cart id stored as client side cookie.
  * @returns
  */
-export const getCart = async (
-	cartId: string,
-): Promise<OrderDetailsFragment | null> => {
+export const getCart = async (): Promise<OrderDetailsFragment | null> => {
 	try {
+		const cartId = cookies().get("cartId")?.value;
+		if (!cartId) {
+			return null;
+		}
 		const { order } = await queryGraphql({
 			query: OrderGetByIdDocument,
 			variables: {
@@ -58,10 +60,12 @@ const createCart = async (): Promise<DefaultIdResponse> => {
 				tags: ["cart", "order"],
 			},
 		});
+		cookies().set("cartId", createOrder.id);
 		return {
 			id: createOrder.id,
 		};
 	} catch (err) {
+		console.error(err);
 		throw new Error("Failed to create cart");
 	}
 };
@@ -70,21 +74,18 @@ const createCart = async (): Promise<DefaultIdResponse> => {
  * Get existing cart from backend based on cookie id or create a new cart and set cookie.
  */
 export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
-	const cartId = cookies().get("cartId")?.value;
-	if (cartId) {
-		const cart = await getCart(cartId);
+	const cart = await getCart();
 		if (cart) {
 			console.log(`cart found & fetched: ${cart.id}`);
 			return cart;
 		}
-	}
 
 	const { id: newCartId } = await createCart();
 	if (!newCartId) {
 		// FIXME: no error boundary set for this
 		throw new Error("Failed to create cart");
 	}
-	cookies().set("cartId", newCartId);
+	
 	console.log(`new cart created: ${newCartId}`);
 	return {
 		id: newCartId,
@@ -167,7 +168,7 @@ export const decreaseItem = async ({
 	try {
 		console.log("removing item from cart");
 		console.log(`fetching cart: ${cartId}	`);
-		const cart = await getCart(cartId);
+		const cart = await getCart();
 		console.log("cart fetch result");
 		console.log(cart);
 		if (!cart) return;
