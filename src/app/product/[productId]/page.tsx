@@ -1,10 +1,8 @@
 import { type Metadata } from "next";
 import ProductDetailsComponent from "@/ui/components/ProductDetails";
 import RecommenderComponent from "@/ui/components/Recommender";
-import ReviewsComponent from "@/ui/components/Reviews";
 import { getProductById } from "@/api/queries/getProductById";
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
-import ReviewFormContainer from "@/ui/components/ReviewFormContainer";
 import ReviewComponent from "@/ui/components/ReviewComponent";
 
 export async function generateMetadata({

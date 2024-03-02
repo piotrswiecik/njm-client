@@ -5,9 +5,17 @@ import { type UserDetailsFragment } from "@/graphql/generated/graphql";
 import { RatingStars } from "@/ui/atoms/RatingStars";
 
 type ReviewFormProps = {
-	handler: (data: FormData) => Promise<void>;
+	handler: (data: ReviewFormData) => Promise<void>;
 	user: UserDetailsFragment;
 	productId: string;
+};
+
+export type ReviewFormData = {
+	userId: string;
+	productId: string;
+	headline: string;
+	content: string;
+	rating: number;
 };
 
 const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
@@ -23,15 +31,36 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 		if (!headline || !content) {
 			return false;
 		}
+		if (rating === 0) {
+			return false;
+		}
 		return true;
 	};
 
-	const ratingHandler = (rating: number) => {
-		setRating(rating > 4 ? 4 : rating);
+	const ratingHandler = (selected: number) => {
+		if (selected < 0) {
+			setRating(0);
+      console.log("rating reset");
+			return;
+		}
+    const rating = selected > 4 ? 5 : selected + 1
+		setRating(rating);
+    console.log(rating);
 	};
 
 	return (
-		<form action={handler} className="border">
+		<form
+			action={() =>
+				handler({
+					userId: user.id,
+					productId: productId,
+					headline: headline,
+					content: content,
+					rating: rating,
+				})
+			}
+			className="border"
+		>
 			<input type="hidden" name="userId" value={user.id} />
 			<input type="hidden" name="productId" value={productId} />
 			<input type="hidden" name="rating" value={rating} />

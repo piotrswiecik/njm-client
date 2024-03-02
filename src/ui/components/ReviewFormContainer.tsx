@@ -1,18 +1,24 @@
 import { getUserById } from "@/api/queries/getUserById";
-import ReviewForm from "@/ui/components/ReviewForm";
+import { queryGraphql } from "@/api/queryGraphql";
+import { ReviewCreateDocument } from "@/graphql/generated/graphql";
+import ReviewForm, { type ReviewFormData } from "@/ui/components/ReviewForm";
 
-const handlePostReviewAction = async (data: FormData) => {
+const handlePostReviewAction = async (data: ReviewFormData) => {
 	"use server";
 	console.log("post review action");
 	console.log(data);
+	// const result = await queryGraphql(ReviewCreateDocument, {
+	// 	userId: data.get("userId"),
+	// 	productId: data.get("productId"),
+	// 	headline: data.get("headline"),
+	// 	content: data.get("content"),
+	// 	rating: parseInt(data.get("rating") as string),
+	// });
 };
 
-// server side - use it to pull user data for children
 const ReviewFormContainer = async ({ productId }: { productId: string }) => {
-	// TODO: maybe better use normal props to make this component independent? idk yet
-
+	// FIXME: dehardcode user id
 	const userData = await getUserById("dbe0705a-87d0-4c11-9432-f55895360016");
-	console.log(userData);
 
 	return (
 		<section>

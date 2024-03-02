@@ -301,6 +301,17 @@ export type OrderSetStatusMutationVariables = Exact<{
 
 export type OrderSetStatusMutation = { setOrderStatus: { id: string } };
 
+export type ReviewCreateMutationVariables = Exact<{
+  productId: Scalars['ID']['input'];
+  rating: Scalars['Int']['input'];
+  headline: Scalars['String']['input'];
+  content: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
+}>;
+
+
+export type ReviewCreateMutation = { createReview: { id: string } };
+
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
 }>;
@@ -668,6 +679,19 @@ export const OrderSetStatusDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<OrderSetStatusMutation, OrderSetStatusMutationVariables>;
+export const ReviewCreateDocument = new TypedDocumentString(`
+    mutation ReviewCreate($productId: ID!, $rating: Int!, $headline: String!, $content: String!, $userId: ID!) {
+  createReview(
+    productId: $productId
+    rating: $rating
+    headline: $headline
+    content: $content
+    userId: $userId
+  ) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewCreateMutation, ReviewCreateMutationVariables>;
 export const CategoryCountDocument = new TypedDocumentString(`
     query CategoryCount($name: String!) {
   categoryCount(name: $name)
