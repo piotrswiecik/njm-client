@@ -1,24 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { type UserDetailsFragment } from "@/graphql/generated/graphql";
+import {
+	type ProductDetailsFragment,
+	type UserDetailsFragment,
+} from "@/graphql/generated/graphql";
 import RatingStarsSelector from "@/ui/atoms/RatingStarsSelector";
+import { type ReviewFormData } from "@/lib/types";
 
 type ReviewFormProps = {
 	handler: (data: ReviewFormData) => Promise<void>;
 	user: UserDetailsFragment;
-	productId: string;
+	product: ProductDetailsFragment;
 };
 
-export type ReviewFormData = {
-	userId: string;
-	productId: string;
-	headline: string;
-	content: string;
-	rating: number;
-};
-
-const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
+const ReviewForm = ({ handler, user, product }: ReviewFormProps) => {
 	const [headline, setHeadline] = useState("");
 	const [content, setContent] = useState("");
 	const [rating, setRating] = useState(0);
@@ -51,7 +47,7 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 			action={() =>
 				handler({
 					userId: user.id,
-					productId: productId,
+					productId: product.id,
 					headline: headline,
 					content: content,
 					rating: rating,
@@ -61,7 +57,7 @@ const ReviewForm = ({ handler, user, productId }: ReviewFormProps) => {
 			data-testid="add-review-form"
 		>
 			<input type="hidden" name="userId" value={user.id} />
-			<input type="hidden" name="productId" value={productId} />
+			<input type="hidden" name="productId" value={product.id} />
 			<input type="hidden" name="rating" value={rating} />
 			<div className="">
 				<label htmlFor="headline" className="block">

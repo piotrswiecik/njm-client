@@ -1,8 +1,9 @@
 import { getReviewsByProduct } from "@/api/queries/getReviewsByProduct";
+import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 import ReviewItem from "@/ui/molecules/ReviewItem";
 
-const ReviewsList = async ({ productId }: { productId: string }) => {
-	const reviews = await getReviewsByProduct(productId);
+const ReviewList = async ({ product }: { product: ProductDetailsFragment }) => {
+	const reviews = await getReviewsByProduct(product.id);
 
 	if (reviews.length === 0) {
 		return (
@@ -21,4 +22,4 @@ const ReviewsList = async ({ productId }: { productId: string }) => {
 	);
 };
 
-export default ReviewsList;
+export default ReviewList;

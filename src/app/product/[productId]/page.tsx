@@ -3,7 +3,7 @@ import ProductDetailsComponent from "@/ui/organisms/ProductDetails";
 import RecommenderComponent from "@/ui/organisms/Recommender";
 import { getProductById } from "@/api/queries/getProductById";
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
-import ReviewComponent from "@/ui/organisms/ReviewComponent";
+import ReviewContainer from "@/ui/organisms/ReviewContainer";
 
 export async function generateMetadata({
 	params,
@@ -49,7 +49,7 @@ const ProductDetailsPage = async ({
 				</article>
 				<aside className="sm:mt-8">
 					<RecommenderComponent categoryName={product.category.name} />
-					<ReviewComponent productId={params.productId} />
+					<ReviewContainer product={product} />
 				</aside>
 			</div>
 		);
