@@ -1,6 +1,6 @@
 import { type Metadata } from "next";
 import { getProductsByCollection } from "@/api/queries/getProductsByCollection";
-import ProductDashboard from "@/ui/components/ProductDashboard";
+import ProductDashboard from "@/ui/organisms/ProductDashboard";
 
 export const metadata: Metadata = {
 	title: "NJM Record Store - Collections",

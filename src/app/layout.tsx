@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/ui/components/Header";
-import { Footer } from "@/ui/components/Footer";
+import { Header } from "@/ui/organisms/Header";
+import { Footer } from "@/ui/organisms/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +23,7 @@ export default function RootLayout({
 					<nav className="grow-0">
 						<Header />
 					</nav>
-					<main className="grow sm:mt-4">
-					{children}
-					</main>
+					<main className="grow sm:mt-4">{children}</main>
 					<footer className="grow-0">
 						<Footer />
 					</footer>

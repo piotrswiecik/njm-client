@@ -1,9 +1,9 @@
 import { type Metadata } from "next";
-import ProductDetailsComponent from "@/ui/components/ProductDetails";
-import RecommenderComponent from "@/ui/components/Recommender";
+import ProductDetailsComponent from "@/ui/organisms/ProductDetails";
+import RecommenderComponent from "@/ui/organisms/Recommender";
 import { getProductById } from "@/api/queries/getProductById";
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
-import ReviewComponent from "@/ui/components/ReviewComponent";
+import ReviewComponent from "@/ui/organisms/ReviewComponent";
 
 export async function generateMetadata({
 	params,

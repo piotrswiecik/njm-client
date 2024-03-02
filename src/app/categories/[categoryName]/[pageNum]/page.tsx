@@ -1,6 +1,6 @@
 import { type Metadata } from "next";
-import ProductDashboard from "@/ui/components/ProductDashboard";
-import Pagination from "@/ui/components/Pagination";
+import ProductDashboard from "@/ui/organisms/ProductDashboard";
+import Pagination from "@/ui/molecules/Pagination";
 import { getProductsByCategory } from "@/api/queries/getProductsByCategory";
 import { getCategoryCount } from "@/api/queries/getCategoryCount";
 

@@ -1,7 +1,7 @@
 import { getUserById } from "@/api/queries/getUserById";
 import { queryGraphql } from "@/api/queryGraphql";
 import { ReviewCreateDocument } from "@/graphql/generated/graphql";
-import ReviewForm, { type ReviewFormData } from "@/ui/components/ReviewForm";
+import ReviewForm, { type ReviewFormData } from "@/ui/molecules/ReviewForm";
 
 const handlePostReviewAction = async (data: ReviewFormData) => {
 	"use server";
@@ -10,7 +10,6 @@ const handlePostReviewAction = async (data: ReviewFormData) => {
 	console.log("post review action");
 	console.log(data);
 	try {
-
 		// FIXME: delay for testing
 		await new Promise((resolve) => setTimeout(resolve, 3000));
 
@@ -32,7 +31,6 @@ const handlePostReviewAction = async (data: ReviewFormData) => {
 		console.log(err);
 		throw new Error("Review not created");
 	}
-	
 };
 
 const ReviewFormContainer = async ({ productId }: { productId: string }) => {

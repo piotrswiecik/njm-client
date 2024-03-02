@@ -1,5 +1,5 @@
 import { getOrCreateCart } from "@/api/cart";
-import CartItemCard from "@/ui/components/CartItemCard";
+import CartItemCard from "@/ui/molecules/CartItemCard";
 
 const CartPage = async () => {
 	const cart = await getOrCreateCart();

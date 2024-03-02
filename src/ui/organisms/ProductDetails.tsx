@@ -1,5 +1,5 @@
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
-import ProductInfoPanel from "@/ui/components/ProductInfoPanel";
+import ProductInfoPanel from "@/ui/organisms/ProductInfoPanel";
 import ProductImage from "@/ui/atoms/ProductImage";
 
 const ProductDetailsComponent = async ({

@@ -1,5 +1,5 @@
 import { getSearchResults } from "@/api/queries/getSearchResults";
-import ProductDashboard from "@/ui/components/ProductDashboard";
+import ProductDashboard from "@/ui/organisms/ProductDashboard";
 
 type SearchPageProps = {
 	params: { pageNum: string };

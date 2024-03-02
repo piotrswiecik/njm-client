@@ -2,7 +2,7 @@
 import { Suspense, useState } from "react";
 import Image from "next/image";
 import ActiveLink from "@/ui/atoms/ActiveLink";
-import SearchBar from "@/ui/components/SearchBar";
+import SearchBar from "@/ui/molecules/SearchBar";
 
 type HeaderNavMobileProps = {
 	categories: string[];

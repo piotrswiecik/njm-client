@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import ActiveLink from "@/ui/atoms/ActiveLink";
-import SearchBar from "@/ui/components/SearchBar";
+import SearchBar from "@/ui/molecules/SearchBar";
 import ShoppingCartLinkWrap from "@/ui/atoms/ShoppingCartLinkWrap";
 
 type HeaderNavDesktopProps = {

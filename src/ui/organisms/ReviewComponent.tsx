@@ -1,5 +1,5 @@
-import ReviewFormContainer from "@/ui/components/ReviewFormContainer";
-import ReviewsList from "@/ui/components/ReviewList";
+import ReviewFormContainer from "@/ui/molecules/ReviewFormContainer";
+import ReviewsList from "@/ui/organisms/ReviewList";
 
 const ReviewComponent = async ({ productId }: { productId: string }) => {
 	return (

@@ -1,5 +1,5 @@
 import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
-import ProductListItemCard from "@/ui/components/ProductListItemCard";
+import ProductListItemCard from "@/ui/molecules/ProductListItemCard";
 
 type ProductDashboardProps = {
 	products: ProductOverviewFragment[];
