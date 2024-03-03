@@ -15,7 +15,10 @@ const ProductListInfo = ({ product }: { product: ProductOverviewFragment }) => {
 
 			<div className="flex flex-col justify-between">
 				<div>
-					<span className="ml-6 text-sm font-medium text-gray-900">
+					<span
+						data-testid="product-price"
+						className="ml-6 text-sm font-medium text-gray-900"
+					>
 						{formatPrice(getBasicVariantPrice(product))}
 					</span>
 					<ProductListRating rating={product.rating} />

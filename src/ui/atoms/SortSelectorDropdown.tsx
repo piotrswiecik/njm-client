@@ -56,10 +56,18 @@ const SortSelectorDropdown = ({ action }: { action: () => void }) => {
 				}}
 			>
 				<option value="no-sort">---</option>
-				<option value="rating-desc">Rating ↓</option>
-				<option value="rating-asc">Rating ↑</option>
-				<option value="price-desc">Price ↓</option>
-				<option value="price-asc">Price ↑</option>
+				<option value="rating-desc" data-testid="sort-by-rating">
+					Rating ↓
+				</option>
+				<option value="rating-asc" data-testid="sort-by-rating">
+					Rating ↑
+				</option>
+				<option value="price-desc" data-testid="sort-by-price">
+					Price ↓
+				</option>
+				<option value="price-asc" data-testid="sort-by-price">
+					Price ↑
+				</option>
 			</select>
 		</div>
 	);
