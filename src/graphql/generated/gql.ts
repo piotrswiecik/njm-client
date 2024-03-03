@@ -35,7 +35,7 @@ const documents = {
     "query CollectionFindByNameWithAllProducts($name: String!) {\n  collection(name: $name) {\n    id\n    name\n    products {\n      ...ProductOverview\n    }\n  }\n}": types.CollectionFindByNameWithAllProductsDocument,
     "query OrderGetById($orderId: ID!, $status: StatusEnum) {\n  order(id: $orderId, status: $status) {\n    ...OrderDetails\n  }\n}": types.OrderGetByIdDocument,
     "query ProductCount {\n  productCount\n}": types.ProductCountDocument,
-    "query ProductFindAll($skip: Int, $take: Int) {\n  products(skip: $skip, take: $take) {\n    ...ProductOverview\n  }\n}": types.ProductFindAllDocument,
+    "query ProductFindAll($skip: Int, $take: Int, $sort: String, $order: String) {\n  products(skip: $skip, take: $take, sort: $sort, order: $order) {\n    ...ProductOverview\n  }\n}": types.ProductFindAllDocument,
     "query ProductFindById($productId: ID!) {\n  product(id: $productId) {\n    ...ProductDetails\n  }\n}": types.ProductFindByIdDocument,
     "query ProductsSearch($query: String!) {\n  productSearch(query: $query) {\n    ...ProductOverview\n  }\n}": types.ProductsSearchDocument,
     "query ReviewsGetByProduct($productId: ID!) {\n  productReviews(productId: $productId) {\n    ...ReviewDetails\n  }\n}": types.ReviewsGetByProductDocument,
@@ -129,7 +129,7 @@ export function graphql(source: "query ProductCount {\n  productCount\n}"): type
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductFindAll($skip: Int, $take: Int) {\n  products(skip: $skip, take: $take) {\n    ...ProductOverview\n  }\n}"): typeof import('./graphql').ProductFindAllDocument;
+export function graphql(source: "query ProductFindAll($skip: Int, $take: Int, $sort: String, $order: String) {\n  products(skip: $skip, take: $take, sort: $sort, order: $order) {\n    ...ProductOverview\n  }\n}"): typeof import('./graphql').ProductFindAllDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

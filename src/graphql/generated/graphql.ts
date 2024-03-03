@@ -155,6 +155,8 @@ export type Query = {
 
 export type QueryCategoryArgs = {
   name: Scalars['String']['input'];
+  order?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -190,7 +192,9 @@ export type QueryProductSearchArgs = {
 
 
 export type QueryProductsArgs = {
+  order?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -207,6 +211,15 @@ export type Review = {
   product: Product;
   rating: Scalars['Int']['output'];
   user: User;
+};
+
+export type SortEnum =
+  | 'asc'
+  | 'desc';
+
+export type SortInput = {
+  price?: InputMaybe<SortEnum>;
+  rating?: InputMaybe<SortEnum>;
 };
 
 export type StatusEnum =
@@ -361,6 +374,8 @@ export type ProductCountQuery = { productCount: number };
 export type ProductFindAllQueryVariables = Exact<{
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -839,8 +854,8 @@ export const ProductCountDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<ProductCountQuery, ProductCountQueryVariables>;
 export const ProductFindAllDocument = new TypedDocumentString(`
-    query ProductFindAll($skip: Int, $take: Int) {
-  products(skip: $skip, take: $take) {
+    query ProductFindAll($skip: Int, $take: Int, $sort: String, $order: String) {
+  products(skip: $skip, take: $take, sort: $sort, order: $order) {
     ...ProductOverview
   }
 }

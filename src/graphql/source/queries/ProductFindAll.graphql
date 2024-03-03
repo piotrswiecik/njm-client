@@ -1,5 +1,5 @@
-query ProductFindAll($skip: Int, $take: Int) {
-  products(skip: $skip, take: $take) {
+query ProductFindAll($skip: Int, $take: Int, $sort: String, $order: String) {
+  products(skip: $skip, take: $take, sort: $sort, order: $order) {
     ...ProductOverview
   }
 }

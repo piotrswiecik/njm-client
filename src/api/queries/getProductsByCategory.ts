@@ -16,6 +16,9 @@ export const getProductsByCategory = async (
 			take,
 			skip,
 		},
+		next: {
+			tags: ["category", "sort"]
+		}
 	});
 	if (!category) return [];
 	return category.products;

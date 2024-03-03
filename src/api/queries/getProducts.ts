@@ -5,14 +5,21 @@ import {
 } from "@/graphql/generated/graphql";
 
 export const getProducts = async (
-	take: number,
+	take?: number,
 	skip?: number,
+	sort?: string | null | undefined,
+	order?: string | null | undefined,
 ): Promise<ProductOverviewFragment[]> => {
 	const { products } = await queryGraphql({
 		query: ProductFindAllDocument,
 		variables: {
 			take,
 			skip: skip || 0,
+			sort,
+			order
+		},
+		next: {
+			tags: ["products", "sort"],
 		},
 	});
 

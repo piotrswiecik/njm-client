@@ -1,4 +1,49 @@
-const SortSelectorDropdown = () => {
+"use client";
+
+import { type Route } from "next";
+import { usePathname, useRouter } from "next/navigation";
+
+const SortSelectorDropdown = ({ action }: { action: () => void }) => {
+	const router = useRouter();
+	const pathname = usePathname();
+
+	const handleChange = (type: string) => {
+		let params: { sort: string; order: string } | null = null;
+		switch (type) {
+			case "rating-desc":
+				params = {
+					sort: "rating",
+					order: "desc",
+				};
+				break;
+			case "rating-asc":
+				params = {
+					sort: "rating",
+					order: "asc",
+				};
+				break;
+			case "price-desc":
+				params = {
+					sort: "price",
+					order: "desc",
+				};
+				break;
+			case "price-asc":
+				params = {
+					sort: "price",
+					order: "asc",
+				};
+				break;
+			default:
+				params = null;
+		}
+		// this action revalidates cache before new query params are loaded
+		action();
+		router.replace(
+			`${pathname}${params === null ? "" : `?sort=${params.sort}&order=${params.order}`}` as Route,
+		);
+	};
+
 	return (
 		<div className="pb-3">
 			<span className="pr-1 text-sm text-slate-600">Sort:</span>
@@ -6,10 +51,15 @@ const SortSelectorDropdown = () => {
 				name="sort-selector"
 				id="sort-selector"
 				className="bg-inherit text-sm text-slate-600"
+				onChange={(e) => {
+					handleChange(e.target.value);
+				}}
 			>
-				<option value="newest">---</option>
-				<option value="newest">Rating</option>
-				<option value="oldest">Price</option>
+				<option value="no-sort">---</option>
+				<option value="rating-desc">Rating ↓</option>
+				<option value="rating-asc">Rating ↑</option>
+				<option value="price-desc">Price ↓</option>
+				<option value="price-asc">Price ↑</option>
 			</select>
 		</div>
 	);

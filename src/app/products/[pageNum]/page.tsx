@@ -26,15 +26,22 @@ export async function generateStaticParams() {
 	return Array.from({ length: totalPages }, (_, i) => (i + 1).toString());
 }
 
-const ProductsPage = async ({ params }: { params: { pageNum: string } }) => {
+const ProductsPage = async ({
+	params,
+	searchParams,
+}: {
+	params: { pageNum: string };
+	searchParams: { sort: string; order: string };
+}) => {
 	const numberOfProducts = await getProductCount(); // TODO unhandled err thrown by service layer
 
-	// TODO optimize this, maybe base on media query
 	const PRODUCTS_PER_PAGE = 12;
 
 	const products = await getProducts(
 		PRODUCTS_PER_PAGE,
 		(Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE,
+		searchParams.sort,
+		searchParams.order,
 	);
 
 	return (
