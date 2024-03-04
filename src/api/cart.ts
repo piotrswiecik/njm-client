@@ -105,7 +105,7 @@ export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
 
 /**
  * Main action to add item to cart via graphql mutation.
- * Revalidate cart cache after successful add operation.
+ * Revalidates "cart" and "order" tags after successful operation.
  * @param id product id to be added.
  * @param variant variant of the product to be added.
  */
@@ -155,6 +155,7 @@ export const addOrIncreaseItem = async ({
 
 /**
  * Remove item from existing cart via graphql mutation.
+ * Revalidates "cart" and "order" tags after successful operation.
  * @param cartId
  * @param variant
  * @param productId
