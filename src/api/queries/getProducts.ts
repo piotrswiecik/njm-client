@@ -7,8 +7,8 @@ import {
 export const getProducts = async (
 	take?: number,
 	skip?: number,
-	sort?: string | null | undefined,
-	order?: string | null | undefined,
+	sort?: string,
+	order?: string,
 ): Promise<ProductOverviewFragment[]> => {
 	const { products } = await queryGraphql({
 		query: ProductFindAllDocument,

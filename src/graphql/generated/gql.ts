@@ -30,7 +30,7 @@ const documents = {
     "mutation OrderSetStatus($where: ID!, $status: StatusEnum!) {\n  setOrderStatus(where: $where, status: $status) {\n    id\n  }\n}": types.OrderSetStatusDocument,
     "mutation ReviewCreate($productId: ID!, $rating: Int!, $headline: String!, $content: String!, $userId: ID!) {\n  createReview(\n    productId: $productId\n    rating: $rating\n    headline: $headline\n    content: $content\n    userId: $userId\n  ) {\n    id\n  }\n}": types.ReviewCreateDocument,
     "query CategoryCount($name: String!) {\n  categoryCount(name: $name)\n}": types.CategoryCountDocument,
-    "query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {\n  category(name: $name) {\n    products(skip: $skip, take: $take) {\n      ...ProductOverview\n    }\n  }\n}": types.CategoryFindByNameWithPaginatedProductsDocument,
+    "query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int, $sort: String, $order: String) {\n  category(name: $name) {\n    products(skip: $skip, take: $take, sort: $sort, order: $order) {\n      ...ProductOverview\n    }\n  }\n}": types.CategoryFindByNameWithPaginatedProductsDocument,
     "query CollectionFindAll {\n  collections {\n    id\n    name\n  }\n}": types.CollectionFindAllDocument,
     "query CollectionFindByNameWithAllProducts($name: String!) {\n  collection(name: $name) {\n    id\n    name\n    products {\n      ...ProductOverview\n    }\n  }\n}": types.CollectionFindByNameWithAllProductsDocument,
     "query OrderGetById($orderId: ID!, $status: StatusEnum) {\n  order(id: $orderId, status: $status) {\n    ...OrderDetails\n  }\n}": types.OrderGetByIdDocument,
@@ -109,7 +109,7 @@ export function graphql(source: "query CategoryCount($name: String!) {\n  catego
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {\n  category(name: $name) {\n    products(skip: $skip, take: $take) {\n      ...ProductOverview\n    }\n  }\n}"): typeof import('./graphql').CategoryFindByNameWithPaginatedProductsDocument;
+export function graphql(source: "query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int, $sort: String, $order: String) {\n  category(name: $name) {\n    products(skip: $skip, take: $take, sort: $sort, order: $order) {\n      ...ProductOverview\n    }\n  }\n}"): typeof import('./graphql').CategoryFindByNameWithPaginatedProductsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

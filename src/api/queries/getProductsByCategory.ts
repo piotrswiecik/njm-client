@@ -8,6 +8,8 @@ export const getProductsByCategory = async (
 	name: string,
 	take?: number,
 	skip?: number,
+	sort?: string,
+	order?: string,
 ): Promise<ProductOverviewFragment[]> => {
 	const { category } = await queryGraphql({
 		query: CategoryFindByNameWithPaginatedProductsDocument,
@@ -15,10 +17,12 @@ export const getProductsByCategory = async (
 			name,
 			take,
 			skip,
+			sort,
+			order,
 		},
 		next: {
-			tags: ["category", "sort"]
-		}
+			tags: ["category", "sort"],
+		},
 	});
 	if (!category) return [];
 	return category.products;

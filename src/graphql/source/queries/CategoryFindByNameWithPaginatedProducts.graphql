@@ -1,6 +1,6 @@
-query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {
+query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int, $sort: String, $order: String) {
   category(name: $name) {
-    products(skip: $skip, take: $take) {
+    products(skip: $skip, take: $take, sort: $sort, order: $order) {
       ...ProductOverview
     }
   }

@@ -28,7 +28,9 @@ export type Category = {
 
 
 export type CategoryProductsArgs = {
+  order?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -155,8 +157,6 @@ export type Query = {
 
 export type QueryCategoryArgs = {
   name: Scalars['String']['input'];
-  order?: InputMaybe<Scalars['String']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -341,6 +341,8 @@ export type CategoryFindByNameWithPaginatedProductsQueryVariables = Exact<{
   name: Scalars['String']['input'];
   skip?: InputMaybe<Scalars['Int']['input']>;
   take?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -746,9 +748,9 @@ export const CategoryCountDocument = new TypedDocumentString(`
 }
     `) as unknown as TypedDocumentString<CategoryCountQuery, CategoryCountQueryVariables>;
 export const CategoryFindByNameWithPaginatedProductsDocument = new TypedDocumentString(`
-    query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int) {
+    query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int, $sort: String, $order: String) {
   category(name: $name) {
-    products(skip: $skip, take: $take) {
+    products(skip: $skip, take: $take, sort: $sort, order: $order) {
       ...ProductOverview
     }
   }

@@ -33,7 +33,7 @@ const ProductsPage = async ({
 	params: { pageNum: string };
 	searchParams: { sort: string; order: string };
 }) => {
-	const numberOfProducts = await getProductCount(); // TODO unhandled err thrown by service layer
+	const numberOfProducts = await getProductCount();
 
 	const PRODUCTS_PER_PAGE = 12;
 

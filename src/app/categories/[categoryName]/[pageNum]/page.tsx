@@ -3,11 +3,16 @@ import ProductDashboard from "@/ui/organisms/ProductDashboard";
 import Pagination from "@/ui/molecules/Pagination";
 import { getProductsByCategory } from "@/api/queries/getProductsByCategory";
 import { getCategoryCount } from "@/api/queries/getCategoryCount";
+import SortSelectorBar from "@/ui/molecules/SortSelectorBar";
 
 type PageProps = {
 	params: {
 		categoryName: string;
 		pageNum: string;
+	};
+	searchParams: {
+		sort?: string;
+		order?: string;
 	};
 };
 
@@ -36,20 +41,21 @@ export const generateMetadata = async ({
 	};
 };
 
-const CategoryPage = async ({ params }: PageProps) => {
-	const numberOfProducts = await getCategoryCount(params.categoryName); // TODO unhandled err thrown by service layer
+const CategoryPage = async ({ params, searchParams }: PageProps) => {
+	const numberOfProducts = await getCategoryCount(params.categoryName);
 
-	// TODO optimize this, maybe base on media query
 	const PRODUCTS_PER_PAGE = 12;
-
 	const products = await getProductsByCategory(
 		params.categoryName,
 		PRODUCTS_PER_PAGE,
 		(Number(params.pageNum) - 1) * PRODUCTS_PER_PAGE,
+		searchParams.sort,
+		searchParams.order,
 	);
 
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
+			<SortSelectorBar />
 			<ProductDashboard products={products} />
 			<div className="mt-12 flex justify-center">
 				<Pagination
