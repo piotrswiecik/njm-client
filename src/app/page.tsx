@@ -23,12 +23,16 @@ const HomePage = async () => {
 		<div className="mx-auto w-10/12 max-w-7xl px-6 sm:px-12">
 			<article>
 				<div className="flex flex-col sm:flex-row">
-					{collections?.map((collection) => (
-						<CollectionCard key={collection.name} name={collection.name} />
-					))}
+					<ul data-testid="products-list">
+						{collections?.map((collection) => (
+							<li key={collection.name}>
+								<CollectionCard key={collection.name} name={collection.name} />
+							</li>
+						))}
+					</ul>
 				</div>
 			</article>
-			<aside className="flex flex-col sm:flex-row justify-evenly sm:p-2">
+			<aside className="flex flex-col justify-evenly sm:flex-row sm:p-2">
 				<RecommenderComponent categoryName="jazz" leadText="Recommended" />
 			</aside>
 		</div>
