@@ -2,6 +2,7 @@ import { type Route, type Metadata } from "next";
 import Link from "next/link";
 import { getCollections } from "@/api/queries/getCollections";
 import RecommenderComponent from "@/ui/organisms/Recommender";
+import { collectionNamesMapping } from "@/lib/utils";
 
 export const metadata: Metadata = {
 	title: "NJM Record Store - Products",
@@ -24,12 +25,6 @@ const HomePage = async () => {
 	Tempor mollit est ad ut aute in duis quis. Cupidatat ut culpa aute. Ea ullamco commodo ipsum exercitation esse aliquip adipisicing. Ea nisi proident irure. Deserunt elit sit ipsum minim cupidatat. Consectetur et aute officia est officia amet in in. Excepteur ea excepteur culpa ipsum. Nostrud culpa dolore est aute duis anim deserunt commodo. Elit dolor aliqua sint est commodo esse elit. Consequat ea Lorem cupidatat veniam consequat voluptate do consectetur ex. Anim aliquip eu fugiat voluptate ea adipisicing irure.
 	`;
 
-	const namesMapping = [
-		{ name: "new", description: "New arrivals", before: "🎵" },
-		{ name: "staffpicks", description: "Staff picks", before: "🎹" },
-		{ name: "bestsellers", description: "Best selling", before: "🎼" },
-	];
-
 	return (
 		<div className="mx-auto w-10/12 max-w-7xl px-6 sm:px-12">
 			<article>
@@ -48,17 +43,17 @@ const HomePage = async () => {
 						>
 							{collections?.map((collection) => (
 								<li key={collection.name}>
+									<span className="pr-2">
+										{
+											collectionNamesMapping.find(
+												(mapping) => mapping.name === collection.name,
+											)?.before
+										}
+									</span>
 									<Link href={`/collections/${collection.name}` as Route}>
-										<span className="pr-2">
-											{
-												namesMapping.find(
-													(mapping) => mapping.name === collection.name,
-												)?.before
-											}
-										</span>
 										<span>
 											{
-												namesMapping.find(
+												collectionNamesMapping.find(
 													(mapping) => mapping.name === collection.name,
 												)?.description
 											}

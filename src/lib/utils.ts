@@ -64,3 +64,10 @@ export const lorem = new LoremIpsum({
 		min: 4,
 	},
 });
+
+// FIXME - temporary, add descriptions to database later
+export const collectionNamesMapping = [
+	{ name: "new", description: "New arrivals", before: "🎵" },
+	{ name: "staffpicks", description: "Staff picks", before: "🎹" },
+	{ name: "bestsellers", description: "Best selling", before: "🎼" },
+];
