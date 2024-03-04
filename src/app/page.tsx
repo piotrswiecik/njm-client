@@ -38,7 +38,6 @@ const HomePage = async () => {
 					<div className="border border-black p-4 font-semibold text-slate-900">
 						Explore our collections
 						<ul
-							data-testid="products-list"
 							className="py-8 font-normal text-slate-900"
 						>
 							{collections?.map((collection) => (

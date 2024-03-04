@@ -22,7 +22,7 @@ const SearchBar = () => {
 	};
 
 	return (
-		<form onSubmit={(e) => handleSearch(e)}>
+		<form onSubmit={(e) => handleSearch(e)} role="searchbox">
 			<div className="relative flex rounded-lg shadow-sm sm:max-w-md">
 				<input
 					type="text"

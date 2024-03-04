@@ -7,10 +7,9 @@ type SearchPageProps = {
 };
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
-	// TODO maybe pagination?
+	// TODO: maybe pagination?
 
 	const searchResults = await getSearchResults(searchParams.query);
-	console.log(searchResults);
 
 	return (
 		<div className="px-6 sm:px-12">

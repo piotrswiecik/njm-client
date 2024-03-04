@@ -6,7 +6,7 @@ const ProductListInfo = ({ product }: { product: ProductOverviewFragment }) => {
 	return (
 		<div className="mt-4 flex justify-between">
 			<div>
-				<h3 className="text-sm text-gray-700">
+				<h3 className="text-sm text-gray-700" role="heading">
 					<span aria-hidden="true" className="absolute inset-0" />
 					{product.title}
 				</h3>
