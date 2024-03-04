@@ -2,7 +2,7 @@ import { getCart } from "@/api/cart";
 import { formatPrice } from "@/lib/utils";
 import CartItemCard from "@/ui/molecules/CartItemCard";
 
-const CartPage = async () => {
+const CartPage = async () => { 
 	const cart = await getCart();
 	if (!cart) {
 		return <>empty cart page</>;

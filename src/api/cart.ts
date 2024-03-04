@@ -15,41 +15,52 @@ import {
 } from "@/graphql/generated/graphql";
 
 /**
- * Try to fetch existing cart by cookie id via graphql query.
- * @param cartId cart id stored as client side cookie.
- * @returns
+ * Fetch order / cart by database id via graphql query.
+ * @param orderId order uuid as in db.
+ * @returns order or null.
  */
-export const getCart = async (): Promise<OrderDetailsFragment | null> => {
-	try {
-		const cartId = cookies().get("cartId")?.value;
-		if (!cartId) {
-			return null;
-		}
-		const { order } = await queryGraphql({
-			query: OrderGetByIdDocument,
-			variables: {
-				orderId: cartId,
-			},
-			next: {
-				tags: ["cart", "order"],
-			},
-		});
-		if (!order) {
-			return null;
-		}
-		return { ...order, orderItems: order.orderItems ? order.orderItems : [] };
-		// FIXME: no error boundary set for this
-	} catch (err) {
-		throw new Error("Failed to get cart");
-	}
+export const getOrderById = async (
+	orderId: string,
+): Promise<OrderDetailsFragment | null> => {
+	const { order } = await queryGraphql({
+		query: OrderGetByIdDocument,
+		variables: {
+			orderId: orderId,
+		},
+		next: {
+			tags: ["cart", "order"],
+		},
+	});
+	if (!order) return null;
+	return order;
 };
 
 /**
- * Create a new cart via graphql mutation.
+ * Get existing cart based on client cookie ("cartId"). Note that this is a dynamic function from Nextjs perspetive.
+ * @param cartId cart id stored as client side cookie.
+ * @returns cart (order with "CART" status) or null.
+ */
+export const getCart = async (): Promise<OrderDetailsFragment | null> => {
+	const cartId = cookies().get("cartId")?.value;
+	if (!cartId) {
+		return null;
+	}
+	const order = await getOrderById(cartId);
+	if (!order) {
+		console.log("no existing order found");
+		return null;
+	}
+	return { ...order, orderItems: order.orderItems ? order.orderItems : [] };
+};
+
+/**
+ * Create a new cart (empty order with "CART" status) via graphql mutation.
+ * Set client side cookie with new cart id.
+ * Note that this is a dynamic function from Nextjs perspetive.
+ * @returns new cart id to be stored as cookie.
  */
 const createCart = async (): Promise<DefaultIdResponse> => {
-	try {
-		// FIXME: no error boundary set for this
+		console.log("creating new cart");
 		const { createOrder } = await queryGraphql({
 			query: OrderCreateDocument,
 			variables: {
@@ -64,28 +75,23 @@ const createCart = async (): Promise<DefaultIdResponse> => {
 		return {
 			id: createOrder.id,
 		};
-	} catch (err) {
-		console.error(err);
-		throw new Error("Failed to create cart");
-	}
 };
 
 /**
- * Get existing cart from backend based on cookie id or create a new cart and set cookie.
+ * Helper method. Try to get existing cart based on cookie id or create a new one.
+ * @returns cart full representation (order with "CART" status).
  */
 export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
 	const cart = await getCart();
-		if (cart) {
-			console.log(`cart found & fetched: ${cart.id}`);
-			return cart;
-		}
+	if (cart) {
+		console.log(`cart found & fetched: ${cart.id}`);
+		return cart;
+	}
 
 	const { id: newCartId } = await createCart();
 	if (!newCartId) {
-		// FIXME: no error boundary set for this
 		throw new Error("Failed to create cart");
 	}
-	
 	console.log(`new cart created: ${newCartId}`);
 	return {
 		id: newCartId,
@@ -111,7 +117,7 @@ export const addOrIncreaseItem = async ({
 	id: string;
 }) => {
 	// delay for testing
-	await new Promise((resolve) => setTimeout(resolve, 1000));
+	// await new Promise((resolve) => setTimeout(resolve, 1000));
 
 	const cart = await getOrCreateCart();
 
@@ -125,7 +131,6 @@ export const addOrIncreaseItem = async ({
 
 	console.log(`product to be added: ${id}, variant: ${variant}`);
 
-	// this can be used by app / local storage to reconcile and sync cart state with server
 	try {
 		const { addToOrder }: { addToOrder: OrderDetailsFragment } =
 			await queryGraphql({

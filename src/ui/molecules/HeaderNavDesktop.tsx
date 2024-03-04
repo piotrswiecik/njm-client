@@ -77,7 +77,9 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</div>
 			</div>
 			<div className="grow" />
-			<ShoppingCartLinkWrap />
+			<Suspense>
+				<ShoppingCartLinkWrap />
+			</Suspense>
 		</div>
 	);
 };
