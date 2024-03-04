@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { type Route } from "next";
 import { getProductsByCollection } from "@/api/queries/getProductsByCollection";
 
 type CollectionCardProps = {
@@ -24,12 +26,17 @@ const CollectionCard = async ({ name }: CollectionCardProps) => {
 					</h2>
 				</div>
 				<div>
-					<Image
-						src={products[0].coverImageUrl}
-						alt={products[0].title}
-						width={400}
-						height={400}
-					/>
+					<Link
+						href={`/collections/${name}` as Route}
+						className="transition-all duration-300 hover:opacity-75"
+					>
+						<Image
+							src={products[0].coverImageUrl}
+							alt={products[0].title}
+							width={400}
+							height={400}
+						/>
+					</Link>
 				</div>
 			</div>
 		</div>
