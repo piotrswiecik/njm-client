@@ -10,7 +10,7 @@ type HeaderNavDesktopProps = {
 
 const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 	const linkClassName = "text-slate-800 hover:text-slate-500 px-2 lg:px-4";
-	const linkActiveClassName = "font-bold underline px-2 lg:px-4";
+	const linkActiveClassName = "font-bold border-b-2 border-slate-600 px-2 py-1 lg:px-4";
 
 	return (
 		<div className="hidden flex-row items-center sm:flex">

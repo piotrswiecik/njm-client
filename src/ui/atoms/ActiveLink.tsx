@@ -28,7 +28,6 @@ const ActiveLink = <T extends string>({
 	if (exact) {
 		active = pathname === href;
 	} else {
-		console.log(`inexact link with href: ${href} and pathname: ${pathname}`)
 		const [, pathnameRoot, pathnameSub] = pathname.split("/");
 		const [, hrefRoot, hrefSub] = href.split("/");
 		active = pathnameRoot === hrefRoot && pathnameSub === hrefSub;
