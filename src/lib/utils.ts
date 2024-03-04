@@ -1,3 +1,4 @@
+import { LoremIpsum } from "lorem-ipsum";
 import {
 	type VariantEnum,
 	type ProductDetailsFragment,
@@ -51,4 +52,15 @@ export const defaultVariant = (
 
 export const capitalize = (string: string) => {
 	return string.charAt(0).toUpperCase() + string.slice(1);
-}
+};
+
+export const lorem = new LoremIpsum({
+	sentencesPerParagraph: {
+		max: 6,
+		min: 2,
+	},
+	wordsPerSentence: {
+		max: 12,
+		min: 4,
+	},
+});

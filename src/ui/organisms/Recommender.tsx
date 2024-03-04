@@ -21,7 +21,7 @@ const RecommenderComponent = async ({
 			data-testid="related-products"
 			// className="sm:max-w-xl lg:max-w-5xl mt-12"
 		>
-			<h2 className="mb-2 font-bold sm:text-xl">
+			<h2 className="mb-2 font-bold text-xl">
 				{leadText ? leadText : "You might also like:"}
 			</h2>
 			<ul className="grid grid-cols-1 grid-rows-4 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1">
