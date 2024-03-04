@@ -4,6 +4,7 @@ import Pagination from "@/ui/molecules/Pagination";
 import { getProductsByCategory } from "@/api/queries/getProductsByCategory";
 import { getCategoryCount } from "@/api/queries/getCategoryCount";
 import SortSelectorBar from "@/ui/molecules/SortSelectorBar";
+import { capitalize } from "@/lib/utils";
 
 type PageProps = {
 	params: {
@@ -20,8 +21,8 @@ export const generateMetadata = async ({
 	params,
 }: PageProps): Promise<Metadata> => {
 	return {
-		title: `NJM Record Store - ${params.categoryName}`,
-		description: `NJM Record Store - ${params.categoryName}`,
+		title: `NJM Record Store - ${capitalize(params.categoryName)}`,
+		description: `NJM Record Store - ${capitalize(params.categoryName)}`,
 		generator: "Next.js",
 		applicationName: "NJM Record Store",
 		keywords: [
@@ -55,6 +56,7 @@ const CategoryPage = async ({ params, searchParams }: PageProps) => {
 
 	return (
 		<div className="mx-auto max-w-7xl px-6 sm:px-12">
+			<h1 className="hidden font-semibold text-slate-700">{capitalize(params.categoryName)} records - enjoy our selection!</h1>
 			<SortSelectorBar />
 			<ProductDashboard products={products} />
 			<div className="mt-12 flex justify-center">
