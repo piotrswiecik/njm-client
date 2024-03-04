@@ -14,7 +14,6 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 
 	return (
 		<div className="hidden flex-row items-center sm:flex">
-			{/* todo use compact and wide variants */}
 			<div className="grow-0">
 				<ActiveLink
 					href="/"
@@ -38,8 +37,8 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</ActiveLink>
 			</div>
 			<div className="grow" />
-			{/* search item component */}
 			<div className="flex flex-col xl:flex-row">
+				<nav>
 				<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
 					<li key="all">
 						<ActiveLink
@@ -68,6 +67,7 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 						</li>
 					))}
 				</ul>
+				</nav>
 				<div className="mt-4 xl:mt-0">
 					<div className="mx-8">
 						<Suspense>
