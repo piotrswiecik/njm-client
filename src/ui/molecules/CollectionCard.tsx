@@ -16,7 +16,7 @@ const CollectionCard = async ({ name }: CollectionCardProps) => {
 	];
 
 	return (
-		<div className="flex flex-col border-b border-slate-300 py-8 sm:my-0 sm:flex-row sm:border-none sm:pr-12">
+		<div className="flex flex-col border-b border-slate-300 py-8 sm:my-0 sm:flex-row sm:border-none sm:p-4">
 			<div className="flex flex-col">
 				<div>
 					<h2 className="mb-2 font-bold xl:text-lg">
