@@ -1,8 +1,9 @@
 import { getCart } from "@/api/cart";
 import { formatPrice } from "@/lib/utils";
+import OrderSubmitButton from "@/ui/atoms/OrderSubmitButton";
 import CartItemCard from "@/ui/molecules/CartItemCard";
 
-const CartPage = async () => { 
+const CartPage = async () => {
 	const cart = await getCart();
 	if (!cart) {
 		return <>empty cart page</>;
@@ -31,8 +32,15 @@ const CartPage = async () => {
 				})}
 			<div className="flex flex-row justify-end">
 				<div className="px-4">
-					<span className="text-lg font-bold px-1">Total: </span>
+					<span className="px-1 text-lg font-bold">Total: </span>
 					<span>{formatPrice(total)}</span>
+				</div>
+			</div>
+			<div className="flex flex-row justify-end">
+				<div className="py-4">
+					<span>
+						<OrderSubmitButton order={cart} />
+					</span>
 				</div>
 			</div>
 		</>
