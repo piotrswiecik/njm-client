@@ -169,7 +169,7 @@ export const decreaseItem = async ({
 	productId: string;
 }) => {
 	// delay for testing
-	await new Promise((resolve) => setTimeout(resolve, 1000));
+	// await new Promise((resolve) => setTimeout(resolve, 1000));
 	try {
 		console.log("removing item from cart");
 		console.log(`fetching cart: ${cartId}	`);
