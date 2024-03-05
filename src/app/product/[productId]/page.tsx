@@ -15,9 +15,10 @@ export async function generateMetadata({
 	const product: ProductDetailsFragment = await getProductById(
 		params.productId,
 	);
+	const title = product.title;
 	return {
-		title: product.title,
-		description: product.title,
+		title,
+		description: title,
 		generator: "Next.js",
 		applicationName: "NJM Record Store",
 		keywords: ["music", "vinyl", "records", "albums", "store"],
@@ -26,7 +27,23 @@ export async function generateMetadata({
 			{ name: "piotr.swiecik@gmail.com" },
 			{ name: "capricorndev" },
 		],
+		metadataBase: new URL(
+			process.env.NEXT_PUBLIC_METADATA_BASE || "http://localhost:3000",
+		),
 		creator: "Piotr Święcik",
+		openGraph: {
+			title,
+			description: title,
+			type: "website",
+			locale: "en_US",
+			url: `https://njm-record-store.vercel.app/product/${product.id}`,
+			images: [
+				{
+					url: product.coverImageUrl,
+					alt: product.title,
+				},
+			],
+		},
 	};
 }
 
