@@ -15,6 +15,9 @@ export const setOrderStatus = async ({
       where: id,
       status,
     },
+    next: {
+      tags: ["order", "status"],
+    }
   });
   if (!setOrderStatus || !setOrderStatus.id) {
     throw new Error("Order status not updated");

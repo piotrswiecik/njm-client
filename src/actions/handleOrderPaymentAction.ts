@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
+import { cookies } from "next/headers";
 import { type OrderDetailsFragment } from "@/graphql/generated/graphql";
 
 /**
@@ -52,6 +53,7 @@ export const handleOrderPaymentAction = async ({
 	});
 
 	if (session.url) {
+		cookies().set("cartId", "");
 		redirect(session.url);
 	}
 };

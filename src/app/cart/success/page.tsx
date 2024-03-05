@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { revalidateTag } from "next/cache";
 import { getOrderById } from "@/api/cart";
 import {
 	type StatusEnum,
@@ -47,6 +48,7 @@ const OrderSuccessPage = async ({
 			id: stripeCheckoutSession.metadata?.orderId,
 			status: status,
 		});
+		revalidateTag("cart");
 	}
 
 	const ccy = stripeCheckoutSession.currency?.toUpperCase() || "USD";
