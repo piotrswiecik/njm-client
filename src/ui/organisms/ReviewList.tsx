@@ -1,9 +1,7 @@
-"use client";
-
 import { type ReviewDetailsFragment } from "@/graphql/generated/graphql";
 import ReviewItem from "@/ui/molecules/ReviewItem";
 
-const ReviewList = ({
+const ReviewList = async ({
 	reviews,
 }: {
 	reviews: ReviewDetailsFragment[];

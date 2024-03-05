@@ -6,7 +6,7 @@ import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 import ReviewContainer from "@/ui/organisms/ReviewContainer";
 import { getUserById } from "@/api/queries/getUserById";
 import { getReviewsByProduct } from "@/api/queries/getReviewsByProduct";
-import ReviewComponent from "@/ui/organisms/ReviewContainerNew";
+import ReviewComponent from "@/ui/organisms/ReviewComponent";
 
 export async function generateMetadata({
 	params,
@@ -76,7 +76,11 @@ const ProductDetailsPage = async ({
 				</article>
 				<aside className="sm:mt-8">
 					<RecommenderComponent categoryName={product.category.name} />
-					<ReviewComponent productId={product.id}/>
+					<div className="mt-12">
+					<h2 className="mb-2 font-bold sm:text-xl">Customer reviews</h2>
+						<ReviewComponent productId={product.id} />
+					</div>
+
 					{/* <ReviewContainer
 						product={product}
 						user={user}
