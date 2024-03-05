@@ -1,6 +1,10 @@
 import Stripe from "stripe";
 import { getOrderById } from "@/api/cart";
-import { type OrderDetailsFragment } from "@/graphql/generated/graphql";
+import {
+	type StatusEnum,
+	type OrderDetailsFragment,
+} from "@/graphql/generated/graphql";
+import { setOrderStatus } from "@/api/queries/setOrderStatus";
 
 const OrderSuccessPage = async ({
 	searchParams,
@@ -16,10 +20,10 @@ const OrderSuccessPage = async ({
 		typescript: true,
 	});
 
-	console.log(searchParams.session_id);
 	const stripeCheckoutSession = await stripe.checkout.sessions.retrieve(
 		searchParams.session_id,
 	);
+
 	if (
 		!stripeCheckoutSession ||
 		stripeCheckoutSession.object !== "checkout.session"
@@ -30,6 +34,19 @@ const OrderSuccessPage = async ({
 	let orderDetails: OrderDetailsFragment | null = null;
 	if (stripeCheckoutSession.metadata?.orderId) {
 		orderDetails = await getOrderById(stripeCheckoutSession.metadata?.orderId);
+		let status: StatusEnum = "CART";
+		switch (stripeCheckoutSession.payment_status) {
+			case "paid":
+				status = "AWAIT_SHIP" as StatusEnum;
+				break;
+			// TODO: handle other statuses later as needed
+			default:
+				status = "CART" as StatusEnum;
+		}
+		await setOrderStatus({
+			id: stripeCheckoutSession.metadata?.orderId,
+			status: status,
+		});
 	}
 
 	const ccy = stripeCheckoutSession.currency?.toUpperCase() || "USD";
