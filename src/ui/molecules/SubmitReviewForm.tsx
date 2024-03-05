@@ -2,13 +2,12 @@
 
 import { type User } from "@clerk/nextjs/server";
 import { useState } from "react";
-import RatingStarsSelector from "@/ui/atoms/RatingStarsSelector";
 
 const SubmitReviewForm = ({
 	submitReviewAction,
 	user,
 }: {
-	submitReviewAction: (data: FormData) => Promise<void>;
+	submitReviewAction: (rating: number | null, form: FormData) => Promise<void>;
 	user: User | null;
 }) => {
 	const activeStarClassName = "text-yellow-300";
@@ -17,10 +16,13 @@ const SubmitReviewForm = ({
 
 	const [rating, setRating] = useState<number | null>(null);
 
+	// pass rating with bind instead of using hidden form input
+	const formAction = submitReviewAction.bind(null, rating);
+
 	// TODO: add js validators instead of form-based
 	return (
 		<>
-			<form action={submitReviewAction} data-testid="add-review-form">
+			<form action={formAction} data-testid="add-review-form">
 				<div className="">
 					<label htmlFor="headline" className="block">
 						Headline
@@ -103,7 +105,10 @@ const SubmitReviewForm = ({
 				</div>
 				<div>
 					{/* TODO: set styling for active/disabled */}
-					<button type="submit" disabled={user === null}>
+					<button
+						type="submit"
+						// disabled={user === null}
+					>
 						Submit
 					</button>
 				</div>

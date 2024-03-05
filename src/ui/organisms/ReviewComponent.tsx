@@ -10,10 +10,19 @@ const ReviewComponent = async ({ productId }: { productId: string }) => {
 	// user is used to decide if form should be active
 	const user = await currentUser();
 
-	const submitReviewAction = async (data: FormData): Promise<void> => {
+	/**
+	 * Server action used to handle review form submission.
+	 * @param rating star rating value to be provided as extra binding
+	 * @param formData form data from submission
+	 */
+	const submitReviewAction = async (
+		rating: number | null,
+		formData: FormData,
+	): Promise<void> => {
 		"use server";
 		console.log("form action triggered");
-		console.log(data);
+		console.log(formData);
+		console.log(rating);
 	};
 
 	return (
