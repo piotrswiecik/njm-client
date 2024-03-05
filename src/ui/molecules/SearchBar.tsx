@@ -12,12 +12,14 @@ const SearchBar = () => {
 	useEffect(() => {
 		if (searchParams?.get("query") !== null) {
 			setTerm(searchParams.get("query"));
+		} else {
+			setTerm(null);
 		}
 	}, [searchParams]);
 
 	const handleSearch = (e: FormEvent) => {
 		e.preventDefault();
-		setTerm(null);
+		// setTerm(null);
 		router.push(`/search?query=${term}`);
 	};
 
