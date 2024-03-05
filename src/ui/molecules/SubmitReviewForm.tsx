@@ -44,13 +44,27 @@ const SubmitReviewForm = ({
 						<label htmlFor="username" className="block">
 							User
 						</label>
-						<input type="text" id="username" name="username" readOnly />
+						{/* TODO: change username input styling when form is disabled */}
+						<input
+							type="text"
+							id="username"
+							name="username"
+							readOnly
+							value={user?.username || "Please log in"}
+						/>
 					</div>
 					<div className="">
 						<label htmlFor="email" className="block">
 							Email
 						</label>
-						<input type="email" id="email" name="email" readOnly />
+						{/* TODO: change email input styling when form is disabled */}
+						<input
+							type="email"
+							id="email"
+							name="email"
+							readOnly
+							value={user?.emailAddresses[0].emailAddress || ""}
+						/>
 					</div>
 				</div>
 				<div>
