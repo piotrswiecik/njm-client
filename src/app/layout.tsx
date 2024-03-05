@@ -13,8 +13,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
+	modal
 }: Readonly<{
 	children: React.ReactNode;
+	modal: React.ReactNode;
 }>) {
 	return (
 		<html lang="en">
@@ -23,6 +25,7 @@ export default function RootLayout({
 					<div className="grow-0">
 						<Header />
 					</div>
+					<div>{modal}</div>
 					<main className="grow sm:mt-4">{children}</main>
 					<footer className="grow-0">
 						<Footer />
