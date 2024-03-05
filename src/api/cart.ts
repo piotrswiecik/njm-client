@@ -27,6 +27,7 @@ export const getOrderById = async (
 		variables: {
 			orderId: orderId,
 		},
+		cache: "no-store",
 		next: {
 			tags: ["cart", "order"],
 		},
@@ -125,11 +126,6 @@ export const addOrIncreaseItem = async ({
 		// TODO: set error boundary
 		throw new Error("Failed to get or create cart");
 	}
-
-	console.log("ok got cart");
-	console.log(cart);
-
-	console.log(`product to be added: ${id}, variant: ${variant}`);
 
 	try {
 		const { addToOrder }: { addToOrder: OrderDetailsFragment } =
