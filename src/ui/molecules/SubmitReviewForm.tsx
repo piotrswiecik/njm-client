@@ -1,11 +1,13 @@
 "use client";
 
+import { type User } from "@clerk/nextjs/server";
+
 const SubmitReviewForm = ({
 	submitReviewAction,
-	isActive,
+	user,
 }: {
 	submitReviewAction: (data: FormData) => Promise<void>;
-	isActive: boolean;
+	user: User | null;
 }) => {
 	// TODO: add js validators instead of form-based
 	return (
@@ -37,9 +39,23 @@ const SubmitReviewForm = ({
 						className="w-full appearance-none rounded border"
 					/>
 				</div>
+				<div className="flex flex-row items-center">
+					<div className="">
+						<label htmlFor="username" className="block">
+							User
+						</label>
+						<input type="text" id="username" name="username" readOnly />
+					</div>
+					<div className="">
+						<label htmlFor="email" className="block">
+							Email
+						</label>
+						<input type="email" id="email" name="email" readOnly />
+					</div>
+				</div>
 				<div>
 					{/* TODO: set styling for active/disabled */}
-					<button type="submit" disabled={!isActive}>
+					<button type="submit" disabled={user === null}>
 						Submit
 					</button>
 				</div>

@@ -19,7 +19,7 @@ const ReviewComponent = async ({ productId }: { productId: string }) => {
 	return (
 		<div className="mt-4 flex flex-col sm:flex-row sm:justify-between lg:max-w-5xl">
 			<div className="w-5/12">
-				<SubmitReviewForm submitReviewAction={submitReviewAction} isActive={ user !== null }/>
+				<SubmitReviewForm submitReviewAction={submitReviewAction} user={user} />
 			</div>
 			<div className="w-6/12">
 				<ReviewList reviews={reviews} />
