@@ -7,6 +7,7 @@ import {
 } from "@/graphql/generated/graphql";
 import RatingStarsSelector from "@/ui/atoms/RatingStarsSelector";
 import { type SubmitReviewInput, type SubmitReviewAction } from "@/lib/types";
+import { auth } from "@clerk/nextjs";
 
 type ReviewFormProps = {
 	submitHandler: (input: SubmitReviewInput) => void;
@@ -18,6 +19,7 @@ type ReviewFormProps = {
 const ReviewForm = ({
 	submitAction,
 	submitHandler,
+	// user is passed in for form autocompletion
 	user,
 	product,
 }: ReviewFormProps) => {
@@ -50,22 +52,30 @@ const ReviewForm = ({
 
 	return (
 		<form
-			action={() =>
-				submitAction({
-					user,
-					product,
-					headline: headline,
-					content: content,
-					rating: rating,
-				})
-			}
-			onSubmit={() => submitHandler({
-				user,
-				product,
-				headline: headline,
-				content: content,
-				rating: rating,
-			})}
+			// form action triggers server action to do the actual review update via API
+			// action={() =>
+			// 	submitAction({
+			// 		user,
+			// 		product,
+			// 		headline: headline,
+			// 		content: content,
+			// 		rating: rating,
+			// 	})
+			// }
+			action = { async () => { 
+				// this form action should
+				console.log("form action triggered"); 
+			}}
+			// submit event triggers optimistic update only
+			// onSubmit={() =>
+			// 	submitHandler({
+			// 		user,
+			// 		product,
+			// 		headline: headline,
+			// 		content: content,
+			// 		rating: rating,
+			// 	})
+			// }
 			className="border"
 			data-testid="add-review-form"
 		>
@@ -78,6 +88,7 @@ const ReviewForm = ({
 					type="text"
 					id="headline"
 					name="headline"
+					required
 					value={headline}
 					onChange={(e) => setHeadline(e.target.value)}
 					placeholder="Enter review headline"
@@ -91,6 +102,7 @@ const ReviewForm = ({
 				<textarea
 					id="content"
 					name="content"
+					required
 					value={content}
 					onChange={(e) => setContent(e.target.value)}
 					placeholder="Tell us what you think!"

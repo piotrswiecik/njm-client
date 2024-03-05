@@ -6,6 +6,7 @@ import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 import ReviewContainer from "@/ui/organisms/ReviewContainer";
 import { getUserById } from "@/api/queries/getUserById";
 import { getReviewsByProduct } from "@/api/queries/getReviewsByProduct";
+import ReviewComponent from "@/ui/organisms/ReviewContainerNew";
 
 export async function generateMetadata({
 	params,
@@ -64,9 +65,9 @@ const ProductDetailsPage = async ({
 
 		// FIXME: dehardcode user id
 		// TODO: maybe better to keep user data in global state?
-		const user = await getUserById("dbe0705a-87d0-4c11-9432-f55895360016");
+		// const user = await getUserById("dbe0705a-87d0-4c11-9432-f55895360016");
 
-		const reviews = await getReviewsByProduct(product.id);
+		// const reviews = await getReviewsByProduct(product.id);
 
 		return (
 			<div className="mx-auto max-w-7xl px-6 sm:px-12">
@@ -75,13 +76,14 @@ const ProductDetailsPage = async ({
 				</article>
 				<aside className="sm:mt-8">
 					<RecommenderComponent categoryName={product.category.name} />
-					<ReviewContainer
+					<ReviewComponent productId={product.id}/>
+					{/* <ReviewContainer
 						product={product}
 						user={user}
 						reviews={reviews.sort((i, j) =>
 							j.dateCreated.localeCompare(i.dateCreated),
 						)}
-					/>
+					/> */}
 				</aside>
 			</div>
 		);
