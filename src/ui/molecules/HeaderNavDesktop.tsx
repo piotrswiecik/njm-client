@@ -80,7 +80,7 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</div>
 			</div>
 			<div className="grow" />
-			<div className="flex flex-row">
+			<div className="flex flex-row items-center p-1">
 				<SignedOut>
 					<SignInButton>
 						<button className="pr-4">
@@ -94,7 +94,9 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 					</SignInButton>
 				</SignedOut>
 				<SignedIn>
-					<UserButton />
+					<span className="p-2 transition-opacity duration-300 hover:opacity-50">
+						<UserButton />
+					</span>
 				</SignedIn>
 				<Suspense>
 					<ShoppingCartLinkWrap />
