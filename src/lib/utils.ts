@@ -71,3 +71,8 @@ export const collectionNamesMapping = [
 	{ name: "staffpicks", description: "Staff picks", before: "🎹" },
 	{ name: "bestsellers", description: "Best selling", before: "🎼" },
 ];
+
+export const USD = new Intl.NumberFormat("en-US", {
+	style: "currency",
+	currency: "USD",
+});
