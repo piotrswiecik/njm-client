@@ -28,14 +28,14 @@ const HomePage = async () => {
 	return (
 		<div className="mx-auto w-10/12 max-w-7xl px-6 sm:px-12">
 			<article>
-				<div className="flex flex-row justify-evenly border border-black p-2">
-					<div className="w-7/12 border border-black p-4">
+				<div className="flex flex-col sm:flex-row justify-evenly p-2">
+					<div className="w-7/12 p-4">
 						<h2 className="mb-4 text-xl font-semibold text-slate-900">
 							Welcome to Next.js Masters record store!
 						</h2>
-						<p className="text-sm leading-relaxed text-slate-600">{lorem}</p>
+						<p className="hidden sm:block text-sm leading-relaxed text-slate-600">{lorem}</p>
 					</div>
-					<div className="border border-black p-4 font-semibold text-slate-900">
+					<div className="p-4 font-semibold text-slate-900">
 						Explore our collections
 						<ul
 							className="py-8 font-normal text-slate-900"
