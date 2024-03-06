@@ -48,6 +48,7 @@ export type Mutation = {
   addToOrder: Order;
   createOrder: DefaultIdResponse;
   createReview: Review;
+  createUser: User;
   deleteOrder: DefaultIdResponse;
   deleteReview: DefaultIdResponse;
   removeAllFromOrder: Order;
@@ -74,6 +75,13 @@ export type MutationCreateReviewArgs = {
   productId: Scalars['ID']['input'];
   rating: Scalars['Int']['input'];
   userId: Scalars['ID']['input'];
+};
+
+
+export type MutationCreateUserArgs = {
+  email: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
+  name: Scalars['String']['input'];
 };
 
 
@@ -329,6 +337,15 @@ export type ReviewCreateMutationVariables = Exact<{
 
 
 export type ReviewCreateMutation = { createReview: { id: string } };
+
+export type UserCreateMutationVariables = Exact<{
+  createUserId: Scalars['ID']['input'];
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+}>;
+
+
+export type UserCreateMutation = { createUser: { id: string } };
 
 export type CategoryCountQueryVariables = Exact<{
   name: Scalars['String']['input'];
@@ -742,6 +759,13 @@ export const ReviewCreateDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ReviewCreateMutation, ReviewCreateMutationVariables>;
+export const UserCreateDocument = new TypedDocumentString(`
+    mutation UserCreate($createUserId: ID!, $email: String!, $name: String!) {
+  createUser(id: $createUserId, email: $email, name: $name) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<UserCreateMutation, UserCreateMutationVariables>;
 export const CategoryCountDocument = new TypedDocumentString(`
     query CategoryCount($name: String!) {
   categoryCount(name: $name)

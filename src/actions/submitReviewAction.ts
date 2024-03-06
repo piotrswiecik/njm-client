@@ -1,6 +1,6 @@
 "use server";
 
-import { createReview } from "@/api/queries/createReview";
+import { createReview } from "@/api/mutations/createReview";
 
 export type ReviewCreateDto = {
 	productId: string;

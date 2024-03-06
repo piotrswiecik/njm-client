@@ -29,6 +29,7 @@ const documents = {
     "mutation OrderRemoveFrom($from: ID!, $product: ID!, $variant: VariantEnum!) {\n  removeFromOrder(from: $from, product: $product, variant: $variant) {\n    ...OrderDetails\n  }\n}": types.OrderRemoveFromDocument,
     "mutation OrderSetStatus($where: ID!, $status: StatusEnum!) {\n  setOrderStatus(where: $where, status: $status) {\n    id\n  }\n}": types.OrderSetStatusDocument,
     "mutation ReviewCreate($productId: ID!, $rating: Int!, $headline: String!, $content: String!, $userId: ID!) {\n  createReview(\n    productId: $productId\n    rating: $rating\n    headline: $headline\n    content: $content\n    userId: $userId\n  ) {\n    id\n  }\n}": types.ReviewCreateDocument,
+    "mutation UserCreate($createUserId: ID!, $email: String!, $name: String!) {\n  createUser(id: $createUserId, email: $email, name: $name) {\n    id\n  }\n}": types.UserCreateDocument,
     "query CategoryCount($name: String!) {\n  categoryCount(name: $name)\n}": types.CategoryCountDocument,
     "query CategoryFindByNameWithPaginatedProducts($name: String!, $skip: Int, $take: Int, $sort: String, $order: String) {\n  category(name: $name) {\n    products(skip: $skip, take: $take, sort: $sort, order: $order) {\n      ...ProductOverview\n    }\n  }\n}": types.CategoryFindByNameWithPaginatedProductsDocument,
     "query CollectionFindAll {\n  collections {\n    id\n    name\n  }\n}": types.CollectionFindAllDocument,
@@ -102,6 +103,10 @@ export function graphql(source: "mutation OrderSetStatus($where: ID!, $status: S
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "mutation ReviewCreate($productId: ID!, $rating: Int!, $headline: String!, $content: String!, $userId: ID!) {\n  createReview(\n    productId: $productId\n    rating: $rating\n    headline: $headline\n    content: $content\n    userId: $userId\n  ) {\n    id\n  }\n}"): typeof import('./graphql').ReviewCreateDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation UserCreate($createUserId: ID!, $email: String!, $name: String!) {\n  createUser(id: $createUserId, email: $email, name: $name) {\n    id\n  }\n}"): typeof import('./graphql').UserCreateDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

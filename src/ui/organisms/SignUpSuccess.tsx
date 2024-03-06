@@ -1,19 +1,27 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { currentUser } from "@clerk/nextjs";
+import { createNewUserAction } from "@/actions/createNewUserAction";
 
 /**
  * Display welcome message for new user & trigger gql mutation to add user profile to db.
  * This assumes that user is auto-logged-in after sign-up!
  */
-const SignUpSuccess = () => {
-	useEffect(() => {
-		setTimeout(() => {
-			console.log("Redirecting to main page");
-		}, 10000);
-	}, []);
+const SignUpSuccess = async () => {
+	const user = await currentUser();
+	if (!user || !user.id) {
+		// TODO: consider how to handle this scenario
+		// 1. there should be a redirect
+		// 2. there should be a mechanism to register user in db on first successful login to store
+		console.error("oops, no user!!!");
+		throw new Error("User signup failed!");
+	}
+	await createNewUserAction({
+		userId: user.id,
+		email: user.emailAddresses[0].emailAddress,
+		name:
+			user.username || user.firstName || user.emailAddresses[0].emailAddress,
+	});
 
 	return (
 		<>
@@ -34,7 +42,7 @@ const SignUpSuccess = () => {
 							purchases and review items.
 						</p>
 						<p className="py-4 text-slate-600">
-							You will now be redirected to our{" "}
+							Continue to our{" "}
 							<Link
 								href={"/"}
 								className="font-semibold text-slate-700 hover:underline"

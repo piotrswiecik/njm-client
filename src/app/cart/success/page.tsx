@@ -5,7 +5,7 @@ import {
 	type StatusEnum,
 	type OrderDetailsFragment,
 } from "@/graphql/generated/graphql";
-import { setOrderStatus } from "@/api/queries/setOrderStatus";
+import { setOrderStatus } from "@/api/mutations/setOrderStatus";
 
 const OrderSuccessPage = async ({
 	searchParams,
