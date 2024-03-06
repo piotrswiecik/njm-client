@@ -97,7 +97,7 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</SignedOut>
 				<SignedIn>
 					<span className="p-2 transition-opacity duration-300 hover:opacity-50">
-						<UserButton />
+						<UserButton afterSignOutUrl="/"/>
 					</span>
 				</SignedIn>
 				<Suspense>

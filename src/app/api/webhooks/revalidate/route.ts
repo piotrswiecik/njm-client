@@ -1,5 +1,3 @@
-// revalidation of products when item availability changes
-
 import { revalidatePath } from "next/cache";
 import { type NextRequest } from "next/server";
 

@@ -10,6 +10,7 @@ import { type UserDetailsFragment } from "@/graphql/generated/graphql";
 const ReviewContainer = async ({ productId }: { productId: string }) => {
 	const reviews = await getReviewsByProduct(productId);
 	const user = await currentUser();
+	console.log(user);
 	let activeUser: UserDetailsFragment | undefined;
 	if (user) {
 		const dbUser = await getUserById(user.id);

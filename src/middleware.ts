@@ -13,5 +13,7 @@ export default authMiddleware({
 		"/collections/(.*)",
 		"/product/(.*)",
 		"/products",
+		"/api/webhooks/userCreated",
+		"/api/webhooks/revalidate"
 	],
 });
