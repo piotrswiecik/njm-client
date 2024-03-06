@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 import Image from "next/image";
+import { SignInButton, SignedOut } from "@clerk/nextjs";
+import { User } from "lucide-react";
 import ActiveLink from "@/ui/atoms/ActiveLink";
 import SearchBar from "@/ui/molecules/SearchBar";
 import ShoppingCartLinkWrap from "@/ui/atoms/ShoppingCartLinkWrap";
@@ -10,7 +12,8 @@ type HeaderNavDesktopProps = {
 
 const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 	const linkClassName = "text-slate-800 hover:text-slate-500 px-2 lg:px-4";
-	const linkActiveClassName = "font-bold border-b-2 border-slate-600 px-2 py-1 lg:px-4";
+	const linkActiveClassName =
+		"font-bold border-b-2 border-slate-600 px-2 py-1 lg:px-4";
 
 	return (
 		<div className="hidden flex-row items-center sm:flex">
@@ -39,34 +42,34 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 			<div className="grow" />
 			<div className="flex flex-col xl:flex-row">
 				<nav>
-				<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
-					<li key="all">
-						<ActiveLink
-							href={`/products`}
-							className={linkClassName}
-							activeClassName={linkActiveClassName}
-						>
-							All
-						</ActiveLink>
-					</li>
-					{categories.map((category) => (
-						<li key={category}>
+					<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
+						<li key="all">
 							<ActiveLink
-								href={`/categories/${category}/1`}
-								exact={false}
+								href={`/products`}
 								className={linkClassName}
 								activeClassName={linkActiveClassName}
 							>
-								{category
-									.split("")
-									.map((char, index) =>
-										index === 0 ? char.toUpperCase() : char,
-									)
-									.join("")}
+								All
 							</ActiveLink>
 						</li>
-					))}
-				</ul>
+						{categories.map((category) => (
+							<li key={category}>
+								<ActiveLink
+									href={`/categories/${category}/1`}
+									exact={false}
+									className={linkClassName}
+									activeClassName={linkActiveClassName}
+								>
+									{category
+										.split("")
+										.map((char, index) =>
+											index === 0 ? char.toUpperCase() : char,
+										)
+										.join("")}
+								</ActiveLink>
+							</li>
+						))}
+					</ul>
 				</nav>
 				<div className="mt-4 xl:mt-0">
 					<div className="mx-8">
@@ -77,9 +80,23 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</div>
 			</div>
 			<div className="grow" />
-			<Suspense>
-				<ShoppingCartLinkWrap />
-			</Suspense>
+			<div className="flex flex-row">
+				<SignedOut>
+					<SignInButton>
+						<button className="pr-4">
+							<User
+								color="#334155"
+								strokeWidth={2}
+								size={36}
+								className="inline-block transition-opacity duration-300 hover:opacity-50 sm:flex"
+							/>
+						</button>
+					</SignInButton>
+				</SignedOut>
+				<Suspense>
+					<ShoppingCartLinkWrap />
+				</Suspense>
+			</div>
 		</div>
 	);
 };
