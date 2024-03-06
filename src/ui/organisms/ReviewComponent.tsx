@@ -27,6 +27,13 @@ const ReviewComponent = ({
 			updatedReviews,
 	);
 
+	const active = () => {
+		if (!user) return false;
+		if (reviews.some((review) => review.user.email === user.email))
+			return false;
+		return true;
+	};
+
 	const handleSubmitReview = async (
 		rating: number | null,
 		formData: FormData,
@@ -42,7 +49,7 @@ const ReviewComponent = ({
 				dateCreated: new Date().toISOString(),
 				// TODO: take care of cases where identity provider returns no username or no email - check typedefs if it's even possible
 				user: {
-					name: user?.name|| "",
+					name: user?.name || "",
 					email: user?.email || "",
 				},
 			},
@@ -59,7 +66,11 @@ const ReviewComponent = ({
 	return (
 		<div className="mt-4 flex flex-col sm:flex-row sm:justify-between lg:max-w-5xl">
 			<div className="w-5/12">
-				<SubmitReviewForm submitReviewAction={handleSubmitReview} user={user} />
+				<SubmitReviewForm
+					submitReviewAction={handleSubmitReview}
+					user={user}
+					active={active()}
+				/>
 			</div>
 			<div className="w-6/12">
 				<ReviewList reviews={optimisticState} />

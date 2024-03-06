@@ -6,9 +6,11 @@ import { type UserDetailsFragment } from "@/graphql/generated/graphql";
 const SubmitReviewForm = ({
 	submitReviewAction,
 	user,
+	active,
 }: {
 	submitReviewAction: (rating: number | null, form: FormData) => Promise<void>;
 	user?: UserDetailsFragment;
+	active: boolean;
 }) => {
 	const activeStarClassName = "text-yellow-300";
 	const inactiveStarClassName = "text-gray-300 dark:text-gray-500";
@@ -105,7 +107,7 @@ const SubmitReviewForm = ({
 				</div>
 				<div>
 					{/* TODO: set styling for active/disabled */}
-					<button type="submit" disabled={user === null}>
+					<button type="submit" disabled={!active}>
 						Submit
 					</button>
 				</div>
