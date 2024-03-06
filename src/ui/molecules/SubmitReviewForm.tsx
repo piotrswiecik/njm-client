@@ -15,6 +15,9 @@ const SubmitReviewForm = ({
 	const activeStarClassName = "text-yellow-300";
 	const inactiveStarClassName = "text-gray-300 dark:text-gray-500";
 	const baseStarClassName = "ms-1 h-4 w-4";
+	// TODO: refactor out
+	const activeButtonClassName = `mb-2 me-2 rounded-lg border border-gray-800 px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-800`;
+	const inactiveButtonClassName = `mb-2 me-2 cursor-default rounded-lg border border-gray-400 px-5 py-2.5 text-center text-sm font-medium text-gray-400 dark:border-gray-600 dark:text-gray-400`;
 
 	const [rating, setRating] = useState<number | null>(null);
 
@@ -24,35 +27,37 @@ const SubmitReviewForm = ({
 	// TODO: add js validators instead of form-based
 	return (
 		<>
-			<form action={formAction} data-testid="add-review-form">
-				<div className="">
-					<label htmlFor="headline" className="block">
+			<form action={formAction} data-testid="add-review-form" className="">
+				<div className="mb-4">
+					<label htmlFor="headline" className="mb-2 block text-sm font-bold">
 						Headline
 					</label>
 					<input
+					autoComplete="off"
 						type="text"
 						id="headline"
 						name="headline"
 						required
 						placeholder="Enter review headline"
-						className="w-full appearance-none rounded border"
+						className="focus:shadow-outline w-full appearance-none rounded border px-2 py-1 text-sm leading-tight text-slate-600 focus:outline-none sm:text-base"
 					/>
 				</div>
-				<div className="">
-					<label htmlFor="content" className="block">
+				<div className="mb-4">
+					<label htmlFor="content" className="mb-2 block text-sm font-bold">
 						Content
 					</label>
 					<input
+					autoComplete="off"
 						type="text"
 						id="content"
 						name="content"
 						required
 						placeholder="Tell us what you think!"
-						className="w-full appearance-none rounded border"
+						className="focus:shadow-outline w-full appearance-none rounded border px-2 py-1 text-sm leading-tight text-slate-600 focus:outline-none sm:text-base"
 					/>
 				</div>
-				<div className="">
-					<label htmlFor="rating" className="block">
+				<div className="mb-4">
+					<label htmlFor="rating" className="mb-2 block text-sm font-bold">
 						Rating
 					</label>
 					<div className="flex items-center">
@@ -77,9 +82,9 @@ const SubmitReviewForm = ({
 						))}
 					</div>
 				</div>
-				<div className="flex flex-row items-center">
+				<div className="mb-4 flex flex-row items-center">
 					<div className="">
-						<label htmlFor="username" className="block">
+						<label htmlFor="username" className="mb-2 block text-sm font-bold">
 							User
 						</label>
 						{/* TODO: change username input styling when form is disabled */}
@@ -89,10 +94,14 @@ const SubmitReviewForm = ({
 							name="username"
 							readOnly
 							value={user?.name || "Please log in"}
+							className="focus:shadow-outline appearance-none rounded border px-2 py-1 text-sm leading-tight text-slate-600 focus:outline-none sm:text-base"
 						/>
 					</div>
 					<div className="">
-						<label htmlFor="email" className="block">
+						<label
+							htmlFor="email"
+							className="mx-4 mb-2 block text-sm font-bold"
+						>
 							Email
 						</label>
 						{/* TODO: change email input styling when form is disabled */}
@@ -102,12 +111,17 @@ const SubmitReviewForm = ({
 							name="email"
 							readOnly
 							value={user?.email || ""}
+							className="focus:shadow-outline mx-4 appearance-none rounded border px-2 py-1 text-sm leading-tight text-slate-600 focus:outline-none sm:text-base"
 						/>
 					</div>
 				</div>
 				<div>
 					{/* TODO: set styling for active/disabled */}
-					<button type="submit" disabled={!active}>
+					<button
+						type="submit"
+						disabled={!active}
+						className={`${active ? activeButtonClassName : inactiveButtonClassName}`}
+					>
 						Submit
 					</button>
 				</div>
