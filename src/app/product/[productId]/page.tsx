@@ -75,6 +75,7 @@ const ProductDetailsPage = async ({
 					<ProductDetailsComponent product={product} />
 				</article>
 				<aside className="sm:mt-8">
+					{/* TODO: refactor recommender layout */}
 					<RecommenderComponent categoryName={product.category.name} />
 					<div className="mt-12">
 					<h2 className="mb-2 font-bold sm:text-xl">Customer reviews</h2>

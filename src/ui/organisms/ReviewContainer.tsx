@@ -2,12 +2,11 @@ import { currentUser } from "@clerk/nextjs";
 import { getReviewsByProduct } from "@/api/queries/getReviewsByProduct";
 import ReviewComponent from "@/ui/organisms/ReviewComponent";
 
-// this is a hacky solution to pull data
+/**
+ * Wraps the ReviewComponent with server side data fetching logic.
+ */
 const ReviewContainer = async ({ productId }: { productId: string }) => {
-	// reviews are used to render list
 	const reviews = await getReviewsByProduct(productId);
-
-	// user is used to decide if form should be active
 	const user = await currentUser();
 
 	return (

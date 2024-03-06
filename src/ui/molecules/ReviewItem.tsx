@@ -4,7 +4,11 @@ import { UsersRound } from "lucide-react";
 import { type ReviewDetailsFragment } from "@/graphql/generated/graphql";
 import RatingStarsDisplay from "@/ui/atoms/RatingStarsDisplay";
 
-const ReviewItem = ({ review }: { review: ReviewDetailsFragment }) => {
+const ReviewItem = ({
+	review,
+}: {
+	review: Omit<ReviewDetailsFragment, "product">;
+}) => {
 	return (
 		<div className="mb-8 flex flex-col rounded-md border bg-white p-2 shadow">
 			<div className="flex flex-row items-center justify-between border-b border-slate-200 pb-2">

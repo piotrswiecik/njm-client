@@ -6,7 +6,7 @@ import ReviewItem from "@/ui/molecules/ReviewItem";
 const ReviewList = ({
 	reviews,
 }: {
-	reviews: ReviewDetailsFragment[];
+	reviews: Omit<ReviewDetailsFragment, "product">[];
 }) => {
 	if (reviews.length === 0) {
 		return (

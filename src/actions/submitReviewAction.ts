@@ -10,7 +10,7 @@ export const submitReviewAction = async (
   formData: FormData,
 ): Promise<void> => {
   
-  console.log("form action triggered");
+  console.log("form server action triggered");
   console.log(formData);
   console.log(rating);
 };
