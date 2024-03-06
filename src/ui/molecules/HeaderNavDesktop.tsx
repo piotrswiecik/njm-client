@@ -1,7 +1,9 @@
 import { Suspense } from "react";
 import Image from "next/image";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { User } from "lucide-react";
+import Link from "next/link";
+import { type Route } from "next";
 import ActiveLink from "@/ui/atoms/ActiveLink";
 import SearchBar from "@/ui/molecules/SearchBar";
 import ShoppingCartLinkWrap from "@/ui/atoms/ShoppingCartLinkWrap";
@@ -80,10 +82,10 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</div>
 			</div>
 			<div className="grow" />
-			<div className="flex flex-row items-center p-1">
+			<div className="flex flex-row items-center">
 				<SignedOut>
-					<SignInButton>
-						<button className="pr-4">
+					<Link href={"/sign-in" as Route}>
+						<button className="p-4">
 							<User
 								color="#334155"
 								strokeWidth={2}
@@ -91,7 +93,7 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 								className="inline-block transition-opacity duration-300 hover:opacity-50 sm:flex"
 							/>
 						</button>
-					</SignInButton>
+					</Link>
 				</SignedOut>
 				<SignedIn>
 					<span className="p-2 transition-opacity duration-300 hover:opacity-50">
