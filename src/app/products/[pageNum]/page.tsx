@@ -19,12 +19,12 @@ export const metadata: Metadata = {
 	creator: "Piotr Święcik",
 };
 
-export async function generateStaticParams() {
-	const numberOfProducts = await getProductCount();
-	const PRODUCTS_PER_PAGE = 12;
-	const totalPages = Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE);
-	return Array.from({ length: totalPages }, (_, i) => (i + 1).toString());
-}
+// export async function generateStaticParams() {
+// 	const numberOfProducts = await getProductCount();
+// 	const PRODUCTS_PER_PAGE = 12;
+// 	const totalPages = Math.ceil(numberOfProducts / PRODUCTS_PER_PAGE);
+// 	return Array.from({ length: totalPages }, (_, i) => (i + 1).toString());
+// }
 
 const ProductsPage = async ({
 	params,
