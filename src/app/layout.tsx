@@ -22,7 +22,7 @@ export default function RootLayout({
 		<ClerkProvider>
 			<html lang="en">
 				<body
-					className={`${lato.className} bg-slate-200 bg-gradient-to-t from-slate-500 to-slate-100 to-100%`}
+					className={`${lato.className} bg-slate-200 bg-gradient-to-t from-slate-300 to-slate-200 to-100%`}
 				>
 					<div className="flex min-h-screen flex-col">
 						<div className="grow-0">

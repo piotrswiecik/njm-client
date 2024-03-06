@@ -20,7 +20,7 @@ const Pagination = ({ totalPages, corePathSegment }: PaginationProps) => {
 		return (
 			<div
 				aria-label="pagination"
-				className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8"
+				className="flex max-w-md justify-center gap-4 px-4 pt-2 sm:px-8"
 			>
 				{/* l-arrow always visible */}
 				{currentPage === 1 ? (
@@ -60,7 +60,7 @@ const Pagination = ({ totalPages, corePathSegment }: PaginationProps) => {
 	return (
 		<div
 			aria-label="pagination"
-			className="flex max-w-md justify-center gap-4 border-t border-gray-300 px-4 pt-2 sm:px-8"
+			className="flex max-w-md justify-center gap-4 px-4 pt-2 sm:px-8"
 		>
 			{/* l-arrow always visible */}
 			{currentPage === 1 ? (
