@@ -1,28 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { currentUser } from "@clerk/nextjs";
-import { createNewUserAction } from "@/actions/createNewUserAction";
 
-/**
- * Display welcome message for new user & trigger gql mutation to add user profile to db.
- * This assumes that user is auto-logged-in after sign-up!
- */
 const SignUpSuccess = async () => {
-	// const user = await currentUser();
-	// if (!user || !user.id) {
-	// 	// TODO: consider how to handle this scenario
-	// 	// 1. there should be a redirect
-	// 	// 2. there should be a mechanism to register user in db on first successful login to store
-	// 	console.error("oops, no user!!!");
-	// 	throw new Error("User signup failed!");
-	// }
-	// await createNewUserAction({
-	// 	userId: user.id,
-	// 	email: user.emailAddresses[0].emailAddress,
-	// 	name:
-	// 		user.username || user.firstName || user.emailAddresses[0].emailAddress,
-	// });
-
 	return (
 		<>
 			<div className="mx-auto flex w-10/12 max-w-7xl flex-row sm:px-12">
