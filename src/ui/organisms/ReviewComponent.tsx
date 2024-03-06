@@ -1,11 +1,13 @@
 "use client";
 
-import { type User } from "@clerk/nextjs/server";
 import { useOptimistic } from "react";
 import ReviewList from "@/ui/organisms/ReviewList";
 import SubmitReviewForm from "@/ui/molecules/SubmitReviewForm";
 import { submitReviewAction } from "@/actions/submitReviewAction";
-import { type ReviewDetailsFragment } from "@/graphql/generated/graphql";
+import {
+	type UserDetailsFragment,
+	type ReviewDetailsFragment,
+} from "@/graphql/generated/graphql";
 
 /**
  * Provides handling of optimistic updates and communicates updates between the form and the list.
@@ -16,7 +18,7 @@ const ReviewComponent = ({
 	productId,
 }: {
 	reviews: Omit<ReviewDetailsFragment, "product">[];
-	user: User | null;
+	user?: UserDetailsFragment;
 	productId: string;
 }) => {
 	const [optimisticState, setOptimisticState] = useOptimistic(
@@ -40,8 +42,8 @@ const ReviewComponent = ({
 				dateCreated: new Date().toISOString(),
 				// TODO: take care of cases where identity provider returns no username or no email - check typedefs if it's even possible
 				user: {
-					name: user.username || "",
-					email: user.emailAddresses[0].emailAddress || "",
+					name: user?.name|| "",
+					email: user?.email || "",
 				},
 			},
 		]);

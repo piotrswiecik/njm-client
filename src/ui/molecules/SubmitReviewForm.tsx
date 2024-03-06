@@ -1,14 +1,14 @@
 "use client";
 
-import { type User } from "@clerk/nextjs/server";
 import { useState } from "react";
+import { type UserDetailsFragment } from "@/graphql/generated/graphql";
 
 const SubmitReviewForm = ({
 	submitReviewAction,
 	user,
 }: {
 	submitReviewAction: (rating: number | null, form: FormData) => Promise<void>;
-	user: User | null;
+	user?: UserDetailsFragment;
 }) => {
 	const activeStarClassName = "text-yellow-300";
 	const inactiveStarClassName = "text-gray-300 dark:text-gray-500";
@@ -86,7 +86,7 @@ const SubmitReviewForm = ({
 							id="username"
 							name="username"
 							readOnly
-							value={user?.username || "Please log in"}
+							value={user?.name || "Please log in"}
 						/>
 					</div>
 					<div className="">
@@ -99,16 +99,13 @@ const SubmitReviewForm = ({
 							id="email"
 							name="email"
 							readOnly
-							value={user?.emailAddresses[0].emailAddress || ""}
+							value={user?.email || ""}
 						/>
 					</div>
 				</div>
 				<div>
 					{/* TODO: set styling for active/disabled */}
-					<button
-						type="submit"
-						disabled={user === null}
-					>
+					<button type="submit" disabled={user === null}>
 						Submit
 					</button>
 				</div>
