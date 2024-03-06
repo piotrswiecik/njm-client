@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Image from "next/image";
-import { SignInButton, SignedOut } from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { User } from "lucide-react";
 import ActiveLink from "@/ui/atoms/ActiveLink";
 import SearchBar from "@/ui/molecules/SearchBar";
@@ -93,6 +93,9 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 						</button>
 					</SignInButton>
 				</SignedOut>
+				<SignedIn>
+					<UserButton />
+				</SignedIn>
 				<Suspense>
 					<ShoppingCartLinkWrap />
 				</Suspense>
