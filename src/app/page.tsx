@@ -41,7 +41,7 @@ const HomePage = async () => {
 							className="py-8 font-normal text-slate-900"
 						>
 							{collections?.map((collection) => (
-								<li key={collection.name}>
+								<li key={collection.name} className="mb-2">
 									<span className="pr-2">
 										{
 											collectionNamesMapping.find(
