@@ -11,7 +11,7 @@ const ReviewContainer = async ({ productId }: { productId: string }) => {
 
 	return (
 		<div>
-			<ReviewComponent reviews={reviews} user={user} />
+			<ReviewComponent reviews={reviews} user={user} productId={productId} />
 		</div>
 	);
 };

@@ -4,9 +4,6 @@ import RecommenderComponent from "@/ui/organisms/Recommender";
 import { getProductById } from "@/api/queries/getProductById";
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 import ReviewContainer from "@/ui/organisms/ReviewContainer";
-import { getUserById } from "@/api/queries/getUserById";
-import { getReviewsByProduct } from "@/api/queries/getReviewsByProduct";
-import ReviewComponent from "@/ui/organisms/ReviewComponent";
 
 export async function generateMetadata({
 	params,
@@ -78,17 +75,9 @@ const ProductDetailsPage = async ({
 					{/* TODO: refactor recommender layout */}
 					<RecommenderComponent categoryName={product.category.name} />
 					<div className="mt-12">
-					<h2 className="mb-2 font-bold sm:text-xl">Customer reviews</h2>
+						<h2 className="mb-2 font-bold sm:text-xl">Customer reviews</h2>
 						<ReviewContainer productId={product.id} />
 					</div>
-
-					{/* <ReviewContainer
-						product={product}
-						user={user}
-						reviews={reviews.sort((i, j) =>
-							j.dateCreated.localeCompare(i.dateCreated),
-						)}
-					/> */}
 				</aside>
 			</div>
 		);

@@ -107,7 +107,7 @@ const SubmitReviewForm = ({
 					{/* TODO: set styling for active/disabled */}
 					<button
 						type="submit"
-						// disabled={user === null}
+						disabled={user === null}
 					>
 						Submit
 					</button>

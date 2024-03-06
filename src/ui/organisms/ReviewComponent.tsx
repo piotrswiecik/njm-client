@@ -13,9 +13,11 @@ import { type ReviewDetailsFragment } from "@/graphql/generated/graphql";
 const ReviewComponent = ({
 	reviews,
 	user,
+	productId,
 }: {
 	reviews: Omit<ReviewDetailsFragment, "product">[];
 	user: User | null;
+	productId: string;
 }) => {
 	const [optimisticState, setOptimisticState] = useOptimistic(
 		reviews,
@@ -27,24 +29,29 @@ const ReviewComponent = ({
 		rating: number | null,
 		formData: FormData,
 	) => {
-		if (user && rating) {
-			setOptimisticState([
-				...optimisticState,
-				{
-					id: "",
-					headline: formData.get("headline") as string,
-					content: formData.get("content") as string,
-					rating: rating || 0,
-					dateCreated: new Date().toISOString(),
-					// TODO: take care of cases where identity provider returns no username or no email
-					user: {
-						name: user.username || "",
-						email: user.emailAddresses[0].emailAddress || "",
-					},
+		if (!user || !rating) return;
+		setOptimisticState([
+			...optimisticState,
+			{
+				id: "temporary-id",
+				headline: formData.get("headline") as string,
+				content: formData.get("content") as string,
+				rating: rating || 0,
+				dateCreated: new Date().toISOString(),
+				// TODO: take care of cases where identity provider returns no username or no email - check typedefs if it's even possible
+				user: {
+					name: user.username || "",
+					email: user.emailAddresses[0].emailAddress || "",
 				},
-			]);
-		}
-		await submitReviewAction(rating, formData);
+			},
+		]);
+		await submitReviewAction({
+			userId: user.id,
+			productId,
+			headline: formData.get("headline") as string,
+			content: formData.get("content") as string,
+			rating: rating,
+		});
 	};
 
 	return (

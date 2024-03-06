@@ -1,16 +1,22 @@
 "use server";
 
+import { createReview } from "@/api/queries/createReview";
+
+export type ReviewCreateDto = {
+	productId: string;
+	rating: number;
+	headline: string;
+	content: string;
+	userId: string;
+};
+
 /**
-	 * Server action used to handle review form submission.
-	 * @param rating star rating value to be provided as extra binding
-	 * @param formData form data from submission
-	 */
+ * Server action used to handle review form submission. Calls createReview gql mutation.
+ * @param rating star rating value to be provided as extra binding
+ * @param formData form data from submission
+ */
 export const submitReviewAction = async (
-  rating: number | null,
-  formData: FormData,
+	input: ReviewCreateDto,
 ): Promise<void> => {
-  
-  console.log("form server action triggered");
-  console.log(formData);
-  console.log(rating);
+	await createReview({ ...input });
 };
