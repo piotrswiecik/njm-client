@@ -14,7 +14,6 @@ export const handleOrderPaymentAction = async ({
 }: {
 	order: OrderDetailsFragment;
 }) => {
-	console.log("Order payment action");
 	if (!process.env.STRIPE_SECRET_KEY) {
 		throw new Error("Stripe setup error - no STRIPE_SECRET_KEY found");
 	}

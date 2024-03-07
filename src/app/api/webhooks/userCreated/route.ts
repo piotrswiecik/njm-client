@@ -44,12 +44,5 @@ export async function POST(request: NextRequest): Promise<Response> {
 		email: payload.data.email_addresses[0].email_address,
 	});
 
-	console.log("User created");
-	console.log({
-		userId: payload.data.id,
-		name: payload.data.username,
-		email: payload.data.email_addresses[0].email_address,
-	});
-
 	return new Response(null, { status: 204 });
 }

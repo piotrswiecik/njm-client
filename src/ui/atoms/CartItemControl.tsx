@@ -20,7 +20,6 @@ const CartItemControl = ({ item, cartId }: CartItemQtyProps) => {
 	);
 
 	const handleChange = async () => {
-		console.log(opType);
 		if (opType === "increment") {
 			setOptimisticQty(optimisticQty + 1);
 			await addOrIncreaseItem({

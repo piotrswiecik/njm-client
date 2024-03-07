@@ -10,9 +10,10 @@ import ShoppingCartLinkWrap from "@/ui/atoms/ShoppingCartLinkWrap";
 
 type HeaderNavDesktopProps = {
 	categories: string[];
+	cartItemsCount: number;
 };
 
-const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
+const HeaderNavDesktop = async ({ categories, cartItemsCount }: HeaderNavDesktopProps) => {
 	const linkClassName = "text-slate-800 hover:text-slate-500 px-2 lg:px-4";
 	const linkActiveClassName =
 		"font-bold border-b-2 border-slate-600 px-2 py-1 lg:px-4";
@@ -97,11 +98,11 @@ const HeaderNavDesktop = async ({ categories }: HeaderNavDesktopProps) => {
 				</SignedOut>
 				<SignedIn>
 					<span className="p-2 transition-opacity duration-300 hover:opacity-50">
-						<UserButton afterSignOutUrl="/"/>
+						<UserButton afterSignOutUrl="/" />
 					</span>
 				</SignedIn>
 				<Suspense>
-					<ShoppingCartLinkWrap />
+					<ShoppingCartLinkWrap count={cartItemsCount} />
 				</Suspense>
 			</div>
 		</div>

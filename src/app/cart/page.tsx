@@ -1,4 +1,5 @@
 import { getCart } from "@/api/cart";
+import { getCurrentDbUser } from "@/lib/user";
 import { formatPrice } from "@/lib/utils";
 import OrderSubmitButton from "@/ui/atoms/OrderSubmitButton";
 import CartItemCard from "@/ui/molecules/CartItemCard";
@@ -13,10 +14,7 @@ const CartPage = async () => {
 		return <>empty cart page</>;
 	}
 
-	const total = cart.orderItems.reduce(
-		(acc, item) => acc + item.quantity * item.variant.price,
-		0,
-	);
+	const activeUser = await getCurrentDbUser();
 
 	return (
 		<>
@@ -33,7 +31,7 @@ const CartPage = async () => {
 			<div className="flex flex-row justify-end">
 				<div className="px-4">
 					<span className="px-1 text-lg font-bold">Total: </span>
-					<span>{formatPrice(total)}</span>
+					<span>{formatPrice(cart.total || 0)}</span>
 				</div>
 			</div>
 			<div className="flex flex-row justify-end">

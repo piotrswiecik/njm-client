@@ -1,4 +1,5 @@
 "use client";
+
 import { Suspense, useState } from "react";
 import Image from "next/image";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
@@ -11,9 +12,13 @@ import ActiveLink from "@/ui/atoms/ActiveLink";
 
 type HeaderNavMobileProps = {
 	categories: string[];
+	cartItemsCount: number;
 };
 
-const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
+const HeaderNavMobile = ({
+	categories,
+	cartItemsCount,
+}: HeaderNavMobileProps) => {
 	const [active, setActive] = useState<boolean>(false);
 
 	const handleMenuToggle = () => {
@@ -92,34 +97,33 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 				className={`${active ? "h-[260px] py-6" : "h-0"} overflow-hidden transition-all duration-700`}
 			>
 				<div className="flex flex-row items-center">
-						<SignedOut>
-							<Link href={"/sign-in" as Route}>
-								<button className="p-4">
-									<User
-										color="#334155"
-										strokeWidth={2}
-										size={36}
-										className="inline-block transition-opacity duration-300 hover:opacity-50 sm:flex"
-									/>
-								</button>
-							</Link>
-						</SignedOut>
-						<SignedIn>
-							<span className="p-2 transition-opacity duration-300 hover:opacity-50">
-								<UserButton afterSignOutUrl="/" />
-							</span>
-						</SignedIn>
-						<Suspense>
-							<ShoppingCartLinkWrap />
-						</Suspense>
-					</div>
+					<SignedOut>
+						<Link href={"/sign-in" as Route}>
+							<button className="p-4">
+								<User
+									color="#334155"
+									strokeWidth={2}
+									size={36}
+									className="inline-block transition-opacity duration-300 hover:opacity-50 sm:flex"
+								/>
+							</button>
+						</Link>
+					</SignedOut>
+					<SignedIn>
+						<span className="p-2 transition-opacity duration-300 hover:opacity-50">
+							<UserButton afterSignOutUrl="/" />
+						</span>
+					</SignedIn>
+					<Suspense>
+						<ShoppingCartLinkWrap count={cartItemsCount} />
+					</Suspense>
+				</div>
 				<div className="my-4 xl:mt-0">
 					<div className="">
 						<Suspense>
 							<SearchBar />
 						</Suspense>
 					</div>
-					
 				</div>
 				<ul className="list-none pl-2">
 					<li key="all">
@@ -149,7 +153,6 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 						</li>
 					))}
 				</ul>
-				
 			</div>
 		</div>
 	);

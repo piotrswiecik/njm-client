@@ -48,7 +48,6 @@ export const getCart = async (): Promise<OrderDetailsFragment | null> => {
 	}
 	const order = await getOrderById(cartId);
 	if (!order) {
-		console.log("no existing order found");
 		return null;
 	}
 	return { ...order, orderItems: order.orderItems ? order.orderItems : [] };
@@ -61,20 +60,20 @@ export const getCart = async (): Promise<OrderDetailsFragment | null> => {
  * @returns new cart id to be stored as cookie.
  */
 const createCart = async (): Promise<DefaultIdResponse> => {
-		const { createOrder } = await queryGraphql({
-			query: OrderCreateDocument,
-			variables: {
-				// FIXME: hardcoded for testing
-				userId: "dbe0705a-87d0-4c11-9432-f55895360016",
-			},
-			next: {
-				tags: ["cart", "order"],
-			},
-		});
-		cookies().set("cartId", createOrder.id);
-		return {
-			id: createOrder.id,
-		};
+	const { createOrder } = await queryGraphql({
+		query: OrderCreateDocument,
+		variables: {
+			// FIXME: hardcoded for testing
+			userId: "dbe0705a-87d0-4c11-9432-f55895360016",
+		},
+		next: {
+			tags: ["cart", "order"],
+		},
+	});
+	cookies().set("cartId", createOrder.id);
+	return {
+		id: createOrder.id,
+	};
 };
 
 /**
@@ -84,7 +83,6 @@ const createCart = async (): Promise<DefaultIdResponse> => {
 export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
 	const cart = await getCart();
 	if (cart) {
-		console.log(`cart found & fetched: ${cart.id}`);
 		return cart;
 	}
 
@@ -92,7 +90,6 @@ export const getOrCreateCart = async (): Promise<OrderDetailsFragment> => {
 	if (!newCartId) {
 		throw new Error("Failed to create cart");
 	}
-	console.log(`new cart created: ${newCartId}`);
 	return {
 		id: newCartId,
 		orderItems: [],
@@ -116,9 +113,6 @@ export const addOrIncreaseItem = async ({
 	variant: VariantEnum;
 	id: string;
 }) => {
-	// delay for testing
-	// await new Promise((resolve) => setTimeout(resolve, 1000));
-
 	const cart = await getOrCreateCart();
 
 	if (!cart) {
@@ -127,20 +121,17 @@ export const addOrIncreaseItem = async ({
 	}
 
 	try {
-		const { addToOrder }: { addToOrder: OrderDetailsFragment } =
-			await queryGraphql({
-				query: OrderAddToDocument,
-				variables: {
-					to: cart.id,
-					product: id,
-					variant: variant,
-				},
-				next: {
-					tags: ["cart", "order"],
-				},
-			});
-		console.log("ok, added to cart");
-		console.log(addToOrder);
+		await queryGraphql({
+			query: OrderAddToDocument,
+			variables: {
+				to: cart.id,
+				product: id,
+				variant: variant,
+			},
+			next: {
+				tags: ["cart", "order"],
+			},
+		});
 		revalidateTag("cart");
 	} catch (err) {
 		// TODO: set error boundary
@@ -157,7 +148,6 @@ export const addOrIncreaseItem = async ({
  */
 export const decreaseItem = async ({
 	variant,
-	cartId,
 	productId,
 }: {
 	variant: VariantEnum;
@@ -167,11 +157,7 @@ export const decreaseItem = async ({
 	// delay for testing
 	// await new Promise((resolve) => setTimeout(resolve, 1000));
 	try {
-		console.log("removing item from cart");
-		console.log(`fetching cart: ${cartId}	`);
 		const cart = await getCart();
-		console.log("cart fetch result");
-		console.log(cart);
 		if (!cart) return;
 		await queryGraphql({
 			query: OrderRemoveFromDocument,
@@ -199,7 +185,6 @@ export const deleteItem = async ({
 	cartId: string;
 	productId: string;
 }) => {
-	console.log("deleting item from cart");
 	await queryGraphql({
 		query: OrderDeleteAllFromDocument,
 		variables: {
@@ -212,5 +197,4 @@ export const deleteItem = async ({
 		},
 	});
 	revalidateTag("cart");
-	console.log("deleted");
 };
