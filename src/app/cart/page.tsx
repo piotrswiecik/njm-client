@@ -15,6 +15,11 @@ const CartPage = async () => {
 	}
 
 	const activeUser = await getCurrentDbUser();
+	const orderTotal = cart.total || 0;
+
+	// TODO: more detailed checks on user entity
+	// & the order total condition is probably redundant
+	const orderDisabled = !activeUser || orderTotal === 0;
 
 	return (
 		<>
@@ -37,7 +42,7 @@ const CartPage = async () => {
 			<div className="flex flex-row justify-end">
 				<div className="py-4">
 					<span>
-						<OrderSubmitButton order={cart} />
+						<OrderSubmitButton order={cart} isDisabled={orderDisabled} />
 					</span>
 				</div>
 			</div>

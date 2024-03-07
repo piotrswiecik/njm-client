@@ -26,7 +26,6 @@ const CartItemRemoveButton = ({ item, cartId }: CartItemRemoveButtonProps) => {
 			});
       router.refresh();
 		});
-		console.log("deleted");
 	};
 
 	return (
