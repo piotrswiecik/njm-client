@@ -61,7 +61,6 @@ export const getCart = async (): Promise<OrderDetailsFragment | null> => {
  * @returns new cart id to be stored as cookie.
  */
 const createCart = async (): Promise<DefaultIdResponse> => {
-		console.log("creating new cart");
 		const { createOrder } = await queryGraphql({
 			query: OrderCreateDocument,
 			variables: {
