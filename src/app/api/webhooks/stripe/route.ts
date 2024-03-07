@@ -1,10 +1,15 @@
 import { type NextRequest } from "next/server";
 import Stripe from "stripe";
+import { setOrderStatus } from "@/api/mutations/setOrderStatus";
 
 // TODO: do this properly, maybe with stripe-event-types lib
 type StripePayload = {
 	id: string;
 	payment_status: string;
+	metadata?: {
+		orderId?: string;
+		userId?: string;
+	};
 };
 
 export async function POST(request: NextRequest): Promise<Response> {
@@ -41,9 +46,19 @@ export async function POST(request: NextRequest): Promise<Response> {
 
 	if (event.object === "event") {
 		const payload = event.data.object as StripePayload; // FIXME: hack!
-		console.log("stripe webhook ok");
-		console.log(`id=${payload.id}`);
-		console.log(`status=${payload.payment_status}`);
+		console.log("payload:");
+		console.log(payload);
+
+    if (!payload.metadata?.orderId) {
+      // TODO: handle error
+      return new Response(null, { status: 400 });
+    }
+
+		await setOrderStatus({
+			id: payload.metadata.orderId,
+			status: payload.payment_status === "paid" ? "AWAIT_SHIP" : "CART",
+		});
+
 		return new Response(null, { status: 200 });
 	}
 
