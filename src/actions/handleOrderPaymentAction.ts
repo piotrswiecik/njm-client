@@ -18,6 +18,10 @@ export const handleOrderPaymentAction = async ({
 		throw new Error("Stripe setup error - no STRIPE_SECRET_KEY found");
 	}
 
+	if (!process.env.STRIPE_CANCEL_URL || !process.env.STRIPE_SUCCESS_URL) {
+		throw new Error("Stripe setup error - no STRIPE_CANCEL_URL or STRIPE_SUCCESS_URL found");
+	}
+
 	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 		apiVersion: "2023-10-16",
 		typescript: true,
@@ -47,8 +51,8 @@ export const handleOrderPaymentAction = async ({
 			},
 		})),
 		mode: "payment",
-		cancel_url: "http://localhost:3000/cart/cancelled",
-		success_url: `http://localhost:3000/cart/success?session_id={CHECKOUT_SESSION_ID}`,
+		cancel_url: process.env.STRIPE_CANCEL_URL,
+		success_url: `${process.env.STRIPE_SUCCESS_URL}`,
 	});
 
 	if (session.url) {
