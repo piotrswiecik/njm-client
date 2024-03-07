@@ -45,10 +45,11 @@ const OrderSuccessPage = async ({
 			default:
 				status = "CART" as StatusEnum;
 		}
-		await setOrderStatus({
-			id: stripeCheckoutSession.metadata?.orderId,
-			status: status,
-		});
+
+		// await setOrderStatus({
+		// 	id: stripeCheckoutSession.metadata?.orderId,
+		// 	status: status,
+		// });
 		revalidateTag("cart");
 	}
 

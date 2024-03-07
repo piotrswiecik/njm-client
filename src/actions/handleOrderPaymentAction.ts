@@ -54,5 +54,6 @@ export const handleOrderPaymentAction = async ({
 	if (session.url) {
 		cookies().set("cartId", "");
 		redirect(session.url);
+		// handling order status change in backend is handled by stripe webhook
 	}
 };

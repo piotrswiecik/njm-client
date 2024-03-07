@@ -15,6 +15,7 @@ export default authMiddleware({
 		"/product/(.*)",
 		"/products",
 		"/api/webhooks/userCreated",
-		"/api/webhooks/revalidate"
+		"/api/webhooks/revalidate",
+		"/api/webhooks/stripe"
 	],
 });
