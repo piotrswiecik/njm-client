@@ -1,8 +1,13 @@
 "use client";
 import { Suspense, useState } from "react";
 import Image from "next/image";
-import ActiveLink from "@/ui/atoms/ActiveLink";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Link from "next/link";
+import { User } from "lucide-react";
+import { type Route } from "next";
+import ShoppingCartLinkWrap from "@/ui/atoms/ShoppingCartLinkWrap";
 import SearchBar from "@/ui/molecules/SearchBar";
+import ActiveLink from "@/ui/atoms/ActiveLink";
 
 type HeaderNavMobileProps = {
 	categories: string[];
@@ -84,16 +89,39 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 			</div>
 			<div
 				id="mobile-menu"
-				className={`${active ? "h-[216px] py-6" : "h-0"} overflow-hidden transition-all duration-700`}
+				className={`${active ? "h-[260px] py-6" : "h-0"} overflow-hidden transition-all duration-700`}
 			>
+				<div className="flex flex-row items-center">
+						<SignedOut>
+							<Link href={"/sign-in" as Route}>
+								<button className="p-4">
+									<User
+										color="#334155"
+										strokeWidth={2}
+										size={36}
+										className="inline-block transition-opacity duration-300 hover:opacity-50 sm:flex"
+									/>
+								</button>
+							</Link>
+						</SignedOut>
+						<SignedIn>
+							<span className="p-2 transition-opacity duration-300 hover:opacity-50">
+								<UserButton afterSignOutUrl="/" />
+							</span>
+						</SignedIn>
+						<Suspense>
+							<ShoppingCartLinkWrap />
+						</Suspense>
+					</div>
 				<div className="my-4 xl:mt-0">
 					<div className="">
 						<Suspense>
 							<SearchBar />
 						</Suspense>
 					</div>
+					
 				</div>
-				<ul className="list-none">
+				<ul className="list-none pl-2">
 					<li key="all">
 						<ActiveLink
 							href={`/products`}
@@ -121,6 +149,7 @@ const HeaderNavMobile = ({ categories }: HeaderNavMobileProps) => {
 						</li>
 					))}
 				</ul>
+				
 			</div>
 		</div>
 	);
