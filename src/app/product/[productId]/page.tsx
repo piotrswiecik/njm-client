@@ -1,9 +1,12 @@
 import { type Metadata } from "next";
+import { auth } from "@clerk/nextjs";
 import ProductDetailsComponent from "@/ui/organisms/ProductDetails";
 import RecommenderComponent from "@/ui/organisms/Recommender";
 import { getProductById } from "@/api/queries/getProductById";
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 import ReviewContainer from "@/ui/organisms/ReviewContainer";
+import { notifyProductView } from "@/lib/recommender";
+import { getUserId } from "@/lib/session";
 
 export async function generateMetadata({
 	params,
@@ -60,11 +63,7 @@ const ProductDetailsPage = async ({
 			return null; // TODO 404 later
 		}
 
-		// FIXME: dehardcode user id
-		// TODO: maybe better to keep user data in global state?
-		// const user = await getUserById("dbe0705a-87d0-4c11-9432-f55895360016");
-
-		// const reviews = await getReviewsByProduct(product.id);
+		await notifyProductView(product.id, (await getUserId()) || "anonymous");
 
 		return (
 			<div className="mx-auto max-w-7xl px-6 sm:px-12">
@@ -72,7 +71,6 @@ const ProductDetailsPage = async ({
 					<ProductDetailsComponent product={product} />
 				</article>
 				<aside className="sm:mt-8">
-					{/* TODO: refactor recommender layout */}
 					<RecommenderComponent categoryName={product.category.name} />
 					<div className="mt-12">
 						<h2 className="mb-2 font-bold sm:text-xl">Customer reviews</h2>

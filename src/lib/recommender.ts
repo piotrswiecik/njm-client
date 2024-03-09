@@ -1,6 +1,6 @@
 import recombee from "recombee-api-client";
 
-const db = process.env.RECOMBEE_DB;
+const db = process.env.RECOMBEE_DB_NAME;
 const key = process.env.RECOMBEE_API_KEY;
 const region = process.env.RECOMBEE_DEFAULT_REGION;
 
