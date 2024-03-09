@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
-import { auth } from "@clerk/nextjs";
-import ProductDetailsComponent from "@/ui/organisms/ProductDetails";
+import ProductDetailsComponent from "@/ui/organisms/ProductDetailsComponent";
 import RecommenderComponent from "@/ui/organisms/Recommender";
 import { getProductById } from "@/api/queries/getProductById";
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";

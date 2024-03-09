@@ -13,7 +13,7 @@ import {
 } from "@/lib/utils";
 import { addOrIncreaseItem } from "@/api/cart";
 
-const ProductDetailsManager = ({
+const ProductDetailsSelector = ({
 	product,
 }: {
 	product: ProductDetailsFragment;
@@ -119,4 +119,4 @@ const ProductDetailsManager = ({
 	);
 };
 
-export default ProductDetailsManager;
+export default ProductDetailsSelector;

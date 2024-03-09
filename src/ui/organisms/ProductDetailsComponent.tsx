@@ -1,6 +1,7 @@
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
-import ProductInfoPanel from "@/ui/organisms/ProductInfoPanel";
 import ProductImage from "@/ui/atoms/ProductImage";
+import ProductDetailsInfo from "@/ui/molecules/ProductDetailsInfo";
+import ProductDetailsSelector from "@/ui/molecules/ProductDetailsSelector";
 
 const ProductDetailsComponent = async ({
 	product,
@@ -18,7 +19,14 @@ const ProductDetailsComponent = async ({
 				/>
 			</div>
 			<section className="mx-8 mt-8 flex flex-col sm:m-0 sm:w-5/12">
-				<ProductInfoPanel product={product} />
+				<header className="border-b border-slate-400 pb-2">
+					<h1 className="text-lg font-semibold">{product.title}</h1>
+					<p className="italic text-slate-600">{product.artist.name}</p>
+				</header>
+				<section>
+					<ProductDetailsInfo product={product} />
+					<ProductDetailsSelector product={product} />
+				</section>
 			</section>
 		</div>
 	);

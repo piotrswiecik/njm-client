@@ -1,6 +1,10 @@
 import { type ProductDetailsFragment } from "@/graphql/generated/graphql";
 
-const ProductInfoTable = ({ product }: { product: ProductDetailsFragment }) => {
+const ProductDetailsInfo = ({
+	product,
+}: {
+	product: ProductDetailsFragment;
+}) => {
 	return (
 		<table className="border-separate border-spacing-y-2">
 			<tbody>
@@ -26,4 +30,4 @@ const ProductInfoTable = ({ product }: { product: ProductDetailsFragment }) => {
 	);
 };
 
-export default ProductInfoTable;
+export default ProductDetailsInfo;
