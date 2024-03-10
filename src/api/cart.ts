@@ -13,6 +13,8 @@ import {
 	OrderRemoveFromDocument,
 	OrderDeleteAllFromDocument,
 } from "@/graphql/generated/graphql";
+import { notifyAddToCart } from "@/lib/recommender";
+import { getCurrentDbUser } from "@/lib/user";
 
 /**
  * Fetch order / cart by database id via graphql query.
@@ -132,7 +134,8 @@ export const addOrIncreaseItem = async ({
 				tags: ["cart", "order"],
 			},
 		});
-		revalidateTag("cart");
+		const user = await getCurrentDbUser();
+		await notifyAddToCart(id, user ? user.id : "anonymous");
 	} catch (err) {
 		// TODO: set error boundary
 		throw new Error("Failed to add item to cart");
