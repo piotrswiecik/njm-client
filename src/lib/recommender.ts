@@ -21,20 +21,31 @@ export const client = new recombee.ApiClient(db, key, { region });
 export const recommenderReqs = recombee.requests;
 
 export const notifyProductView = async (productId: string, userId: string) => {
-  await client.send(new recommenderReqs.AddDetailView(userId, productId, {
-    cascadeCreate: true,
-  }));
+	await client.send(
+		new recommenderReqs.AddDetailView(userId, productId, {
+			cascadeCreate: true,
+		}),
+	);
 };
 
 export const notifyAddToCart = async (productId: string, userId: string) => {
-  await client.send(new recommenderReqs.AddCartAddition(userId, productId, {
-    cascadeCreate: true,
-    amount: 1,
-  }));
+	await client.send(
+		new recommenderReqs.AddCartAddition(userId, productId, {
+			cascadeCreate: true,
+			amount: 1,
+		}),
+	);
 };
 
-export const notifyReviewAdd = async (productId: string, userId: string, rating: number) => {
-  await client.send(new recommenderReqs.AddRating(userId, productId, rating, {
-    cascadeCreate: true,
-  }));
+export const notifyReviewAdd = async (
+	productId: string,
+	userId: string,
+	rating: number,
+) => {
+	const normalizedRating = (rating - 3) / 2;
+	await client.send(
+		new recommenderReqs.AddRating(userId, productId, normalizedRating, {
+			cascadeCreate: true,
+		}),
+	);
 };
