@@ -119,8 +119,8 @@ const SubmitReviewForm = ({
 					{/* TODO: set styling for active/disabled */}
 					<button
 						type="submit"
-						disabled={!active}
-						className={`${active ? activeButtonClassName : inactiveButtonClassName}`}
+						disabled={!active || !rating}
+						className={`${active && rating ? activeButtonClassName : inactiveButtonClassName}`}
 					>
 						Submit
 					</button>
