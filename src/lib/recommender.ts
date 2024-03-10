@@ -61,6 +61,8 @@ export const getRecommendationsForProduct = async (productId: string) => {
 			{},
 		),
 	);
+	console.log("recommendations generated");
+	console.log(res);
 	if (!res.recomms) {
 		return [];
 	}
@@ -76,6 +78,8 @@ export const getRecommendationsForUser = async (batchSize?: number) => {
 			{},
 		),
 	);
+	console.log("recommendations generated");
+	console.log(res);
 	if (!res.recomms) {
 		return [];
 	}
