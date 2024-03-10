@@ -14,12 +14,8 @@ const RecommenderComponent = async ({
 }: RecommenderComponentProps) => {
 	// TODO: if user is anonymous, generate recommendations based on product
 	const recommendedIds = await getRecommendationsForUser();
-	console.log("recommender generated ids:");
-	console.log(recommendedIds);
 	let recommendedProducts: ProductOverviewFragment[] = [];
 	recommendedProducts = await getProductRange(recommendedIds);
-	console.log("recommender db pulls");
-	console.log(recommendedProducts);
 
 	// if recommendation engine fails, just show some random products
 	if (recommendedProducts.length === 0) {
