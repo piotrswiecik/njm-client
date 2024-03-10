@@ -38,6 +38,7 @@ const documents = {
     "query ProductCount {\n  productCount\n}": types.ProductCountDocument,
     "query ProductFindAll($skip: Int, $take: Int, $sort: String, $order: String) {\n  products(skip: $skip, take: $take, sort: $sort, order: $order) {\n    ...ProductOverview\n  }\n}": types.ProductFindAllDocument,
     "query ProductFindById($productId: ID!) {\n  product(id: $productId) {\n    ...ProductDetails\n  }\n}": types.ProductFindByIdDocument,
+    "query ProductRange($in: [ID!]!) {\n  productRange(in: $in) {\n    ...ProductDetails\n  }\n}": types.ProductRangeDocument,
     "query ProductsSearch($query: String!) {\n  productSearch(query: $query) {\n    ...ProductOverview\n  }\n}": types.ProductsSearchDocument,
     "query ReviewsGetByProduct($productId: ID!) {\n  productReviews(productId: $productId) {\n    ...ReviewDetails\n  }\n}": types.ReviewsGetByProductDocument,
     "query User($userId: ID!) {\n  user(id: $userId) {\n    ...UserDetails\n  }\n}": types.UserDocument,
@@ -139,6 +140,10 @@ export function graphql(source: "query ProductFindAll($skip: Int, $take: Int, $s
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query ProductFindById($productId: ID!) {\n  product(id: $productId) {\n    ...ProductDetails\n  }\n}"): typeof import('./graphql').ProductFindByIdDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductRange($in: [ID!]!) {\n  productRange(in: $in) {\n    ...ProductDetails\n  }\n}"): typeof import('./graphql').ProductRangeDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

@@ -155,6 +155,7 @@ export type Query = {
   orders: Array<Order>;
   product?: Maybe<Product>;
   productCount: Scalars['Int']['output'];
+  productRange?: Maybe<Array<Product>>;
   productReviews: Array<Review>;
   productSearch?: Maybe<Array<Product>>;
   products: Array<Product>;
@@ -186,6 +187,11 @@ export type QueryOrderArgs = {
 
 export type QueryProductArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryProductRangeArgs = {
+  in: Array<Scalars['ID']['input']>;
 };
 
 
@@ -406,6 +412,13 @@ export type ProductFindByIdQueryVariables = Exact<{
 
 
 export type ProductFindByIdQuery = { product?: { id: string, coverImageUrl: string, title: string, releaseDate: string, numRatings: number, rating?: number | null, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> } | null };
+
+export type ProductRangeQueryVariables = Exact<{
+  in: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
+}>;
+
+
+export type ProductRangeQuery = { productRange?: Array<{ id: string, coverImageUrl: string, title: string, releaseDate: string, numRatings: number, rating?: number | null, artist: { name: string }, category: { name: string }, variants: Array<{ id: string, name: string, price: number, stock: number }>, tracks: Array<{ name: string, number: number }> }> | null };
 
 export type ProductsSearchQueryVariables = Exact<{
   query: Scalars['String']['input'];
@@ -933,6 +946,36 @@ export const ProductFindByIdDocument = new TypedDocumentString(`
   numRatings
   rating
 }`) as unknown as TypedDocumentString<ProductFindByIdQuery, ProductFindByIdQueryVariables>;
+export const ProductRangeDocument = new TypedDocumentString(`
+    query ProductRange($in: [ID!]!) {
+  productRange(in: $in) {
+    ...ProductDetails
+  }
+}
+    fragment ProductDetails on Product {
+  id
+  artist {
+    name
+  }
+  category {
+    name
+  }
+  coverImageUrl
+  variants {
+    id
+    name
+    price
+    stock
+  }
+  title
+  releaseDate
+  tracks {
+    name
+    number
+  }
+  numRatings
+  rating
+}`) as unknown as TypedDocumentString<ProductRangeQuery, ProductRangeQueryVariables>;
 export const ProductsSearchDocument = new TypedDocumentString(`
     query ProductsSearch($query: String!) {
   productSearch(query: $query) {

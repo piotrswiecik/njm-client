@@ -1,0 +1,5 @@
+query ProductRange($in: [ID!]!) {
+	productRange(in: $in) {
+		...ProductDetails
+	}
+}

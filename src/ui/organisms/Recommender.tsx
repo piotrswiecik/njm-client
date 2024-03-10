@@ -1,26 +1,21 @@
 import Link from "next/link";
-import { getRecommendation } from "@/api/queries/getRecommendation";
 import RecommenderItem from "@/ui/atoms/RecommenderItem";
-import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
+import { getRecommendationsForUser } from "@/lib/recommender";
+import { getProductRange } from "@/api/queries/getProductRange";
 
-// TODO: add general recommendation logic - without specific category
 type RecommenderComponentProps = {
-	categoryName: string;
 	leadText?: string;
 };
 
 const RecommenderComponent = async ({
-	categoryName,
 	leadText,
 }: RecommenderComponentProps) => {
-	// currently returns N products from same category
-	const recommendedProducts: ProductOverviewFragment[] =
-		await getRecommendation({ categoryName: categoryName }, 4);
+	// TODO: if user is anonymous, generate recommendations based on product
+	const recommendedIds = await getRecommendationsForUser();
+	const recommendedProducts = await getProductRange(recommendedIds);
+
 	return (
-		<section
-			data-testid="related-products"
-			// className="sm:max-w-xl lg:max-w-5xl mt-12"
-		>
+		<section data-testid="related-products">
 			<h2 className="mb-2 text-xl font-bold">
 				{leadText ? leadText : "You might also like:"}
 			</h2>

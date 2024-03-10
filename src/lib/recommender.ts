@@ -1,4 +1,5 @@
 import recombee from "recombee-api-client";
+import { getCurrentDbUser } from "@/lib/user";
 
 const db = process.env.RECOMBEE_DB_NAME;
 const key = process.env.RECOMBEE_API_KEY;
@@ -48,4 +49,31 @@ export const notifyReviewAdd = async (
 			cascadeCreate: true,
 		}),
 	);
+};
+
+export const getRecommendationsForProduct = async (productId: string) => {
+	const user = await getCurrentDbUser();
+	const res = await client.send(
+		new recommenderReqs.RecommendItemsToItem(
+			productId,
+			user?.id || "anonymous",
+			5,
+			{},
+		),
+	);
+	console.log("recommendations generated");
+	console.log(res);
+};
+
+export const getRecommendationsForUser = async () => {
+	const user = await getCurrentDbUser();
+	const res = await client.send(
+		new recommenderReqs.RecommendItemsToUser(user?.id || "anonymous", 5, {}),
+	);
+	console.log("recommendations generated");
+	console.log(res);
+	if (!res.recomms) {
+		return [];
+	}
+	return res.recomms.map((item) => item.id);
 };
