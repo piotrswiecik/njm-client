@@ -70,7 +70,7 @@ const ProductDetailsPage = async ({
 					<ProductDetailsComponent product={product} />
 				</article>
 				<aside className="sm:mt-8">
-					<RecommenderComponent categoryName={product.category.name} />
+					<RecommenderComponent />
 					<div className="mt-12">
 						<h2 className="mb-2 font-bold sm:text-xl">Customer reviews</h2>
 						<ReviewContainer productId={product.id} />

@@ -65,7 +65,7 @@ const HomePage = async () => {
 				</div>
 			</article>
 			<aside className="mt-8 flex flex-col justify-evenly sm:mt-12 sm:flex-row">
-				<RecommenderComponent categoryName="jazz" leadText="Recommended" />
+				<RecommenderComponent leadText="Recommended" />
 			</aside>
 		</div>
 	);
