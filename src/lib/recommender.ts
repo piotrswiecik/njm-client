@@ -61,19 +61,27 @@ export const getRecommendationsForProduct = async (productId: string) => {
 			{},
 		),
 	);
-	console.log("recommendations generated");
-	console.log(res);
-};
-
-export const getRecommendationsForUser = async () => {
-	const user = await getCurrentDbUser();
-	const res = await client.send(
-		new recommenderReqs.RecommendItemsToUser(user?.id || "anonymous", 5, {}),
-	);
-	console.log("recommendations generated");
-	console.log(res);
 	if (!res.recomms) {
 		return [];
 	}
 	return res.recomms.map((item) => item.id);
+};
+
+export const getRecommendationsForUser = async (batchSize?: number) => {
+	const user = await getCurrentDbUser();
+	const res = await client.send(
+		new recommenderReqs.RecommendItemsToUser(
+			user?.id || "anonymous",
+			batchSize || 4,
+			{},
+		),
+	);
+	if (!res.recomms) {
+		return [];
+	}
+	return res.recomms.map((item) => item.id);
+};
+
+export const createUser = async (userId: string) => {
+	await client.send(new recommenderReqs.AddUser(userId));
 };

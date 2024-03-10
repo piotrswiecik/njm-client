@@ -2,6 +2,8 @@ import Link from "next/link";
 import RecommenderItem from "@/ui/atoms/RecommenderItem";
 import { getRecommendationsForUser } from "@/lib/recommender";
 import { getProductRange } from "@/api/queries/getProductRange";
+import { type ProductOverviewFragment } from "@/graphql/generated/graphql";
+import { getProducts } from "@/api/queries/getProducts";
 
 type RecommenderComponentProps = {
 	leadText?: string;
@@ -12,7 +14,14 @@ const RecommenderComponent = async ({
 }: RecommenderComponentProps) => {
 	// TODO: if user is anonymous, generate recommendations based on product
 	const recommendedIds = await getRecommendationsForUser();
-	const recommendedProducts = await getProductRange(recommendedIds);
+	let recommendedProducts: ProductOverviewFragment[] = [];
+	recommendedProducts = await getProductRange(recommendedIds);
+
+	// if recommendation engine fails, just show some random products
+	if (recommendedProducts.length === 0) {
+		console.error("recommendation engine empty response - using fallback");
+		recommendedProducts = await getProducts(4, 0);
+	}
 
 	return (
 		<section data-testid="related-products">
