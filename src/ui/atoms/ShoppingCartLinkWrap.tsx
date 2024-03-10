@@ -2,7 +2,7 @@ import ShoppingCartLink from "@/ui/atoms/ShoppingCartLink";
 
 const ShoppingCartLinkWrap = async ({ count }: {count: number}) => {
 	return (
-		<>
+		<div className="flex flex-row">
 			<ShoppingCartLink />
 			<div className="px-1">
 				{
@@ -11,7 +11,7 @@ const ShoppingCartLinkWrap = async ({ count }: {count: number}) => {
 					</span>
 				}
 			</div>
-		</>
+		</div>
 	);
 };
 
