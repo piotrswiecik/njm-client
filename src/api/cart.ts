@@ -135,7 +135,12 @@ export const addOrIncreaseItem = async ({
 			},
 		});
 		const user = await getCurrentDbUser();
-		await notifyAddToCart(id, user ? user.id : "anonymous");
+		notifyAddToCart(id, user ? user.id : "anonymous").catch((err) => {
+			console.error("Error propagating event to recommender");
+			console.error(err);
+		});
+		revalidateTag("cart");
+		revalidateTag("order");
 	} catch (err) {
 		// TODO: set error boundary
 		throw new Error("Failed to add item to cart");
