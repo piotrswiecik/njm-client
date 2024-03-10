@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Loading = () => {
 	return (
-		<div className="mx-auto flex flex-col items-center justify-center">
+		<div className="mx-auto flex flex-col items-center justify-center" aria-busy="true">
 			<Image
 				src="/vinyl-svgrepo-com.svg"
 				alt="NJM Record Store"
