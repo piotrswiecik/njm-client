@@ -69,6 +69,7 @@ const SubmitReviewForm = ({
 								xmlns="http://www.w3.org/2000/svg"
 								fill="currentColor"
 								viewBox="0 0 22 20"
+								name="rating"
 								onClick={() => {
 									if (rating === i) {
 										setRating(null);
@@ -84,14 +85,14 @@ const SubmitReviewForm = ({
 				</div>
 				<div className="mb-4 flex flex-row items-center">
 					<div className="">
-						<label htmlFor="username" className="mb-2 block text-sm font-bold">
+						<label htmlFor="name" className="mb-2 block text-sm font-bold">
 							User
 						</label>
 						{/* TODO: change username input styling when form is disabled */}
 						<input
 							type="text"
 							id="username"
-							name="username"
+							name="name"
 							readOnly
 							value={user?.name || "Please log in"}
 							className="focus:shadow-outline appearance-none rounded border px-2 py-1 text-sm leading-tight text-slate-600 focus:outline-none sm:text-base"
