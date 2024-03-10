@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getCart } from "@/api/cart";
 import { getCurrentDbUser } from "@/lib/user";
 import { formatPrice } from "@/lib/utils";
@@ -7,11 +8,11 @@ import CartItemCard from "@/ui/molecules/CartItemCard";
 const CartPage = async () => {
 	const cart = await getCart();
 	if (!cart) {
-		return <>empty cart page</>;
+		redirect("/");
 	}
 
 	if (!cart.orderItems || cart.orderItems.length === 0) {
-		return <>empty cart page</>;
+		redirect("/");
 	}
 
 	const activeUser = await getCurrentDbUser();
