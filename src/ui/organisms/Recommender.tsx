@@ -18,9 +18,21 @@ const RecommenderComponent = async ({
 	recommendedProducts = await getProductRange(recommendedIds);
 
 	// if recommendation engine fails, just show some random products
-	if (recommendedProducts.length === 0) {
-		console.error("recommendation engine empty response - using fallback");
-		recommendedProducts = await getProducts(4, 0);
+	if (recommendedProducts.length < 4) {
+		if (recommendedProducts.length === 0) {
+			console.error(
+				"recommendation engine empty or incomplete response - using fallback",
+			);
+		} else {
+			console.log(
+				"recommendation engine returned less than 4 products - using fallback",
+			);
+		}
+		const fallbackProducts = await getProducts(
+			4 - recommendedProducts.length,
+			0,
+		);
+		recommendedProducts = recommendedProducts.concat(fallbackProducts);
 	}
 
 	return (
