@@ -19,7 +19,7 @@ const HeaderNavDesktop = async ({ categories, cartItemsCount }: HeaderNavDesktop
 		"font-bold border-b-2 border-slate-600 px-2 py-1 lg:px-4";
 
 	return (
-		<div className="hidden flex-row items-center sm:flex">
+		<nav className="hidden flex-row items-center sm:flex">
 			<div className="grow-0">
 				<ActiveLink
 					href="/"
@@ -44,7 +44,6 @@ const HeaderNavDesktop = async ({ categories, cartItemsCount }: HeaderNavDesktop
 			</div>
 			<div className="grow" />
 			<div className="flex flex-col xl:flex-row">
-				<nav>
 					<ul className="flex max-w-lg grow list-none flex-row items-center justify-evenly text-sm lg:text-base">
 						<li key="all">
 							<ActiveLink
@@ -73,7 +72,6 @@ const HeaderNavDesktop = async ({ categories, cartItemsCount }: HeaderNavDesktop
 							</li>
 						))}
 					</ul>
-				</nav>
 				<div className="mt-4 xl:mt-0">
 					<div className="mx-8">
 						<Suspense>
@@ -105,7 +103,7 @@ const HeaderNavDesktop = async ({ categories, cartItemsCount }: HeaderNavDesktop
 					<ShoppingCartLinkWrap count={cartItemsCount} />
 				</Suspense>
 			</div>
-		</div>
+		</nav>
 	);
 };
 
